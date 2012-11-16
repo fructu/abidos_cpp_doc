@@ -1,13 +1,15 @@
-personal_ws-1.1 en 37 
+personal_ws-1.1 en 42 
 toc
 png
 md
 struct
 pdf
 txt
+cd
 refactor
 repositoryformatversion
 fructu
+cmake
 cpp
 egrep
 docbook
@@ -30,9 +32,12 @@ init
 filemode
 lang
 refactorization
+github
 README
 resize
 xml
 sql
+sudo
+wget
 url
 logallrefupdates

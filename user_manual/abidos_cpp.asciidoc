@@ -1,8 +1,8 @@
 //-------------------------------------------------------------------------------
 // header
 //
-Abidos Cpp
-==========
+Abidos C++ User Manual
+======================
 fructu <fructu@gmail.com>
 v0.0.01, November 2012: 
 starting to write this documentation:
@@ -11,8 +11,9 @@ starting to write this documentation:
 :toc:
 //-------------------------------------------------------------------------------
 include::chapter_01_introduction/introduction.asciidoc[]
+include::chapter_02_installation/installation.asciidoc[]
 //-------------------------------------------------------------------------------
 //for now the index follows normal numeration
-:numbered!:
+//:numbered!:
 {index}
 

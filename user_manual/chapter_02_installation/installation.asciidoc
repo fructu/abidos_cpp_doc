@@ -1,0 +1,43 @@
+== Installation
+
+=== Get the project
+You can obtain the project from github by 2 ways.
+
+* clone the code with git:
+------
+git clone git@github.com:fructu/abidos.git
+cd abidos/processor/
+------
+indexterm:[github, git]
+
+or you can
+
+* download a zip package:
+------
+wget 'https://github.com/fructu/abidos/archive/master.zip'
+unzip master.zip
+cd abidos-master/processor/
+------
+indexterm:[unzip]
+indexterm:[processor]
+indexterm:[wget]
+
+=== make project and install
+we will make the processor part of Abidos is the real core of Abidos C++:
+------
+cmake .
+make VERBOSE=1 &> make_out.txt <1>
+sudo make install
+------
+
+<1> Abidos will need this file *make_out.txt* to know what files
+ it have to parse (Abidos can parse Abidos because is a C++ Project).
+indexterm:[cmake]
+indexterm:[make]
+
+you can test it with the abidos itself:
+------
+abidos_make_process.pl
+------
+
+you will see a navigable window with a UML diagram of Abidos classes.
