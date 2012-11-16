@@ -1,0 +1,18 @@
+//-------------------------------------------------------------------------------
+// header
+//
+Abidos Cpp
+==========
+fructu <fructu@gmail.com>
+v0.0.01, November 2012: 
+starting to write this documentation:
+:Author Initials: Fructu
+:numbered:
+:toc:
+//-------------------------------------------------------------------------------
+include::chapter_01_introduction/introduction.asciidoc[]
+//-------------------------------------------------------------------------------
+//for now the index follows normal numeration
+:numbered!:
+{index}
+

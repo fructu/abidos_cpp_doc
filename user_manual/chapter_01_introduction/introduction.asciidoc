@@ -1,0 +1,61 @@
+== Introduction
+
+=== Why this project ?
+When you start a new project is good to start with a set of UML diagrams, but
+that is not always possible or is a hard task to do those diagrams with a tool.
+
+Abidos extract the information of C++ headers and source code; and generates 
+those diagrams for you fast and easily.
+
+.Cpp Showing mode
+==========================
+With a piece of code like this:
+[source,c]
+----
+class hello
+{
+};
+
+class world: hello
+{
+};
+----
+Abidos process it and will show you:
+
+image::chapter_01_introduction/images/example_01.jpg[align="center"]
+
+==========================
+
+Browse code is sometimes a boring task, you can see a UML diagram and click to 
+the attribute of method you want to see or edit and Abidos will open and editor
+with that piece of code.
+
+.Cpp Browsing code
+==========================
+You can clicking in the C2 node and Abidos will open an editor and put the 
+cursor in that exactly line:
+
+image::chapter_01_introduction/images/example_02.jpg[align="center"]
+
+==========================
+
+=== But there is another projects like doxygen ...
+
+Yes doxygen is a superb project, i started Abidos because i wanted to have other
+goals:
+
+* Doxygen is designed to generate documentation, Abidos is about interacting 
+  with code.
+* In future versions of Abidos Code refactoring 
+  indexterm:[refactorization, Code refactoring] code will be available.
+* I was interested in the development of a C++ parser; is good do something like 
+  that.
+* I have a prototype of Abidos python indexterm:[python,Abidos_python] project, 
+  for now Abidos_cpp is more active.
+* I want have a project that i can add a news back-end generator to do 
+  meta-programing indexterm:[meta-programing] for example generate sql 
+  indexterm:[sql] interface from a struct declaration.
+* Abidos use a descent parser indexterm:[descent parser,parser] and use 
+  backtracking indexterm:[backtracking], for now i am happy with that
+  architecture but i have to investigate it more deeply.
+
