@@ -1,11 +1,13 @@
-personal_ws-1.1 en 42 
+personal_ws-1.1 en 49 
 toc
+Makefile
 png
 md
 struct
 pdf
 txt
 cd
+dir
 refactor
 repositoryformatversion
 fructu
@@ -25,14 +27,18 @@ doctype
 toolchain
 backend
 nonet
+graphviz
 en
 doxygen
 config
 init
 filemode
 lang
+gcc
 refactorization
 github
+xdot
+py
 README
 resize
 xml
@@ -41,3 +47,4 @@ sudo
 wget
 url
 logallrefupdates
+browsable

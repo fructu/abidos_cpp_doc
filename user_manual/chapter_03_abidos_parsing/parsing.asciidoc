@@ -1,0 +1,89 @@
+== Abidos parsing
+
+=== The easy way passing one C++ file
+
+If your entire C++ project is only one file you can show his UML diagram in this 
+way.
+
+----
+abidos --out_dir . <file.cpp>
+xdot_run.py files_output.dot
+----
+
+Some projects need pass the directories where includes are :
+
+.passing includes directory
+=====
+----
+abidos --includes includes/ --out_dir . t034.cpp
+----
+=====
+
+[NOTE]
+=====
+The includes issue is like when you pass it to gcc or g+ compiler, see how you
+compile your project and you will know how invoke Abidos as well.
+=====
+indexterm:[include]
+
+=== The easy way parsing a set of C++ files
+
+Normally you will want parse all the files of a whole C++ project.
+
+In order to parse a whole project you will need a make process with his
+Makefile.
+
+Within Abidos package you have installed *abidos_make_process.pl*, this script
+analyzes the output of a *Makefile process*, is the most straight method to
+obtain a UML diagram browsable.
+indexterm:[abidos_make_process.pl]
+
+It is possible to do this operations by hand, but first we should learn the 
+easy way.
+
+The easy way to execute Abidos is enter in a C++ project directory, and do:
+----
+cd <cpp_project>
+make clean
+make VERBOSE=1 &> make_out.txt <1>
+abidos_make_process.pl
+----
+<1> Abidos needs to know what files needs to parse, and all files of a project
+are in the output of a make process.
+
+=== The hacker way Abidos toolchain
+
+When you want parse a C++ project with Abidos, you need a special directory 
+called *.abidos/* where you have the *Makefile*.
+
+image::out/images/chapter_03_abidos_flow_diagram_01.jpg[align="center"]
+
+The different parts of abidos have worked in the previous example are:
+
+* make_out.txt, is the output of make process.
+  indexterm:[make_out.txt]
+* abidos_make_process.pl parses the make_out.txt and generates
+  .abidos/files_input and executes abidos and xdot_run.py
+* abidos load the cpp files from *.abidos/files_input* then generates graphviz
+  file *.abidos/file_output.dot*
+  indexterm:[files_input]
+* xdot_run.py load *.abidos/file_output.dot* and show you to browse through the
+  UML diagram.
+  indexterm:[xdot_run.py]
+  indexterm:[file_output.dot]
+  indexterm:[UML]
+
+you will see a navigable window with a UML diagram of Abidos classes.
+
+When you have .abidos/file_output.dot generated you can launch the UML diagram
+whenever you want doing:
+-----
+  xdot_run.py/file_output.dot
+-----
+
+[NOTE]
+=====
+If you modified a C++ source file you would need to execute all the toolchain to
+ see the new changes.
+=====
+

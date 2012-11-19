@@ -22,7 +22,7 @@ indexterm:[unzip]
 indexterm:[processor]
 indexterm:[wget]
 
-=== make project and install
+=== Make project and install
 we will make the processor part of Abidos is the real core of Abidos C++:
 ------
 cmake .
@@ -31,13 +31,17 @@ sudo make install
 ------
 
 <1> Abidos will need this file *make_out.txt* to know what files
- it have to parse (Abidos can parse Abidos because is a C++ Project).
+have to parse (Abidos can parse Abidos because is a C++ Project).
 indexterm:[cmake]
 indexterm:[make]
 
 you can test it with the abidos itself:
 ------
-abidos_make_process.pl
+abidos_make_process.pl <1>
 ------
 
-you will see a navigable window with a UML diagram of Abidos classes.
+<1> this script do all the toolchain that abidos need for you.
+
+This command encapsulates the toolchain of Abidos (it will be explained in next
+chapters).
+

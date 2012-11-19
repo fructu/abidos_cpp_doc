@@ -22,12 +22,12 @@ class world: hello
 ----
 Abidos process it and will show you:
 
-image::chapter_01_introduction/images/example_01.jpg[align="center"]
+image::out/images/chapter_01_example_01.jpg[align="center"]
 
 ==========================
 
 Browse code is sometimes a boring task, you can see a UML diagram and click to 
-the attribute of method you want to see or edit and Abidos will open and editor
+the attribute of method you want to see or edit and Abidos will open an editor
 with that piece of code.
 
 .Cpp Browsing code
@@ -35,7 +35,7 @@ with that piece of code.
 You can clicking in the C2 node and Abidos will open an editor and put the 
 cursor in that exactly line:
 
-image::chapter_01_introduction/images/example_02.jpg[align="center"]
+image::out/images/chapter_01_example_02.jpg[align="center"]
 
 ==========================
 
