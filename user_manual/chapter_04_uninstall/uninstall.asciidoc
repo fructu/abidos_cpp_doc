@@ -1,0 +1,9 @@
+== Uninstall
+
+In order to uninstall abidos project execute:
+
+------
+cd abidos-master/processor/
+sudo make uninstall
+------
+indexterm:[uninstall]

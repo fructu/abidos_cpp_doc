@@ -33,10 +33,12 @@ check_grammar:
 	find . -name "*.asciidoc" -exec echo "  aspell processed:" {} \;	
 
 generate_xml: abidos_cpp.asciidoc
-	$(GENERATOR) -f xhtml --doctype book --destination-dir out/ --verbose abidos_cpp.asciidoc
+#	$(GENERATOR) -f xhtml --doctype book --destination-dir out/ --verbose abidos_cpp.asciidoc
+	$(GENERATOR) -f xhtml --doctype article --destination-dir out/ --verbose abidos_cpp.asciidoc
 
 generate_pdf: abidos_cpp.asciidoc
-	$(GENERATOR) -f pdf --doctype book --destination-dir out/ --verbose abidos_cpp.asciidoc
+#	$(GENERATOR) -f pdf --doctype book --destination-dir out/ --verbose abidos_cpp.asciidoc
+	$(GENERATOR) -f pdf --doctype article --destination-dir out/ --verbose abidos_cpp.asciidoc
 
 generate_images:
 	mkdir -p out/images

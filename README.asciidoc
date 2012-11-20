@@ -90,7 +90,7 @@ git remote add origin git@github.com:fructu/abidos_cpp_doc.git
 git push -u origin master
 -----
 
-working with images:
+== working with images:
 
 -----
 images$ convert example_01.png -resize 30% example_01.png
@@ -98,3 +98,6 @@ identify -verbose example_01.png | egrep 'Geometry|Resolution'
 convert -density 200% example_01.png example_01.jpg
 convert -density 80%  example_02.png example_02.jpg
 -----
+
+== usefull commands
+sed -e "s/[\s\t]+$/$/g" chapter_03_abidos_parsing/parsing.asciidoc > out/parsing.txt

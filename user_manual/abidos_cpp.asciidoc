@@ -13,8 +13,9 @@ starting to write this documentation:
 include::chapter_01_introduction/introduction.asciidoc[]
 include::chapter_02_installation/installation.asciidoc[]
 include::chapter_03_abidos_parsing/parsing.asciidoc[]
+include::chapter_04_uninstall/uninstall.asciidoc[]
 //-------------------------------------------------------------------------------
 //for now the index follows normal numeration
-//:numbered!:
+:numbered!:
 {index}
 

@@ -50,11 +50,13 @@ goals:
   indexterm:[refactorization, Code refactoring] code will be available.
 * I was interested in the development of a C++ parser; is good do something like 
   that.
-* I have a prototype of Abidos python indexterm:[python,Abidos_python] project, 
+* I would like to write other versions of abidos for other languages, i have a
+  prototype of Abidos python indexterm:[python,Abidos_python] project,
   for now Abidos_cpp is more active.
-* I want have a project that i can add a news back-end generator to do 
+* I want have a project that i can add a new back-ends generator to do
   meta-programing indexterm:[meta-programing] for example generate sql 
-  indexterm:[sql] interface from a struct declaration.
+  indexterm:[sql] interface (a class with methods to insert and modified
+  information) from a struct declaration.
 * Abidos use a descent parser indexterm:[descent parser,parser] and use 
   backtracking indexterm:[backtracking], for now i am happy with that
   architecture but i have to investigate it more deeply.
