@@ -100,4 +100,5 @@ convert -density 80%  example_02.png example_02.jpg
 -----
 
 == usefull commands
+identify -format "%wx%h" sample.png
 sed -e "s/[\s\t]+$/$/g" chapter_03_abidos_parsing/parsing.asciidoc > out/parsing.txt

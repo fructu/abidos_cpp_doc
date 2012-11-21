@@ -16,6 +16,6 @@ include::chapter_03_abidos_parsing/parsing.asciidoc[]
 include::chapter_04_uninstall/uninstall.asciidoc[]
 //-------------------------------------------------------------------------------
 //for now the index follows normal numeration
-:numbered!:
+//:numbered!:
 {index}
 

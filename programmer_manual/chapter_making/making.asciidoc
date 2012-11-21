@@ -1,0 +1,154 @@
+== Making
+
+Abidos making process is not than simple that i would want, there are a set of
+script doing parts of the making process, trying to follow DRY.
+
+[quote,'http://en.wikipedia.org/wiki/Don%27t_repeat_yourself[Andy Hunt and Dave Thomas]']
+_____________________________________________________________________
+The DRY principle is stated as "Every piece of knowledge must have a single,
+unambiguous, authoritative representation within a system."
+When the DRY principle is applied successfully, a modification of any single
+element of a system does not require a change in other logically unrelated
+elements.
+_____________________________________________________________________
+
+indexterm:[DRY]
+
+Abidos is a experiment about a set of technologies that i am trying to put
+together in this project, working learning a lot of interesting things. 
+therefore lets go to see how the making process of Abidos  is.
+
+indexterm:[make]
+
+=== Configuration
+
+Abidos uses cmake http://www.cmake.org/ for this purpose.
+
+[quote,'http://www.cmake.org/[cmake]']
+_____________________________________________________________________
+CMake is a family of tools designed to build, test and package software. CMake
+is used to control the software compilation process using simple platform and
+compiler independent configuration files. CMake generates native makefiles and
+workspaces that can be used in the compiler environment of your choice.
+_____________________________________________________________________ 
+
+indexterm:[cmake]
+
+[NOTE]
+====
+You can see in the user manual how invoke this command.
+====
+
+==== processor/CMakeLists.txt
+
+Abidos sets here:
+
+* his version
+* the directories that make process should pass to the scripts.
+
+Then the others CMakeLists.txt are processed in order to generate the Makefile
+
+indexterm:[Makefile]
+indexterm:[compilation]
+
+==== processor/src/CMakeLists.txt
+
+Here cmake process:
+
+* check if all necessary includes are installed in the system.
+* check if Flex and Bison are installed in the system.
+indexterm:[Flex]
+indexterm:[Bison]
+
+[NOTE]
+====
+Abidos do not use the code generated from Bison to do an ascent parser only use
+some declarations needed by Flex.
+====
+
+* sets the build options.
+
+generates rules for Makefile:
+
+* calls flex_execute.pl.
+  indexterm:[flex_execute.pl]
+* calls bison_execute.pl.
+  indexterm:[bison_execute.pl]
+* to copy ts.cpp ts.h from preprocessor "a module used to
+  scan files and generate graphs with the includes net and can be used to obtain
+  a list with files and with includes"
+* calls extract_symbols.pl.
+  indexterm:[extract_symbols.pl]
+* calls check_directories.pl and
+  generate_begin_graph.pl.
+  indexterm:[check_directories.pl]
+  indexterm:[generate_begin_graph.pl]
+* to compile and link Abidos.
+  indexterm:[compile]
+  indexterm:[link]
+* indent_run that calls
+  check_indent.sh and indent_run.sh.
+  indexterm:[check_indent.sh]
+  indexterm:[indent_run.sh]
+* test_run that calls tests_run.pl
+  indexterm:[tests_run.pl]
+* install Abidos.
+* uninstall Abidos.
+
+[NOTE]
+====
+These scripts are defined forward in this manual.
+====
+
+==== processor/includes/CMakeLists.txt
+
+Generates part of the make process where the version are wrote inside of
+config.h using the script put_ifndef_date.pl
+
+=== Files generated automatically
+
+I am going to describe you how the builders scripts generate files needed by
+Abidos. These scripts are located in processor/scripts/ directory.
+
+* flex_execute.pl
+  use Flex and transforms lexer.l -> lexer.c
+  lexer.c is the scanner, it reads a source file and returns tokens to the
+  parser by the yylex() function.
+  indexterm:[flex_execute.pl]
+  indexterm:[scanner]
+  
+* calls bison_execute.pl.
+  indexterm:[bison_execute.pl]
+
+* to copy ts.cpp ts.h from preprocessor "a module used to
+  scan files and generate graphs with the includes net and can be used to obtain
+  a list with files and with includes"
+
+* calls extract_symbols.pl.
+  indexterm:[extract_symbols.pl]
+
+* calls check_directories.pl and
+  generate_begin_graph.pl.
+  indexterm:[check_directories.pl]
+  indexterm:[generate_begin_graph.pl]
+
+* to compile and link Abidos.
+  indexterm:[compile]
+  indexterm:[link]
+
+* indent_run that calls
+  check_indent.sh and indent_run.sh.
+  indexterm:[check_indent.sh]
+  indexterm:[indent_run.sh]
+
+=== Compilation
+
+explain
+
+//## put this in a debug chapter
+=== Testing
+
+* test_run that calls tests_run.pl
+  indexterm:[tests_run.pl]
+
+

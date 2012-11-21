@@ -16,6 +16,3 @@ explain
 
 explain
 
-== Descent parser insight
-
-explain
