@@ -1,0 +1,21 @@
+== Loader
+
+Yo have saw in the user manual that abidos need to be loaded with 2 options:
+
+. A C++ file
+
+. With .abidos/files_input has a list of C++ files and directories.
+
+explain .abidos/files_input and the improves this script needs
+
+=== One C++ file
+
+explain
+
+=== .abidos/files_input
+
+explain
+
+== Descent parser insight
+
+explain

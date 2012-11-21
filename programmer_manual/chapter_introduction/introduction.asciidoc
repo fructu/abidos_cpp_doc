@@ -1,0 +1,33 @@
+== Introduction
+
+In this manual i am going to explain how Abidos works, is important the reader
+of this manual have read the user manual and knows how to use Abidos to parse
+C++ projects.
+
+Parsing C++ is a hard task it has a complex grammar and Abidos is a
+experimental solution using a descent parser instead of an ascent parser
+(yacc/bison).
+
+=== Milestones
+
+When i began this project i think in a set of phases, Milestones or goals 
+that i want achieve with the time:
+
+. Parsing C\++ and generate UML browsable diagrams; so far this phase is working
+  but not full implemented yet, Abidos can parse a big portion of C++ grammar
+  above all the part about declaration of classes, methods, functions, 
+  variables, parameters... but all the inside body of method and functions
+  need to be development.
+
+. Refactor parts of code.
+
+. Generating a set of backends customized to future projects, one of this 
+  backends is the UML generator.
+
+indexterm:[C++]
+indexterm:[Parser]
+indexterm:[Refactor, code refactor]
+
+For now there is a lot of work to do in the parser core of Abidos.
+
+
