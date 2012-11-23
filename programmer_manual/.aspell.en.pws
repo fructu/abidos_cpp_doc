@@ -1,10 +1,11 @@
-personal_ws-1.1 en 61 
+personal_ws-1.1 en 66 
 Makefile
 py
 refactoring
 aspell
 resize
 CMakeLists
+yyparser
 yacc
 pdf
 logallrefupdates
@@ -16,12 +17,14 @@ filemode
 config
 jpg
 github
+yyparse
 makefiles
 uninstall
 refactorization
 egrep
 usr
 init
+lex
 repositoryformatversion
 txt
 doxygen
@@ -47,6 +50,7 @@ xml
 gcc
 indexterm
 struct
+gdb
 ifndef
 por
 refactor
@@ -56,7 +60,8 @@ README
 uml
 docbook
 lang
-cmake
 CMake
+cmake
+LALR
 toolchain
 workspaces

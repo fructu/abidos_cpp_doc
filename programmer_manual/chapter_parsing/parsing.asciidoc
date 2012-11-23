@@ -1,4 +1,76 @@
-== Parsing descent parser insight
+== Recursive descent parser
 
-explain
+When i was studying compilers in university, i did not like yacc to implement
+parsers, i used it to development a Java compiler and i think a descent parser
+would be more suitable for that purpose.
+indexterm:[yacc]
+indexterm:[java]
+Yacc uses LALR http://en.wikipedia.org/wiki/LALR_parser, the parser must decide
+what rule use with only 1 token.
+
+This code:
+[code, c]
+----
+int a;
+int f(void);
+----
+
+Have 2 lines starting with the same token, in yacc that would be a problem,
+therefore  Abidos is an experiment about do a descent parser of a complex
+language (C++), using backtracking http://en.wikipedia.org/wiki/Backtracking
+to explore different rules that begin with the same token
+indexterm:[descent parser]
+indexterm:[Backtracking]
+
+=== Debugging Abidos
+
+In order to see how Abidos works we will use gdb to trace an Abidos execution.
+
+Abidos have an X file, it is used for debugging purpose with gdb:
+
+----
+dir .
+set print address off
+b main
+run --includes test_includes/ \
+    --out_dir test_out/ \
+    --test_all_tokens_consumed_flag \
+    --test_original \
+    --ts_show \
+    --verbose --verbose test/book_01.cpp > test_out/out_book_01.cpp.txt
+----
+
+indexterm:[X file]
+indexterm:[gdb]
+
+Execute Abidos with gdb like this:
+----
+abidos/processor$ gdb src/abidos -x X
+----
+
+[NOTE]
+====
+I like use X file, in this way i have all the begin commands in the file and is
+more easy execute gdb the next day.
+====
+
+First the loader start to work looking what files Abidos will parse.
+
+The parser starts to work in this line of main.cpp:
+
+----
+c_parser_descent parser;
+
+parser.yyparse(file_name);
+----
+
+yyparser() function do: 
+
+* lex_file_init().
+
+* a set of the ts (symbols table).
+//  ### explain with a UML diagram of TS classes
+
+* And calls *translation_unit()* the fist rule of C++ Grammar.
+
 

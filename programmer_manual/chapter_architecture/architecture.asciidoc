@@ -1,0 +1,59 @@
+== Architecture of abidos
+
+Abidos have these main modules:
+indexterm:[architecture]
+indexterm:[design]
+
+* loader
+indexterm:[loader]
+
+* lexical analyzer
+indexterm:[lexical]
+
+* syntactic analyzer
+indexterm:[syntactic]
+
+* semantic analyzer
+indexterm:[semantic]
+
+* symbols table
+indexterm:[symbols]
+
+* generators
+indexterm:[generators]
+
+** uml diagrams
+** original code
+
+* trace system
+
+* dot viewer
+indexterm:[dot viewer]
+
+=== symbols table
+
+When Abidos are parsing a source C++ file; lexical analyzer give to syntactic
+analyzer all the tokens founded in the source file, some of this tokens
+are saved in the table symbols.
+
+Example
+----
+int a; <1>
+----
+
+<1> there are 3 tokens here: "int", "a" and ";"
+
+Abidos when process this 3 tokens knows "a" is a variable and his type is "int"
+one.
+
+These identifiers are stored in a map
+
+//## explain how c_token are transformed to a c_symbol
+
+In computer programming, a scope is the context within a program in
+which a variable name or other identifier is valid and can be used,
+or within which a declaration has effect.
+
+
+
+
