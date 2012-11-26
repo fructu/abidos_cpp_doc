@@ -48,12 +48,88 @@ one.
 
 These identifiers are stored in a map
 
-//## explain how c_token are transformed to a c_symbol
+//## explain how c_token is transformed to a c_symbol
 
 In computer programming, a scope is the context within a program in
 which a variable name or other identifier is valid and can be used,
 or within which a declaration has effect.
 
+=== Saving context
 
+Abidos uses c_context_tokens to store in which token has being parsing in the
+begin of a syntactic rule.
 
+c_context_tokens context_tokens(context);
+indexterm:[context]
+
+=== Trace system
+
+Abidos when finishes the parsing process can generates a diagram tree with
+the rules used, you should use it only with small examples. In c_parser_descent
+you can see how all rules pass trace_node and add it to trace_graph
+
+----
+int c_parser_descent::extern_c(c_trace_node trace_node)
+{
+    trace_graph.add(trace_node, "extern_c"); <1>
+...
+}
+----
+
+<1> that is how trace system knows what rule has being called.
+
+c_trace_graph trace_graph
+indexterm:[c_trace_node]
+indexterm:[c_trace_node]
+indexterm:[c_trace_graph]
+indexterm:[trace_graph]
+
+Here is the output tree drawn by Abidos trace system for the previous example:
+
+.trace tree example
+image::out/images/trace_book_01.jpg[align="center"]
+
+Is an expansion of an *annotated parse tree* we can see the successfully
+branches and the unsuccessfully.
+
+indexterm:[annotated parse tree]
+indexterm:[c_trace_node]
+
+Nodes begin with _<number>_: is the order in which abidos have processed it.
+
+Shape of nodes have these meanings:
+
+* ellipsis, are non terminal rules, like this
+----
+declaration_seq:
+	declaration
+	| declaration_seq declaration
+	;
+----
+
+* box, are rules when some terminal tokens are processed.
+
+Border of nodes have these meanings:
+
+* dotted: in this nodes the terminals not matched, for example in:
+----
+      _13_template_declaration
+      [int is not TEMPLATE] <1>
+----
+<1> Abidos was trying to match "int" with the reserved word "TEMPLATE".
+indexterm:[dotted]
+
+//without this comment the next line are nested :-(
+* green line: in this nodes some terminals matched, for example in:
+----
+      _15_simple_declaration
+      [; is ;] <1>
+----
+<1> Abidos was trying to match ";" with ";" and it matched.
+indexterm:[green]
+
+You can see parsing a little example like that generate a tree of more than 40
+nodes, descent parsing is more inefficient than yacc parsing, but i will try
+to improve this with pruning methods. And remember C++ is a complex grammar to
+do in yacc because is a tough task write his grammar using LALR.
 

@@ -42,6 +42,16 @@ generate_pdf:
 
 generate_images:
 	mkdir -p out/images
+	cat chapter_architecture/examples/trace_book_01.cpp.gv | dot -Tpng > out/images/trace_book_01.png
+	convert out/images/trace_book_01.png -resize 70% out/images/trace_book_01.png
+	convert -density 100% out/images/trace_book_01.png out/images/trace_book_01.jpg
+	rm -rf out/images/trace_book_01.png
+
+#	cat chapter_parsing/examples/trace_book_01.cpp.gv | dot -Tsvg > out/images/trace_book_01.svg
+#	convert out/images/trace_book_01.svg -resize 100% out/images/trace_book_01.png
+#	convert -density 100% out/images/trace_book_01.png out/images/trace_book_01.jpg
+#	rm -rf out/images/trace_book_01.png
+
 #	convert -density 100% chapter_01_introduction/images/example_01.png out/images/chapter_01_example_01.jpg
 #	convert -density 80% chapter_01_introduction/images/example_02.png  out/images/chapter_01_example_02.jpg
 #	dot -Tpng chapter_03_abidos_parsing/abidos_flow_diagram_01.dot > out/images/chapter_03_abidos_flow_diagram_01.png

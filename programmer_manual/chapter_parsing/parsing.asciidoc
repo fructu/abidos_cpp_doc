@@ -43,6 +43,16 @@ run --includes test_includes/ \
 indexterm:[X file]
 indexterm:[gdb]
 
+We will use the same previous example:
+
+Example
+----
+int a;
+----
+
+Remember the tree graph with more than 40 nodes generated, and will see how
+abidos parses this and why the tree is so big.
+
 Execute Abidos with gdb like this:
 ----
 abidos/processor$ gdb src/abidos -x X
@@ -71,6 +81,87 @@ yyparser() function do:
 * a set of the ts (symbols table).
 //  ### explain with a UML diagram of TS classes
 
-* And calls *translation_unit()* the fist rule of C++ Grammar.
+* And calls *translation_unit()* the fist rule of C++ Grammar
+----
+    c_trace_node trace_node; <1>
+    trace_node.set("translation_unit"); <2>
 
+    tokens_vector_clear(); <3>
+
+    if (1 == declaration_seq_opt(trace_node)) { <4>
+        return 1;
+    }
+    ...
+----
+<1> Here starts the trace tree.
+<2> With this trace system know how node abidos is using in each step.
+<3> This is the main rule of the grammar we start with a fresh tokens_vector.
+<4> in the grammar appears "translation_unit: declaration_seq_opt;" and here is
+how write this rule in descent form is quite easy.
+
+//if i don not put this paragraph the next bullet appears tabulated :-(
+
+* declaration_seq_opt rule.
+
+* declaration_seq.
+----
+declaration_seq: declaration | declaration_seq declaration ;
+----
+
+I translated this to the descent form:
+
+----
+int c_parser_descent::declaration_seq(c_trace_node trace_node)
+{
+    trace_graph.add(trace_node, "declaration_seq");
+
+    int result = 0;
+
+    while (1 == declaration(trace_node)) {
+        tokens_vector_clear();
+        result = 1;
+    }
+
+    return result;
+}
+----
+
+In a descent parser we can not have left recursion (in yacc we can and we want 
+it)
+
+[NOTE]
+====
+I clear the vector of tokens here, i think there is safe and not more
+backtracking will bee work with these tokens.
+====
+
+
+* Abidos goes to declaration rule
+Here we can see in the trace tree how Abidos enter in the rules:
+is_eof, extern_c, preprocessor, template_declaration and can not match the
+actual token *int*
+
+the original rule is
+----
+declaration: block_declaration | function_definition |
+  template_declaration | explicit_instantiation | explicit_specialization
+  | linkage_specification | namespace_definition ;
+----
+
+i write it with changing his order of son rules because block_declaration is
+more cost to check it and i had to add some rules of my own:
+
+1) is_eof, check if we are in the end of the file (we can cut the descent here).
+
+2) preprocessor, in the original grammar do not have this rule, C++ have a
+external preprocessor and works before compile do, but Abidos do this sort of
+things in compile phase.
+
+//
+Abidos save context c_context_tokens context_tokens(context);
+
+* block_declaration rule.
+
+* simple_declaration
+explain
 

@@ -1,4 +1,4 @@
-personal_ws-1.1 en 66 
+personal_ws-1.1 en 69 
 Makefile
 py
 refactoring
@@ -10,6 +10,7 @@ yacc
 pdf
 logallrefupdates
 fructu
+namespace
 backends
 cd
 url
@@ -40,6 +41,7 @@ preprocessor
 nonet
 sql
 backend
+extern
 png
 graphviz
 toc
@@ -54,14 +56,15 @@ gdb
 ifndef
 por
 refactor
+eof
 browsable
 yylex
 README
 uml
 docbook
 lang
-CMake
 cmake
+CMake
 LALR
 toolchain
 workspaces
