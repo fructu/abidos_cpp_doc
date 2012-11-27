@@ -107,11 +107,10 @@ declaration_seq:
 	;
 ----
 
-* box, are rules when some terminal tokens are processed.
+* box, are rules when some terminal tokens are processed, it can have no
+terminal rules too, perimeter line of nodes have these meanings:
 
-Border of nodes have these meanings:
-
-* dotted: in this nodes the terminals not matched, for example in:
+1) dotted: in this nodes the terminals not matched, for example in:
 ----
       _13_template_declaration
       [int is not TEMPLATE] <1>
@@ -120,7 +119,7 @@ Border of nodes have these meanings:
 indexterm:[dotted]
 
 //without this comment the next line are nested :-(
-* green line: in this nodes some terminals matched, for example in:
+2) green line: in this nodes some terminals matched, for example in:
 ----
       _15_simple_declaration
       [; is ;] <1>

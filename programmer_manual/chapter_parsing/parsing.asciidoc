@@ -74,7 +74,13 @@ c_parser_descent parser;
 parser.yyparse(file_name);
 ----
 
-yyparser() function do: 
+yyparser() function do:
+
+[NOTE]
+====
+We will see here the most important rules from the parser tree, in the figure of
+trace tree there are more rules where Abidos can not match tokens.
+====
 
 * lex_file_init().
 
@@ -94,7 +100,7 @@ yyparser() function do:
     ...
 ----
 <1> Here starts the trace tree.
-<2> With this trace system know how node abidos is using in each step.
+<2> With this trace system, Abidos knows which node is using in each step.
 <3> This is the main rule of the grammar we start with a fresh tokens_vector.
 <4> in the grammar appears "translation_unit: declaration_seq_opt;" and here is
 how write this rule in descent form is quite easy.
@@ -162,6 +168,182 @@ Abidos save context c_context_tokens context_tokens(context);
 
 * block_declaration rule.
 
-* simple_declaration
-explain
+* simple_declaration, this is a kind of rule not than easy than previous
+----
+  if ( CLASS_SPECIFIER_STATUS_MEMBER_SPECIFIER
+        != context.class_specifier_status ) {
+    semantic.clear_decl_specifier();
+  }
+----
+
+This lines are to know if Abidos is parsing a declaration inside a class scope
+or not, lets see this with a little example:
+
+----
+class A{
+  int a;
+  int f(int i);
+}
+----
+
+When Abidos parses *int a;* this will be a part of A class like an attribute,
+but when Abidos are parsing *int i* this will be a part of *f* declaration not a
+part of A directly, this 2 variables *a* and *i* are parsed in the same rules
+and with the context Abidos know what they are.
+indexterm:[context]
+
+[NOTE]
+====
+context allow Abidos to know where hi is, and what is the semantic value of a
+token.
+====
+
+* decl_specifier_seq_opt
+
+* decl_specifier_seq, a little hack in this rule to put in descent way,
+the original rule in left recursion fashion is:
+----
+decl_specifier_seq: decl_specifier_seq_opt decl_specifier;
+----
+
+There is a indirect recursion by left calling *decl_specifier_seq_opt* and
+this call decl_specifier_seq again. The goal of this recursion is iterating
+*decl_specifier* for example "long int ...", if i would write this rule exact
+like his original form i will have a stack overflow like this:
+
+----
+//
+// i drop the indirect recursion for establish a clear example
+// the execution have are quite similar
+//
+int decl_specifier_seq(void)
+{
+  decl_specifier_seq(); <1>
+  decl_specifier(); <2>
+}
+----
+<1> program call this one time, and again and again ... until stack overflow.
+<2> program never reach this line
+
+The easy solution taken in Abidos is:
+----
+    while (1 == decl_specifier(trace_node)) { <1>
+        result = 1;
+    }
+----
+<1> iteration over *decl_specifier* reached with a while.
+
+* decl_specifier, here we can see another trick
+----
+    const int vector_id[]={';' , ')', COLONCOLON,IDENTIFIER, '~', '#', -1};
+    if (preanalisys_has_one(  vector_id,trace_node) ) {
+        return 0;
+    }
+----
+
+With this lines of code we can *prune* sub-trees and Abidos save resources
+in this rule we know that a *decl* can not be a *#* or a *;* therefore if some
+of this symbols are present we prune and don not get more deep.
+indexterm:[preanalisys_has_one]
+indexterm:[prune]
+
+* type_specifier
+
+* simple_type_specifier, here is a lot of things but where *int* is matched is
+in this lines
+
+----
+    const int vector_id[]={
+        CHAR, WCHAR_T, BOOL, SHORT, INT, LONG
+        , SIGNED, UNSIGNED, FLOAT, DOUBLE, VOID, -1
+    };
+
+    if (token_is_one(vector_id,trace_node) != 0) { <1>
+        result = 1;
+    }
+----
+<1> *int* is matched here and this method, this method calls *is_one* and this
+calls trace_graph.token_is_add here.
+
+Then there are a lot of code about scopes of classes and templates parsing that
+will see forward for this example is not used.
+
+Abidos put the decl *int* in the semantic class.
+
+----
+  semantic.push_back_vector_decl_specifier(decl);
+----
+
+And this rule returns 1 indicating success, and In this case int should
+be consumed therefore *context = context_tokens.restore();* are no used
+to restore the context and forcing to process *int* again with other rules.
+
+* decl_specifier_seq, Abidos try to iterates again with decl_specifier but
+now *i* token is a IDENTIFIER.
+
+* init_declarator_list_opt
+
+* init_declarator_list, in this rule we can see another trick to development
+rules in descent form:
+
+----
+    c_context_tokens context_tokens(context); <1>
+    c_context_tokens context_good_way(context); <2>
+----
+
+<1> here Abidos save context to restore it if the rule don not match the token.
+<2> here is another context saver in a declaration.
+
+Lets see this last point C++ allows to put 1 or more, IDENTIFIERS separated by
+*,* for example
+
+----
+  int a, b, c;
+----
+
+I use *;* like a terminator for this rule but i should restore put the token *;*
+on the context queue again to be parsed in *simple_declaration* rule, for that
+is this if:
+
+----
+        if ( token_is(';', trace_node) ) {
+            // yes i restore here to consume ';' more up in the tree
+            context = context_good_way.restore();
+            return 1;
+        }
+----
+
+And Abidos prune this rule with that.
+
+[NOTE]
+====
+I would use *preanalisys_has_one* to do this prune but is a little more
+inefficiency because it saves and restores the context in each check.
+====
+
+indexterm:[prune]
+indexterm:[context_good_way]
+
+* init_declarator
+
+* declarator
+
+* direct_declarator, there are a lot of code here but in this case it calls
+next rule.
+
+* declarator_id, this rule is uses to declare constructors too, but now it calls
+next rule.
+indexterm:[constructor]
+
+* id_expression
+
+* unqualified_id, this rule is used to declare destructors, but now it calls
+next rule.
+indexterm:[destructor]
+
+* identifier, Abidos put the identifier in the semantic
+
+----
+  semantic.identifier(context, c_token_get());
+----
 

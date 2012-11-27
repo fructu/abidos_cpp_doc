@@ -1,7 +1,8 @@
-personal_ws-1.1 en 69 
+personal_ws-1.1 en 79 
 Makefile
 py
 refactoring
+preanalisys
 aspell
 resize
 CMakeLists
@@ -9,7 +10,9 @@ yyparser
 yacc
 pdf
 logallrefupdates
+destructor
 fructu
+decl
 namespace
 backends
 cd
@@ -22,6 +25,7 @@ yyparse
 makefiles
 uninstall
 refactorization
+declarator
 egrep
 usr
 init
@@ -31,9 +35,11 @@ txt
 doxygen
 asciidoc
 wget
+wchar
 xdot
 en
 dir
+const
 abidos
 cpp
 src
@@ -42,7 +48,9 @@ nonet
 sql
 backend
 extern
+destructors
 png
+coloncolon
 graphviz
 toc
 sudo
@@ -54,6 +62,8 @@ indexterm
 struct
 gdb
 ifndef
+bool
+wchart
 por
 refactor
 eof
