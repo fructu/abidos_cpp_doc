@@ -6,6 +6,8 @@ digraph G {
 //        fontname = "Technic"
 //        fontsize = 8
 
+        size="15,30!"
+
         node [
 //                fontname = "Technic"
 //                fontsize = 10

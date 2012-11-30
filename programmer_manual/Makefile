@@ -40,12 +40,13 @@ generate_pdf:
 #	$(GENERATOR) -f pdf --doctype book --destination-dir out/ --verbose abidos_cpp.asciidoc
 #	$(GENERATOR) -f pdf --doctype article --destination-dir out/ --verbose abidos_cpp_programer_manual.asciidoc
 #	$(GENERATOR) -f tex --doctype article --destination-dir out/ --verbose abidos_cpp_programer_manual.asciidoc
-	$(GENERATOR) -f pdf -a"eps_svg=eps" --doctype article --destination-dir out/ --verbose abidos_cpp_programer_manual.asciidoc
+	$(GENERATOR) -f pdf --doctype article --destination-dir out/ -a"eps_svg=eps" --verbose abidos_cpp_programer_manual.asciidoc
 
 # works with eps images
 generate_pdf_2:
 	asciidoc --doctype=article --backend=docbook -a"eps_svg=eps" abidos_cpp_programer_manual.asciidoc
 	dblatex  --backend=dvips abidos_cpp_programer_manual.xml
+#	dblatex  --backend=xetex abidos_cpp_programer_manual.xml
 	mv abidos_cpp_programer_manual.xml out/
 	mv abidos_cpp_programer_manual.pdf out/
 
