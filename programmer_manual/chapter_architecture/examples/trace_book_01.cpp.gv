@@ -2,18 +2,18 @@
  cat /home/hevia/working/abidos/processor/test_out//trace_book_01.cpp.gv | dot -Tpng > /home/hevia/working/abidos/processor/test_out//trace_book_01.cpp.gv.png
 */
 digraph G {
-
+//        fontname = "Bitstream Vera Sans"
 //        fontname = "Technic"
-        fontsize = 8
+//        fontsize = 8
 
         node [
 //                fontname = "Technic"
-                fontsize = 8
+//                fontsize = 10
         ]
 
         edge [
 //                fontname = "Technic"
-                fontsize = 8
+//                fontsize = 10
         ]
 
   ROOT[label="ROOT"]  _3_declaration_seq[label="_3_declaration_seq"]

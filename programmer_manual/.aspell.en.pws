@@ -1,4 +1,4 @@
-personal_ws-1.1 en 79 
+personal_ws-1.1 en 81 
 Makefile
 py
 refactoring
@@ -65,6 +65,7 @@ ifndef
 bool
 wchart
 por
+svg
 refactor
 eof
 browsable
@@ -78,3 +79,4 @@ CMake
 LALR
 toolchain
 workspaces
+eps
