@@ -21,6 +21,7 @@
 GENERATOR=a2x
 #-------------------------------------------------------------------------------
 all:	check_grammar\
+			generate_cpp_dot\
 			generate_images\
 			generate_html\
 			generate_pdf_2
@@ -29,8 +30,14 @@ clean:
 	rm -rf out/*
 
 check_grammar:
+	find .. -name "*.asciidoc" -exec aspell -l "en_EN" --personal=./.aspell.en.pws -c {} \;
 	find . -name "*.asciidoc" -exec aspell -l "en_EN" --personal=./.aspell.en.pws -c {} \;
-	find . -name "*.asciidoc" -exec echo "  aspell processed:" {} \;
+	find .. -name "*.asciidoc" -exec echo "  aspell processed:" {} \;
+
+generate_cpp_dot:
+	mkdir -p out/images
+	mkdir -p out/dot
+	find . -name "*_white_list.txt" -exec ../scripts/module_dot.pl {} \;
 
 generate_html:
 	$(GENERATOR) -f xhtml --doctype article --destination-dir out/ -a"eps_svg=svg" --verbose abidos_cpp_programer_manual.asciidoc
@@ -57,8 +64,8 @@ generate_images:
 	cat chapter_architecture/examples/trace_book_01.cpp.gv | dot -Tsvg > out/images/trace_book_01.svg
 #	convert -density 150% out/images/trace_book_01.eps out/images/trace_book_01.png
 
-	cat chapter_architecture/c_loader_uml_01.dot | dot -Teps > out/images/c_loader_uml_01.eps
-	cat chapter_architecture/c_loader_uml_01.dot | dot -Tsvg > out/images/c_loader_uml_01.svg
+#	cat chapter_architecture/c_loader_uml_01.dot | dot -Teps > out/images/c_loader_uml_01.eps
+#	cat chapter_architecture/c_loader_uml_01.dot | dot -Tsvg > out/images/c_loader_uml_01.svg
 #	convert -density 150% out/images/c_loader_uml_01.eps  out/images/c_loader_uml_01.png
 
 #	rm -rf 	out/images/c_loader_uml_01.eps

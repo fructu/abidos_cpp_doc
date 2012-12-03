@@ -1,4 +1,4 @@
-personal_ws-1.1 en 81 
+personal_ws-1.1 en 83 
 Makefile
 py
 refactoring
@@ -39,6 +39,7 @@ wchar
 xdot
 en
 dir
+wx
 const
 abidos
 cpp
@@ -70,6 +71,7 @@ refactor
 eof
 browsable
 yylex
+sed
 README
 uml
 docbook

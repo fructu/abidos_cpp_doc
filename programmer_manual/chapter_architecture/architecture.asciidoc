@@ -39,7 +39,7 @@ you can read and introduction about it in the *user manual* in the section
 works internally and in this section is the explanation.
 
 .c_loader UML diagram
-image::out/images/c_loader_uml_01.{eps_svg}[align="center"]
+image::out/images/chapter_architecture_c_loader_uml_01.{eps_svg}[align="center"]
 
 === symbols table
 
@@ -121,7 +121,7 @@ declaration_seq:
 * box, are rules when some terminal tokens are processed, it can have no
 terminal rules too, perimeter line of nodes have these meanings:
 
-1) dotted: in this nodes the terminals not matched, for example in:
+1) dotted in this nodes the terminals not matched, for example in:
 ----
       _13_template_declaration
       [int is not TEMPLATE] <1>
@@ -137,6 +137,7 @@ indexterm:[dotted]
 ----
 <1> Abidos was trying to match ";" with ";" and it matched.
 indexterm:[green]
+
 
 You can see parsing a little example like that generate a tree of more than 40
 nodes, descent parsing is more inefficient than yacc parsing, but i will try
