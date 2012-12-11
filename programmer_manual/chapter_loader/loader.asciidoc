@@ -10,9 +10,44 @@ explain .abidos/files_input and the improves this script needs
 
 === One C++ file
 
-explain
+When Abidos is called with a C++ file, Abidos will start to process that file
+the loader does not have work to do.
+
+.one file to parse
+----
+.../abidos/processor/src/abidos \
+    --includes .../abidos/processor/test_includes/ \
+    --out_dir  .../abidos/processor/test_out/ \
+    --test_all_tokens_consumed_flag \
+    --test_original \
+    --ts_show \
+    --verbose \
+    .../abidos/processor/test/book_01.cpp > \ <1>
+      .../abidos/processor/test_out/out_book_01.cpp.txt
+----
+<1> here is the file to will being parsed with Abidos.
+
+Abidos in this mode calls *parser.yyparse(file_name)* is used for example in
+*make test_run*.
+
+If that file has *#include* directives them will be processed by the
+preprocessor rules of *src/parser_descent_preprocessor.cpp*, there are not
+work to loader here; are all business from lexical module and syntactic module.
 
 === .abidos/files_input
 
-explain
+The most easy way to use this mode is call the script *abidos_make_process.pl*,
+you can see it in the user manual.
+
+This script invokes Abidos like this:
+
+.loader file
+----
+/opt/abidos/abidos \
+    --test_all_tokens_consumed_flag \
+    --no_std \
+    --out_dir .abidos \
+    --loader .abidos/files_input <1>
+----
+<1> *--loader* is the option to use the *loader* module.
 

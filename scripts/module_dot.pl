@@ -1,14 +1,14 @@
 #!/usr/bin/perl -w
 #
 # use Abidos to generate dot, svg, eps
-#
+# for now uses <file>_white_list.txt
 
 use strict;
 
 sub abidos
 {
   my $file = shift;
-  my $file_output = shift;  
+  my $file_output = shift;
 
   my $command = <<END;
 	abidos --out_dir ../../abidos/processor/.abidos/ \\
@@ -49,7 +49,7 @@ sub main
     abidos($file, $output_name);
   }
 
-  print "}\n";  
+  print "}\n";
 }
 
 main($ARGV[0]);

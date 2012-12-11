@@ -30,7 +30,7 @@ indexterm:[generators]
 * dot viewer
 indexterm:[dot viewer]
 
-=== loader
+=== Loader
 indexterm:[loader]
 
 In order to parse all cpp files from a C++ project Abidos uses this module/class
@@ -41,11 +41,39 @@ works internally and in this section is the explanation.
 .c_loader UML diagram
 image::out/images/chapter_architecture_c_loader_uml_01.{eps_svg}[align="center"]
 
+=== lexer
+indexterm:[lexer]
+
+Explain lexer phase.
+
+=== Parser
+indexterm:[parser]
+
+.c_parser UML diagram 1
+image::out/images/chapter_architecture_c_parser_uml_01.{eps_svg}[align="center"]
+
+c_context class is a *key part* of Abidos, for each node in the
+*annotated parse tree*
+indexterm:[c_context]
+
+.c_parser UML diagram 2
+image::out/images/chapter_architecture_c_parser_uml_02.{eps_svg}[align="center"]
+
+Parser use this class all the time to get knowledge about tokens and too restore
+states in the backtracking process.
+
+
 === symbols table
 
 When Abidos are parsing a source C++ file; lexical analyzer give to syntactic
 analyzer all the tokens founded in the source file, some of this tokens
 are saved in the table symbols.
+
+.c_symbols_table UML diagram 1
+image::out/images/chapter_architecture_c_symbols_table_uml_01.{eps_svg}[align="center"]
+
+.c_symbols_table c_declarator UML diagram 2
+image::out/images/chapter_architecture_c_declarator_table_uml_01.{eps_svg}[align="center"]
 
 Example
 ----
@@ -143,5 +171,4 @@ You can see parsing a little example like that generate a tree of more than 40
 nodes, descent parsing is more inefficient than yacc parsing, but i will try
 to improve this with pruning methods. And remember C++ is a complex grammar to
 do in yacc because is a tough task write his grammar using LALR.
-
 

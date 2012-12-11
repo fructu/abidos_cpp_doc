@@ -15,7 +15,7 @@ with them i will generate:
 ** programmer_manual
 * web
 
-this documentation will be inserted in abidos protect 
+this documentation will be inserted in abidos protect
 https://github.com/fructu/abidos
 
 useful commands:
@@ -36,20 +36,30 @@ ls -l /home/hevia/.aspell.*
 
 == working with abidos
 
+* first you need have executed:
+
+----
+  abidos/processor$ abidos_make_process.pl
+----
+
+  *abidos* and *abidos_cpp_doc* must bee in the same level of directories.
+
 * create a file like this:
 ----
   chapter_<chapter>/<name>_white_list.txt
 ----
 
-  make will scan this _white_list.txt files and generates:
+make will scan this _white_list.txt files and generates:
+
 ----
     out/images/chapter_architecture_c_loader_uml_01.eps
     out/images/chapter_architecture_c_loader_uml_01.svg
 ----
 
-  therefore you can insert the image with:
+therefore you can insert the image with:
+
 ----
-  image::out/images/chapter_architecture_c_loader_uml_01.{eps_svg}[align="center"]
+image::out/images/chapter_architecture_c_loader_uml_01.{eps_svg}[align="center"]
 ----
 
 [note]
@@ -76,7 +86,7 @@ in the image tag change before chapter */* to *_*
 
 . you will can do push and pull easily:
   git pull
-  git push  
+  git push
 
 == git configuring
 
@@ -123,8 +133,10 @@ convert -density 80%  example_02.png example_02.jpg
 -----
 
 == useful commands
+
 identify -format "%wx%h" sample.png
-sed -e "s/[\s\t]+$/$/g" chapter_03_abidos_parsing/parsing.asciidoc > out/parsing.txt
+
+../scripts/clean_txt.pl chapter_03_abidos_parsing/parsing.asciidoc
 
 for now this command is to drop spaces in the end of lines:
   scripts/clean_txt.pl <file>

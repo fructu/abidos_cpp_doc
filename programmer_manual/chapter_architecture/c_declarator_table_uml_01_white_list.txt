@@ -1,0 +1,18 @@
+#
+# white_list to obtain c_loader_uml_01.dot
+#
+# cd abidos/processor
+#
+# abidos --out_dir .abidos --loader .abidos/files_input \
+#  --white_list ../../abidos_cpp_doc/programmer_manual/chapter_architecture/white_list_01.txt \
+#  --no_url
+#
+# xdot_run.py .abidos/files_output.dot
+#
+# abidos --out_dir ../../abidos/processor/.abidos/ --loader ../../abidos/processor/.abidos/files_input --white_list chapter_architecture/c_loader_uml_01_white_list.txt --no_url
+# cp ../../abidos/processor/.abidos/files_output.dot out/chapter_architecture_c_loader_uml_01.dot
+#
+
+c_symbol
+c_token
+c_declarator
