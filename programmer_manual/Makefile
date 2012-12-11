@@ -21,8 +21,8 @@
 GENERATOR=a2x
 #-------------------------------------------------------------------------------
 all:	check_grammar\
-			generate_cpp_dot\
 			generate_images\
+			generate_cpp_dot\
 			generate_html\
 			generate_pdf
 
@@ -50,9 +50,8 @@ generate_pdf:
 
 generate_images:
 	mkdir -p out/images
-
-	cat chapter_architecture/examples/trace_book_01.cpp.gv | dot -Teps > out/images/trace_book_01.eps
-	cat chapter_architecture/examples/trace_book_01.cpp.gv | dot -Tsvg > out/images/trace_book_01.svg
+	find . -name "*.gv"  -exec perl ../scripts/images_dot.pl {} \;
+	find . -name "*.dot" -exec perl ../scripts/images_dot.pl {} \;
 
 #-------------------------------------------------------------------------------
 #deprecated {

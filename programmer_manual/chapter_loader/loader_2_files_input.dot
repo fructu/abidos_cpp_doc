@@ -1,0 +1,26 @@
+digraph R {
+  size ="4, 6!";
+  fontsize = 8
+  rankdir=LR 
+
+  file [
+    shape=note,
+    label=".abidos/files_input"
+  ]
+
+  loader [
+    shape=box,
+    style="rounded",    
+    label="loader"
+  ]
+
+  lexer [
+    fillcolor=loader, 
+    style="rounded", 
+    shape=box,
+    label="lexer module"
+  ]
+
+  file -> loader;
+  loader -> lexer;
+} 

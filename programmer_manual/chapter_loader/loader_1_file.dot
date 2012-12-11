@@ -1,0 +1,20 @@
+digraph R {
+  size ="2, 6!";
+  fontsize = 6
+  rankdir=LR 
+//  node [style=rounded]
+
+  file [
+    shape=note,
+    label="file.cpp"
+  ]
+
+  lexer [
+    fillcolor=loader, 
+    style="rounded", 
+    shape=box,
+    label="lexer module", 
+  ]
+//  node3 [shape=record, label="{ a | b | c }"]
+  file -> lexer
+} 

@@ -140,3 +140,7 @@ identify -format "%wx%h" sample.png
 
 for now this command is to drop spaces in the end of lines:
   scripts/clean_txt.pl <file>
+
+== useful links
+
+http://www.graphviz.org/doc/info/shapes.html#epsf
