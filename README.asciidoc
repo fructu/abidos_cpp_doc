@@ -143,4 +143,34 @@ for now this command is to drop spaces in the end of lines:
 
 == useful links
 
+* graphviz
+
 http://www.graphviz.org/doc/info/shapes.html#epsf
+
+* cover :-)
+
+Title: Abidos
+Sub-title: programmer manual
+Top Title: C++ browser & refactor
+Image: http://upload.wikimedia.org/wikipedia/commons/2/29/Beaver_%28PSF%29.jpg
+Publisher: F. Hevia
+Author: Fructu
+
+http://pt.wikipedia.org/wiki/Ficheiro:Beaver_%28PSF%29.jpg
+
+- to convert html into ps
+
+sudo apt-get install html2ps
+
+html2ps cover.html > cover.eps
+
+
+- http://code.google.com/p/wkhtmltopdf/
+----
+wget "http://wkhtmltopdf.googlecode.com/files/wkhtmltopdf-0.9.9-static-amd64.tar.bz2"
+tar -jxvf detail\?name\=wkhtmltopdf-0.11.0_rc1-static-amd64.tar.bz2
+sudo mv wkhtmltopdf-amd64 /bin/
+#ln -s ~/bin/wkhtmltopdf-amd64 ~/bin/html2pdf
+----
+
+wkhtmltopdf-amd64 cover.html cover.pdf

@@ -1,7 +1,7 @@
 digraph R {
   size ="2, 6!";
   fontsize = 6
-  rankdir=LR 
+  rankdir=LR
 //  node [style=rounded]
 
   file [
@@ -10,11 +10,11 @@ digraph R {
   ]
 
   lexer [
-    fillcolor=loader, 
-    style="rounded", 
+    fillcolor=loader,
+    style="rounded",
     shape=box,
-    label="lexer module", 
+    label="lexer module",
   ]
 //  node3 [shape=record, label="{ a | b | c }"]
   file -> lexer
-} 
+}

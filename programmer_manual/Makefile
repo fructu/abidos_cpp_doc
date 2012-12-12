@@ -53,6 +53,13 @@ generate_images:
 	find . -name "*.gv"  -exec perl ../scripts/images_dot.pl {} \;
 	find . -name "*.dot" -exec perl ../scripts/images_dot.pl {} \;
 
+generate_cover:
+	wkhtmltopdf-amd64 cover/cover.html out/cover.pdf
+	gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite \
+	  -sOutputFile=out/abidos_cpp_programer_manual_cover.pdf \
+	  out/cover.pdf \
+	  out/abidos_cpp_programer_manual.pdf
+
 #-------------------------------------------------------------------------------
 #deprecated {
 ASPELL_FILES =			abidos_cpp_programer_manual.asciidoc\

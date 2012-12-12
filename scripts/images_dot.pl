@@ -20,7 +20,7 @@ sub abidos
 
   print "  file_output[$file_output.eps]\n";
   $command= "  cat $file | dot -Teps > out/images/$file_output.eps";
-  system($command);  
+  system($command);
 }
 
 sub main
