@@ -82,3 +82,11 @@ LALR
 toolchain
 workspaces
 eps
+html2ps
+psi
+jxvf
+mv
+wkhtmltopdf
+amd64
+ln
+amd

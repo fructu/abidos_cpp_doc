@@ -18,21 +18,28 @@ with them i will generate:
 this documentation will be inserted in abidos protect
 https://github.com/fructu/abidos
 
-useful commands:
+== useful commands:
 
 ----
 aspell --lang "en_EN" --personal=./.aspell.en.pws --check abidos_cpp.txt
 aspell --lang "en_EN" --personal=./.aspelgel.en.pws --check README.txt
 ----
 
-make generate in out the pdf and web documentation
+* make generate in out/ the pdf and web documentation
 
-to see aspell personal dictionary:
+* to see aspell personal dictionary:
 
 -----
 aspell config personal-path
 ls -l /home/hevia/.aspell.*
 -----
+
+* delete temporal files:
+
+----
+find . -name "*.bak" -exec rm {} \;
+find . -name "*.new" -exec rm {} \;
+----
 
 == working with abidos
 
@@ -158,12 +165,16 @@ Author: Fructu
 
 http://pt.wikipedia.org/wiki/Ficheiro:Beaver_%28PSF%29.jpg
 
-- to convert html into ps
+- to convert HTML into PS
 
 sudo apt-get install html2ps
 
 html2ps cover.html > cover.eps
 
+[NOTE]
+====
+The result is not very good, css style is not processed
+====
 
 - http://code.google.com/p/wkhtmltopdf/
 ----
@@ -174,3 +185,10 @@ sudo mv wkhtmltopdf-amd64 /bin/
 ----
 
 wkhtmltopdf-amd64 cover.html cover.pdf
+
+-- you can generate cover with:
+
+----
+make generate_cover
+----
+

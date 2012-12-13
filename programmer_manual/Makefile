@@ -30,7 +30,8 @@ clean:
 	rm -rf out/*
 
 check_grammar:
-	find .. -name "*.asciidoc" -exec aspell -l "en_EN" --personal=./.aspell.en.pws -c {} \;
+	find .. -name "*.asciidoc" -exec aspell -l "en_EN" \
+	  --personal=./.aspell.en.pws -c {} \;
 	find .. -name "*.asciidoc" -exec echo "  aspell processed:" {} \;
 
 generate_cpp_dot:
@@ -39,11 +40,13 @@ generate_cpp_dot:
 	find . -name "*_white_list.txt" -exec ../scripts/module_dot.pl {} \;
 
 generate_html:
-	$(GENERATOR) -f xhtml --doctype article --destination-dir out/ -a"eps_svg=svg" --verbose abidos_cpp_programer_manual.asciidoc
+	$(GENERATOR) -f xhtml --doctype article --destination-dir out/ \
+    -a"eps_svg=svg" --verbose abidos_cpp_programer_manual.asciidoc
 
 # works with eps images
 generate_pdf:
-	asciidoc --doctype=article --backend=docbook -a"eps_svg=eps" abidos_cpp_programer_manual.asciidoc
+	asciidoc --doctype=article --backend=docbook \
+	  -a"eps_svg=eps" abidos_cpp_programer_manual.asciidoc
 	dblatex  --backend=dvips abidos_cpp_programer_manual.xml
 	mv abidos_cpp_programer_manual.xml out/
 	mv abidos_cpp_programer_manual.pdf out/
@@ -60,16 +63,5 @@ generate_cover:
 	  out/cover.pdf \
 	  out/abidos_cpp_programer_manual.pdf
 
-#-------------------------------------------------------------------------------
-#deprecated {
-ASPELL_FILES =			abidos_cpp_programer_manual.asciidoc\
-										chapter_01_introduction/introduction.asciidoc
-
-check_grammar_old:
-	@- $(foreach F, $(ASPELL_FILES), \
-		echo -e "checking aspell $F"; \
-		aspell -l "en_EN" --personal=./.aspell.en.pws -c $F; \
-	)
-#}
 #-------------------------------------------------------------------------------
 
