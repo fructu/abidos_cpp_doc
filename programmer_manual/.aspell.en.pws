@@ -1,4 +1,4 @@
-personal_ws-1.1 en 83 
+personal_ws-1.1 en 94 
 Makefile
 py
 refactoring
@@ -11,6 +11,7 @@ yacc
 pdf
 logallrefupdates
 destructor
+Hevia
 fructu
 decl
 namespace
@@ -32,12 +33,14 @@ init
 lex
 repositoryformatversion
 txt
+wkhtmltopdf
 doxygen
 asciidoc
 wget
 wchar
 xdot
 en
+bak
 dir
 wx
 const
@@ -53,14 +56,19 @@ destructors
 png
 coloncolon
 graphviz
+css
 toc
 sudo
 doctype
 md
+amd
+html
 xml
+jxvf
 gcc
 indexterm
 struct
+ln
 gdb
 ifndef
 bool
@@ -70,8 +78,10 @@ svg
 refactor
 eof
 browsable
+mv
 yylex
 sed
+psi
 README
 uml
 docbook
@@ -81,12 +91,5 @@ cmake
 LALR
 toolchain
 workspaces
+ps
 eps
-html2ps
-psi
-jxvf
-mv
-wkhtmltopdf
-amd64
-ln
-amd

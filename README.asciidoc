@@ -182,9 +182,9 @@ wget "http://wkhtmltopdf.googlecode.com/files/wkhtmltopdf-0.9.9-static-amd64.tar
 tar -jxvf detail\?name\=wkhtmltopdf-0.11.0_rc1-static-amd64.tar.bz2
 sudo mv wkhtmltopdf-amd64 /bin/
 #ln -s ~/bin/wkhtmltopdf-amd64 ~/bin/html2pdf
-----
 
 wkhtmltopdf-amd64 cover.html cover.pdf
+----
 
 -- you can generate cover with:
 
