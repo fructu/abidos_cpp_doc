@@ -31,10 +31,7 @@ indexterm:[generators]
 indexterm:[dot viewer]
 
 === Loader
-indexterm:[loader]
-
-.c_loader UML diagram
-image::out/images/chapter_architecture_c_loader_uml_01.{eps_svg}[align="center"]
+moved to loader chapter
 
 === lexer
 indexterm:[lexer]

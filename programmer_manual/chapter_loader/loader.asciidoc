@@ -1,6 +1,7 @@
 == Loader
+indexterm:[loader]
 
-Yo have saw in the user manual that abidos need to be loaded with 2 options:
+Yo have seen in the user manual that abidos needs to be loaded with 2 options:
 
 * A C++ file
 
@@ -39,6 +40,11 @@ the loader does not have work to do.
 Abidos in this mode calls *parser.yyparse(file_name)* is used for example in
 *make test_run*.
 
+[NOTE]
+====
+yyparser call is in src/main.cpp file
+====
+
 If that file has *#include* directives them will be processed by the
 preprocessor rules of *src/parser_descent_preprocessor.cpp*, there are not
 work to loader here; are all business from lexical module and syntactic module.
@@ -62,6 +68,19 @@ This script invokes Abidos like this:
 
 [NOTE]
 ====
-In the Architecture chapter you can see the main classes of loader module.
+loader is called from src/main.cpp *parser.yyparse_loader*(file_name);
 ====
+
+=== Loader classes
+
+indexterm:[loader]
+
+.c_loader UML diagram
+image::out/images/chapter_loader_c_loader_uml_01.{eps_svg}[align="center"]
+
+The loader module stores the files that the parser will need, when the parser
+asks for the next file; loader module tries to search this file in the
+directories extracted from the .abidos/files_input. If not found that file in
+the fist try loader will try do it again in a case insensitive mode (due are
+the _lowercase classes)
 

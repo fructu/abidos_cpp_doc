@@ -4,6 +4,39 @@
 # for now uses <file>_white_list.txt
 
 use strict;
+use File::Copy;
+
+#
+# here i cut some method or atribues in order to do more compact diagrams.
+#
+sub special_process
+{
+  my $file_name = shift;
+
+  open my $file, $file_name or die "Can't open $file_name for reading: $!";
+
+  my $mode = (stat $file_name)[2] & 07777;
+
+  open my $file_tmp, ">$file_name.tmp" or die "Can't open $file_name.tmp for writing: $!";
+
+  while( my $line = <$file> )
+  {
+    if( $line =~ /label\=\"\{ c_parser_descent\|/ ) {
+      printf "  cuting class [c_parser_descent] \n";
+      $line =~ s/\\l\+ c_parser_descent\(\)/\$\\l\+ c_parser_descent\(\)/g;
+      $line =~ s/\\l\- int preprocessor_include([^\$]+)\$\\l\+ c_parser_descent\(\)/\\l\/*A LOT OF SYNTACTIC RULES ARE HERE ...*\/\\l\+ c_parser_descent\(\)/g;
+    }
+
+    print $file_tmp $line;
+  }
+
+  close $file;
+  close $file_tmp;
+
+  move("$file_name.tmp", "$file_name");
+
+  chmod($mode | 0600, "$file_name");
+}
 
 sub abidos
 {
@@ -22,6 +55,8 @@ END
 
   $command= "cp ../../abidos/processor/.abidos/files_output.dot out/dot/$file_output.dot";
   system($command);
+
+  special_process("out/dot/$file_output.dot");
 
   $command= "cat out/dot/$file_output.dot | dot -Teps > out/images/$file_output.eps";
   system($command);

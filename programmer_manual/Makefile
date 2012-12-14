@@ -24,7 +24,8 @@ all:	check_grammar\
 			generate_images\
 			generate_cpp_dot\
 			generate_html\
-			generate_pdf
+			generate_pdf\
+			generate_cover
 
 clean:
 	rm -rf out/*
