@@ -143,7 +143,8 @@ backtracking will bee work with these tokens.
 
 
 * Abidos goes to declaration rule
-Here we can see in the trace tree how Abidos enter in the rules:
+
+Here we can see in the trace tree how Abidos enters in the rules:
 is_eof, extern_c, preprocessor, template_declaration and can not match the
 actual token *int*
 
@@ -164,7 +165,6 @@ external preprocessor and works before compile do, but Abidos do this sort of
 things in compile phase.
 
 //
-Abidos save context c_context_tokens context_tokens(context);
 
 * block_declaration rule.
 
@@ -214,7 +214,7 @@ like his original form i will have a stack overflow like this:
 ----
 //
 // i drop the indirect recursion for establish a clear example
-// the execution have are quite similar
+// the execution is quite similar
 //
 int decl_specifier_seq(void)
 {
