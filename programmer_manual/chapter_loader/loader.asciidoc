@@ -6,12 +6,12 @@ Yo have seen in the user manual that abidos needs to be loaded with 2 options:
 * A C++ file
 
 .Loader one source file
-image::out/images/chapter_loader_loader_1_file.{eps_svg}[align="center"]
+image::images/chapter_loader_loader_1_file.{eps_svg}[align="center"]
 
 * With .abidos/files_input has a list of C++ files and directories.
 
 .Loader filers from .abidos/files_input
-image::out/images/chapter_loader_loader_2_files_input.{eps_svg}[align="center"]
+image::images/chapter_loader_loader_2_files_input.{eps_svg}[align="center"]
 
 In order to parse all cpp files from a C++ project Abidos uses this module/class
 you can read and introduction about it in the *user manual* in the section
@@ -76,7 +76,7 @@ loader is called from src/main.cpp *parser.yyparse_loader*(file_name);
 indexterm:[loader]
 
 .c_loader UML diagram
-image::out/images/chapter_loader_c_loader_uml_01.{eps_svg}[align="center"]
+image::images/chapter_loader_c_loader_uml_01.{eps_svg}[align="center"]
 
 The loader module stores the files that the parser will need, when the parser
 asks for the next file; loader module tries to search this file in the

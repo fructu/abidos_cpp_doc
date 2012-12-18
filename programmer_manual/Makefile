@@ -19,7 +19,8 @@
 all:	check_grammar\
 			generate_images\
 			generate_cpp_dot\
-			generate_html\
+			generate_html_whole\
+			generate_html_chunked\
 			generate_pdf\
 			generate_cover
 
@@ -36,21 +37,31 @@ generate_cpp_dot:
 	mkdir -p out/dot
 	find . -name "*_white_list.txt" -exec ../scripts/module_dot.pl {} \;
 
-generate_html_bk:
-	$(GENERATOR) -f xhtml --doctype article --destination-dir out/ \
-    -a"eps_svg=svg" --verbose abidos_cpp_programer_manual.asciidoc
 
-generate_html:
+abidos_cpp_programer_manual.web.xml: abidos_cpp_programer_manual.asciidoc
 	asciidoc --doctype=article --backend=docbook \
-	  -a"eps_svg=svg" abidos_cpp_programer_manual.asciidoc;
+	  -a"eps_svg=svg" abidos_cpp_programer_manual.asciidoc
+	mv abidos_cpp_programer_manual.xml out/abidos_cpp_programer_manual.web.xml
 
-	mkdir -p out/web/images
-	mv abidos_cpp_programer_manual.xml out/web/
-	mv out/images/*.svg out/web/images/
+generate_html_whole: abidos_cpp_programer_manual.web.xml
+	mkdir -p out/web_whole/images
+	cp out/images/*.svg out/web_whole/images/
 
-	cd out/web ; \
+	cd out/web_whole ; \
+	xsltproc --nonet /etc/asciidoc/docbook-xsl/xhtml.xsl \
+	  ../abidos_cpp_programer_manual.web.xml > abidos_cpp_programer_manual.xhtml
+
+	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_whole/
+
+generate_html_chunked: abidos_cpp_programer_manual.web.xml
+	mkdir -p out/web_chunked/images
+	cp out/images/*.svg out/web_chunked/images/
+
+	cd out/web_chunked ; \
 	xsltproc --nonet /etc/asciidoc/docbook-xsl/chunked.xsl \
-	  abidos_cpp_programer_manual.xml
+	  ../abidos_cpp_programer_manual.web.xml
+
+	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_chunked/
 
 generate_pdf:
 	asciidoc --doctype=book --backend=docbook \

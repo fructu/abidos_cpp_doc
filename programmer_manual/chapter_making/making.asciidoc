@@ -1,7 +1,7 @@
 == Making
 
 Abidos making process is not than simple that i would want, there are a set of
-script doing parts of the making process, trying to follow DRY.
+scripts doing parts of the making process, trying to follow DRY.
 
 [quote,'http://en.wikipedia.org/wiki/Don%27t_repeat_yourself[Andy Hunt and Dave Thomas]']
 _____________________________________________________________________
@@ -14,9 +14,9 @@ _____________________________________________________________________
 
 indexterm:[DRY]
 
-Abidos is a experiment about a set of technologies that i am trying to put
-together in this project, working learning a lot of interesting things. 
-therefore lets go to see how the making process of Abidos  is.
+Abidos is an experiment about a set of technologies that i am trying to put
+together in this project, working and learning a lot of interesting things.
+therefore lets go to see how the making process of Abidos is.
 
 indexterm:[make]
 
@@ -34,9 +34,16 @@ _____________________________________________________________________
 
 indexterm:[cmake]
 
+To configure Abidos C++ write in a terminal:
+
+----
+cd processor
+cmake .
+----
+
 [NOTE]
 ====
-You can see in the user manual how invoke this command.
+You can see more about configure in the user manual.
 ====
 
 ==== processor/CMakeLists.txt
@@ -46,7 +53,7 @@ Abidos sets here:
 * his version
 * the directories that make process should pass to the scripts.
 
-Then the others CMakeLists.txt are processed in order to generate the Makefile
+Then the others CMakeLists.txt are processed in order to generate the Makefile.
 
 indexterm:[Makefile]
 indexterm:[compilation]
@@ -110,45 +117,91 @@ config.h using the script put_ifndef_date.pl
 I am going to describe you how the builders scripts generate files needed by
 Abidos. These scripts are located in processor/scripts/ directory.
 
-* flex_execute.pl
-  use Flex and transforms lexer.l -> lexer.c
-  lexer.c is the scanner, it reads a source file and returns tokens to the
-  parser by the yylex() function.
-  indexterm:[flex_execute.pl]
-  indexterm:[scanner]
-  
-* calls bison_execute.pl.
-  indexterm:[bison_execute.pl]
+When you have configured Abidos C++ a Makefile was generated, you can invoke:
 
-* to copy ts.cpp ts.h from preprocessor "a module used to
-  scan files and generate graphs with the includes net and can be used to obtain
-  a list with files and with includes"
+----
+make all
+----
 
-* calls extract_symbols.pl.
-  indexterm:[extract_symbols.pl]
+You can see in this diagram the scripts needed by make with his input files and
+his output files.
 
-* calls check_directories.pl and
-  generate_begin_graph.pl.
-  indexterm:[check_directories.pl]
-  indexterm:[generate_begin_graph.pl]
+.make process
+image::images/chapter_making_making_1.{eps_svg}[align="center"]
 
-* to compile and link Abidos.
-  indexterm:[compile]
-  indexterm:[link]
+These scripts are invoked in this order:
+
+. scripts/put_ifndef_date.pl
+Generates includes/config.h with compilation time and version extracted from
+includes/config.h.in
+
+. scripts/check_directories.pl
+if any of this directories (out, test_out, .abidos) does not exist this script
+creates them.
+indexterm:[check_directories.pl]
+
+** out here is where some files created automatically are put. So far only
+generate_begin_graph.cpp is put here but in the future i want to put the output
+files of flex, bison ... but for the moment i have other priorities.
+
+** test_out the output of the *make test_run* the files generates in this
+directory are explained forward in the testing section.
+
+** .abidos this directory has the files input and output of Abidos C++ :
+
+*** files_input
+
+*** files_output.dot
+
+. /scripts/generate_begin_graph.pl
+generates generate_begin_graph.cpp and this file generates the header of
+files_output.dot with version of Abidos and fonts sizes of the graphs.
+indexterm:[generate_begin_graph.pl]
+
+. scripts/bison_execute.pl
+from src/parser.y generates:
+indexterm:[bison_execute.pl]
+indexterm:[bison]
+
+** src/parser.c this file is no used to compile
+Abidos directly but from this file some things are extracted.
+
+** includes/parser.h
+
+. scripts/extract_symbols.pl
+Parses src/parser.c and generates includes/tokens.h with 2 important tables:
+
+** yytokens: static const char \*const yytokens[]
+In this table we have the description of the tokens for debug purposes,
+for example if lexer passes token number 258 to parser with this table we
+know 258 is "IDENTIFIER".
+Is used by descent parser to print the tokens processed and to generates the
+nodes of trace tree with *token is* and *token is not* entries.
+indexterm:[yytokens]
+
+** yytokens_short: static const char \*const yytokens_short[]
+It is similar than the previous table but when the token is an ASCII symbol,
+we can read 36Th ASCII symbol like this "36->$".
+indexterm:[yytokens_short]
+
+. scripts/flex_execute.pl
+Parses src/lexer.l and generates src/lexer.c (this file uses parser.h generates
+by Bison).
+
+=== Compilation & linking stages
+
+So far make process has generated all necessary files, with this files and the
+other files in src/ and include/ compilation and
+linking process generates src/abidos executable.
+
+=== Other make rules
+
+* test_run that calls tests_run.pl
+  Explained in the testing section
+  indexterm:[tests_run.pl]
 
 * indent_run that calls
   check_indent.sh and indent_run.sh.
   indexterm:[check_indent.sh]
   indexterm:[indent_run.sh]
-
-=== Compilation
-
-explain
-
-//## put this in a debug chapter
-=== Testing
-
-* test_run that calls tests_run.pl
-  indexterm:[tests_run.pl]
-
 

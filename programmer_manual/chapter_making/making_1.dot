@@ -1,0 +1,119 @@
+digraph R {
+  size ="8, 16!";
+  fontsize = 6;
+//  rankdir=LR;
+//  node [style=rounded]
+
+  _1_put_ifndef_date [
+    style="rounded",
+    shape=box,
+    label="put_ifndef_date.pl"
+  ]
+
+  config [
+    shape=note,
+    label="includes/config.h"
+  ]
+
+  _2_check_directories [
+    style="rounded",  
+    shape=box,
+    label="check_directories.pl"
+  ]
+
+  out[
+    shape=folder,
+    label="out/"
+  ]
+
+  test_out[
+    shape=folder,
+    label="test_out/"
+  ]
+
+  abidos_folder[
+    shape=folder,
+    label=".abidos/"
+  ]
+
+  _3_generate_begin_graph [
+    style="rounded",
+    shape=box,
+    label="generate_begin_graph.pl",
+  ]
+
+  generate_begin_graph_cpp[
+    shape=note,
+    label="out/generate_begin_graph.cpp"
+  ]
+
+  _4_bison_execute [
+    style="rounded",
+    shape=box,
+    label="bison_execute.pl",
+  ]
+
+  parser_y[
+    shape=note,
+    label="src/parser.y"
+  ]
+
+  parser_c[
+    shape=note,
+    label="src/parser.c"
+  ]
+
+  parser_h[
+    shape=note,
+    label="includes/parser.h"
+  ]
+
+  _5_extract_symbols [
+    style="rounded",
+    shape=box,
+    label="extract_symbols.pl",
+  ]
+
+  tokens_h[
+    shape=note,
+    label="includes/tokens.h"
+  ]
+
+  _6_flex_execute [
+    style="rounded",
+    shape=box,
+    label="flex_execute.pl",
+  ]
+
+  lexer_l[
+    shape=note,
+    label="src/lexer.l"
+  ]
+
+  lexer_c[
+    shape=note,
+    label="src/lexer.c"
+  ]
+
+  _1_put_ifndef_date -> config;
+
+  _2_check_directories -> out;
+  _2_check_directories -> test_out;
+  _2_check_directories -> abidos_folder;
+
+  _3_generate_begin_graph -> generate_begin_graph_cpp ;
+  config -> generate_begin_graph_cpp [label="#include", dir="back"];
+  generate_begin_graph_cpp -> out [label="into", style="dotted"];
+
+  parser_y -> _4_bison_execute;
+  _4_bison_execute -> parser_h;
+  _4_bison_execute -> parser_c;
+
+  parser_c -> _5_extract_symbols;
+  _5_extract_symbols -> tokens_h;
+
+  lexer_l -> _6_flex_execute;
+  _6_flex_execute -> lexer_c;
+  parser_h -> lexer_c [label="#include", dir="back"];
+}
+

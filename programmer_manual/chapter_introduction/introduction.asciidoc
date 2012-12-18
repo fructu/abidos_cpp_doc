@@ -5,7 +5,7 @@ of this manual have read the user manual and knows how to use Abidos to parse
 C++ projects.
 
 Parsing C++ is a hard task it has a complex grammar and Abidos is a
-experimental solution using a descent parser instead of an ascent parser
+experimental solution using a descent parser handmade instead of an ascent parser
 (yacc/bison).
 
 === Milestones
