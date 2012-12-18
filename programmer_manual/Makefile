@@ -16,10 +16,6 @@
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# Varibales
-#-------------------------------------------------------------------------------
-GENERATOR=a2x
-#-------------------------------------------------------------------------------
 all:	check_grammar\
 			generate_images\
 			generate_cpp_dot\
@@ -40,17 +36,32 @@ generate_cpp_dot:
 	mkdir -p out/dot
 	find . -name "*_white_list.txt" -exec ../scripts/module_dot.pl {} \;
 
-generate_html:
+generate_html_bk:
 	$(GENERATOR) -f xhtml --doctype article --destination-dir out/ \
     -a"eps_svg=svg" --verbose abidos_cpp_programer_manual.asciidoc
 
-# works with eps images
-generate_pdf:
+generate_html:
 	asciidoc --doctype=article --backend=docbook \
+	  -a"eps_svg=svg" abidos_cpp_programer_manual.asciidoc;
+
+	mkdir -p out/web/images
+	mv abidos_cpp_programer_manual.xml out/web/
+	mv out/images/*.svg out/web/images/
+
+	cd out/web ; \
+	xsltproc --nonet /etc/asciidoc/docbook-xsl/chunked.xsl \
+	  abidos_cpp_programer_manual.xml
+
+generate_pdf:
+	asciidoc --doctype=book --backend=docbook \
 	  -a"eps_svg=eps" abidos_cpp_programer_manual.asciidoc
-	dblatex  --backend=dvips abidos_cpp_programer_manual.xml
-	mv abidos_cpp_programer_manual.xml out/
-	mv abidos_cpp_programer_manual.pdf out/
+
+	mkdir -p out/pdf/images
+	mv out/images/*.eps out/pdf/images/	  
+	mv abidos_cpp_programer_manual.xml out/pdf/
+
+	cd out/pdf	;\
+	  dblatex  --backend=dvips abidos_cpp_programer_manual.xml
 
 generate_images:
 	mkdir -p out/images
@@ -58,11 +69,11 @@ generate_images:
 	find . -name "*.dot" -exec perl ../scripts/images_dot.pl {} \;
 
 generate_cover:
-	wkhtmltopdf-amd64 cover/cover.html out/cover.pdf
+	wkhtmltopdf-amd64 cover/cover.html out/pdf/cover.pdf
 	gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite \
-	  -sOutputFile=out/abidos_cpp_programer_manual_cover.pdf \
-	  out/cover.pdf \
-	  out/abidos_cpp_programer_manual.pdf
+	  -sOutputFile=out/pdf/abidos_cpp_programer_manual_cover.pdf \
+	  out/pdf/cover.pdf \
+	  out/pdf/abidos_cpp_programer_manual.pdf
 
 #-------------------------------------------------------------------------------
 
