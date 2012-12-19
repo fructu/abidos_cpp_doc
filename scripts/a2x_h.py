@@ -641,7 +641,7 @@ class A2X(AttrDict):
             if not os.path.isfile(docbook_file):
                 die('missing docbook file: %s' % docbook_file)
             return
-        shell('"%s" --backend docbook -a "a2x-format=%s" %s --out-file "%s" "%s"' %
+        shell('"%s" --backend docbook -a "a2x-format=%s" -a"eps_svg=svg" %s --out-file "%s" "%s"' %
              (self.asciidoc, self.format, self.asciidoc_opts, docbook_file, self.asciidoc_file))
         if not self.no_xmllint and XMLLINT:
             shell('"%s" --nonet --noout --valid "%s"' % (XMLLINT, docbook_file))
@@ -765,17 +765,27 @@ class A2X(AttrDict):
         build_dir = epub_file + '.d'
         shell_rmtree(build_dir)
         shell_makedirs(build_dir)
+
         # Create content.
         exec_xsltproc(xsl_file, docbook_file, build_dir, self.xsltproc_opts)
         # Copy resources referenced in the OPF and resources referenced by the
         # generated HTML (in theory DocBook XSL should ensure they are
         # identical but this is not always the case).
-        src_dir = os.path.dirname(self.asciidoc_file)
+#        src_dir = os.path.dirname(self.asciidoc_file)
+        src_dir = 'OEBPS'
         dst_dir = os.path.join(build_dir, 'OEBPS')
         opf_file = os.path.join(dst_dir, 'content.opf')
         opf_resources = find_resources(opf_file, 'item', 'href')
         html_files = find_files(dst_dir, '*.html')
+
+        cmd = 'mkdir -p '+build_dir+'/OEBPS/images'
+        os.system(cmd)
+
+        cmd = 'cp out/images/*.svg '+build_dir+'/OEBPS/images'
+        os.system(cmd)
+
         self.copy_resources(html_files, src_dir, dst_dir, opf_resources)
+
         # Register any unregistered resources.
         self.update_epub_manifest(opf_file)
         # Build epub archive.

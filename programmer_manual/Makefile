@@ -14,16 +14,16 @@
 #         ->
 #
 #-------------------------------------------------------------------------------
-MAIN=abidos_cpp_programer_manual
+MAIN=abidos_cpp_programmer_manual
 #-------------------------------------------------------------------------------
 all:	check_grammar\
 			generate_images\
 			generate_cpp_dot\
 			generate_html_whole\
 			generate_html_chunked\
-			generate_epub\
 			generate_pdf\
-			generate_cover
+			generate_cover\
+			generate_epub_2
 
 clean:
 	rm -rf out/*
@@ -66,12 +66,6 @@ generate_html_chunked: $(MAIN).web.xml
 	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_chunked/
 	cp /etc/asciidoc/images/icons/*.png out/web_chunked/images/icons/
 
-#fix problem with images/ asciiidoc looks into images not into out/epub/images
-generate_epub:
-	mkdir -p out/epub
-#	cp out/images/*.svg out/epub/images/
-	a2x --format=epub --icons --destination-dir=out/epub $(MAIN).asciidoc
-
 generate_pdf:
 	asciidoc --doctype=book --backend=docbook \
 	  -a"eps_svg=eps" -a icons $(MAIN).asciidoc
@@ -85,6 +79,31 @@ generate_pdf:
 	  dblatex --backend=dvips --fig-path=images/icons \
 	      --pdf --verbose  \
 	      --style=native   --texstyle=docbook $(MAIN).xml
+
+generate_epub_2:
+	mkdir -p out/epub/images/icons
+	cp out/images/*.svg out/epub/images/
+	python ../scripts/a2x_h.py --format=epub --icons  --verbose \
+	  --destination-dir=out/epub $(MAIN).asciidoc
+
+#unfinished
+generate_epub:
+	mkdir -p out/epub/images/icons
+	cp out/images/*.svg out/epub/images/
+
+	asciidoc.py --backend docbook -a "a2x-format=epub" --verbose  \
+    --out-file out/epub/$(MAIN).xml $(MAIN).asciidoc
+
+	rm -rf out/epub/$(MAIN).d
+	mkdir out/epub/$(MAIN).d
+	cp out/epub/$(MAIN).xml out/epub/$(MAIN).d
+
+	cd out/epub/$(MAIN).d ; \
+
+	xsltproc  --stringparam callout.graphics 1 --stringparam navig.graphics 1 \
+    --stringparam admon.textlabel 0 --stringparam admon.graphics 1  \
+    "/usr/local/etc/asciidoc/docbook-xsl/epub.xsl" \
+    "$(MAIN).xml"
 
 generate_images:
 	mkdir -p out/images

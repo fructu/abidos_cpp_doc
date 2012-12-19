@@ -5,3 +5,5 @@
 - create out/web and out/pdf, change make process to do it.
 
 - diagram explaining making process.
+
+- epub support
