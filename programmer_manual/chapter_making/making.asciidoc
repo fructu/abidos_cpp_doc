@@ -104,7 +104,7 @@ generates rules for Makefile:
 
 [NOTE]
 ====
-These scripts are defined forward in this manual.
+These scripts are explained in the next section.
 ====
 
 ==== processor/includes/CMakeLists.txt
@@ -197,7 +197,7 @@ linking process generates src/abidos executable.
 === Other make rules
 
 * test_run that calls tests_run.pl
-  Explained in the testing section
+  Explained in the testing chapter
   indexterm:[tests_run.pl]
 
 * indent_run that calls

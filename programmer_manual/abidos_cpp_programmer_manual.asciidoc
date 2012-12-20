@@ -15,6 +15,7 @@ include::chapter_making/making.asciidoc[]
 include::chapter_loader/loader.asciidoc[]
 include::chapter_architecture/architecture.asciidoc[]
 include::chapter_parsing/parsing.asciidoc[]
+include::chapter_testing/testing.asciidoc[]
 //-------------------------------------------------------------------------------
 //for now the index follows normal numeration
 //:numbered!:

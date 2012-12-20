@@ -1,0 +1,25 @@
+digraph R {
+  size ="2, 4!";
+  fontsize = 6;
+//  rankdir=LR;
+//  node [style=rounded]
+
+  _1_test_run [
+    style="rounded",
+    shape=box,
+    label="scripts/tests_run.pl"
+  ]
+
+  test_folder [
+    shape=folder,
+    label="test/ *.cpp"
+  ]
+
+  test_out[
+    shape=folder,
+    label="test_out/"
+  ]
+
+  /*test_folder -> _1_test_run*/  _1_test_run -> test_folder [dir="back"];
+  _1_test_run-> test_out;
+}

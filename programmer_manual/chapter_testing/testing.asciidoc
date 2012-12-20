@@ -1,0 +1,170 @@
+== Testing Abidos C++
+
+In the making chapter you can see how Abidos C++ is built, is very important 
+that when we are development a new rule, or we are changing some of this rules
+or maybe doing other hacking of the project, we should test that the new patches
+has not introduced new fault.
+indexterm:[test]
+indexterm:[tests_run.pl]
+
+.make test_run
+image::images/chapter_testing_testing_1.{eps_svg}[align="center"]
+
+=== Executing the tests
+
+To run the testing process write this in a console:
+
+----
+cd processor
+make test_run
+----
+
+This command internally invokes the script *scripts/tests_run.pl*; you would
+call this script in a console but is a clumsy way of do it, because you must
+pass it a lot of directories that make do for you.
+
+.example of test_run output
+----
+abidos running suit tests [0.0.06] 
+{
+ executable_with_dir [.../processor/src/abidos]
+ test_dir            [.../processor/test/]
+ test_includes_dir   [.../processor/test_includes/]
+ test_out dir        [.../processor/test_out/]
+ abidos_working_dir  [.../processor/.abidos/]
+ [t001.cpp]-> [OK] [t002.cpp]-> [OK] <1>
+ ....
+  -----------------------------------
+  tests OK 17/17
+  -----------------------------------
+}
+----
+<1> this is the files test executed and her result.
+
+This script generates these files in test_out/ directory:
+
+[width="100%",cols="<,<",frame="topbot",options="header"]
+|===============================================================================
+|File                      | Description
+|out_t<number>.cpp.dot     | UML diagram
+|out_t<number>.cpp         | in the future these file be like the input file
+|out_t<number>.cpp.txt     | Abidos verbose output with Symbols table printed
+|trace_t<number>.cpp.gv    | rules used by Abidos C++
+|===============================================================================
+
+=== Hey wait a moment, testing files are C++ files!
+
+Very clever that is, when Abidos parses a file it use a set of grammar tools
+to do it, when i write a new rule i write a set of cpp testing files to check
+that this rules are working correctly, this means:
+
+
+//
+* UML diagram, Other hand made test is check the UML output of the test that
+the testing process generated, for example to check the diagram of the previous
+file:
+
+----
+xdot_run.py test_out/out_t001.cpp.dot
+----
+
+And you will see this diagram:
+
+.out_t001.cpp.dot
+image::images/chapter_testing_out_t001.cpp.{eps_svg}[align="center"]
+
+//
+* The Symbols table must has all the information that Abidos has parsed, this 
+part until now is hand made you need see the output of the test and studying his
+parts.
+
+In the future this will be check automatically using the generating files like
+test_out/out_t001.cpp, this file is generating from the symbols table, and if
+this file have the same information than the original file the whole process
+is all right. But so far this file has not all the original tokens... yes
+exactly i have other priorities.
+
+For example, for this file *test/t001.cpp*:
+
+----
+class A
+{
+};
+
+class B: public A
+{
+};
+----
+
+You can see his output in *test_out/out_t001.cpp.txt*:
+
+----
+ less test_out/out_t001.cpp.txt
+ ....
+ first[B]/.../t001.cpp:5 \
+  id[258]->[IDENTIFIER] text[B] \
+  type[265]->[CLASS_NAME] \ <1>
+  class_key[300]->[CLASS] 
+    {
+      map_base_class
+      {
+        first[A]->[PUBLIC][A] <2>
+      }
+      map_friend_class
+      {
+        empty
+      }
+      vector_class_member [0]
+      {
+      }
+      map_class_member [0]
+      {
+        empty
+      }
+      free_declarator
+      {
+      }
+    }
+ ....
+----
+
+<1> B token has bee processed with these information, the token is scanned like
+an IDENTIFIER then the parser knows with the help of some rules that this token
+should be a symbol of type=CLASS.
+
+<2> Abidos knows than B is a class therefore Abidos checked if B has fathers
+classes and there is A.
+
+//
+* Abidos generates another useful file for each cpp test file trace tree, in
+this file we can see the rules executes by Abidos.
+indexterm:[trace_graph]
+
+.trace_t001.cpp.gv
+image::images/chapter_testing_trace_t001.cpp.{eps_svg}[align="center"]
+
+[NOTE]
+====
+This tree has been cut by hand in order to fit in the page, i want Abidos can
+do something like this in the future.
+====
+
+* Abidos must consume all the tokens scanned in the test file, when Abidos is
+called from the test_run script *scripts/tests_run.pl* the call is like this:
+
+-----
+  /.../processor/src/abidos \
+    --includes /.../processor/test_includes/ \
+    --out_dir  /.../processor/test_out/ \
+    --test_all_tokens_consumed_flag \ <1>
+    --test_original \
+    --ts_show \
+    --verbose /.../processor/test/book_01.cpp \
+      > /.../processor/test_out/out_book_01.cpp.txt
+-----
+
+<1> If all tokens has been processed and matched
+generates in his output *##ALL_TOKENS_CONSUMED* then the script knows the cpp
+file tested is OK. For this all the tokens in the tested file must bee processed
+successfully in some grammar rules.
+

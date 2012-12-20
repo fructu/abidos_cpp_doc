@@ -1,0 +1,45 @@
+/*
+  abidos 1.0.15_Debug [2012-12-20 13:46:55] 
+*/
+/*
+  this file has been created by abidos
+  F. Manuel Hevia Garcia fructu@gmail.com
+
+  this fontname get conflict if you want generate eps for doc
+*/
+digraph G {
+//        size ="1, 2!";
+/*
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+*/
+        fontsize = 8
+        node [
+//                fontname = "Bitstream Vera Sans"
+//                fontsize = 8
+                shape = "record"
+        ]
+/*
+        edge [
+                fontname = "Bitstream Vera Sans"
+                fontsize = 8
+        ]
+*/
+/* c_generator_class_diagram::classes() */
+  A [
+    URL="A[/home/hevia/working/abidos/processor/test/t001.cpp:1];A[/home/hevia/working/abidos/processor/test/t001.cpp:1];",
+    label="{ A|}"
+  ]
+/* c_generator_class_diagram::classes() */
+  B [
+    URL="B[/home/hevia/working/abidos/processor/test/t001.cpp:5];B[/home/hevia/working/abidos/processor/test/t001.cpp:5];",
+    label="{ B|}"
+  ]
+/* c_generator_class_diagram::inheritance() */
+/* c_generator_class_diagram::friends() */
+/* compositions_aggregations */
+/* c_generator_class_diagram::inheritance() */
+  /*B->A*/  A->B [dir = "back", color = "black", arrowtail = "empty"];
+/* c_generator_class_diagram::friends() */
+/* compositions_aggregations */
+}
