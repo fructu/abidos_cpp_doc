@@ -144,8 +144,8 @@ classes and there is A.
 this file we can see the rules executes by Abidos.
 indexterm:[trace_graph]
 
-.trace_t001.cpp.gv
-image::images/chapter_testing_trace_t001.cpp.{eps_svg}[align="center"]
+.trace_t001.cpp_pruned.gv
+image::images/chapter_testing_trace_t001.cpp_pruned.{eps_svg}[align="center"]
 
 [NOTE]
 ====

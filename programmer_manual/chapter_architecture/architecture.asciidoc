@@ -122,9 +122,14 @@ image::images/chapter_architecture_examples_trace_book_01.cpp.{eps_svg}[align="c
 
 Is a super-set of an *annotated parse tree* we can see the successfully
 branches and the unsuccessfully.
-
 indexterm:[annotated parse tree]
 indexterm:[c_trace_node]
+
+If you wan see the *annotated parse tree* without only the successfully branches
+you can open the *_pruned* version like this:
+
+.trace tree pruned example
+image::images/chapter_architecture_examples_trace_book_01.cpp_pruned.{eps_svg}[align="center"]
 
 Nodes begin with _<number>_: is the order in which abidos have processed it.
 
@@ -144,7 +149,7 @@ terminal rules too, perimeter line of nodes have these meanings:
 1) dotted in this nodes the terminals not matched, for example in:
 ----
       _13_template_declaration
-      [int is not TEMPLATE] <1>
+      int is not TEMPLATE <1>
 ----
 <1> Abidos was trying to match "int" with the reserved word "TEMPLATE".
 indexterm:[dotted]
@@ -153,7 +158,7 @@ indexterm:[dotted]
 2) green line: in this nodes some terminals matched, for example in:
 ----
       _15_simple_declaration
-      [; is ;] <1>
+      ; is ; <1>
 ----
 <1> Abidos was trying to match ";" with ";" and it matched.
 indexterm:[green]
