@@ -43,13 +43,17 @@ abidos running suit tests [0.0.06]
 
 This script generates these files in test_out/ directory:
 
-[width="100%",cols="<,<",frame="topbot",options="header"]
+[width="100%",cols="<,<",frame="topbot",options="header", grid="none"]
 |===============================================================================
-|File                      | Description
-|out_t<number>.cpp.dot     | UML diagram
-|out_t<number>.cpp         | in the future these file be like the input file
+|File                  | Description
+|out_t<number>.cpp.dot | UML diagram
+|out_t<number>.cpp     | in the future these file will be like the input file
 |out_t<number>.cpp.txt     | Abidos verbose output with Symbols table printed
-|trace_t<number>.cpp.gv    | rules used by Abidos C++
+|trace_t<number>.cpp.gv    | tree with the rules used by Abidos C++
+|trace_t<number>.cpp_urls_pruned.gv | tree with rules and *click & go*
+|prune.log               | show how many nodes have been cut in
+                           the prune process
+|test_out.log            | show all Abidos calls with his parameters
 |===============================================================================
 
 === Hey wait a moment, testing files are C++ files!
@@ -145,9 +149,12 @@ image::images/chapter_testing_trace_t001.cpp.{eps_svg}[align="center"]
 
 [NOTE]
 ====
-This tree has been cut by hand in order to fit in the page, i want Abidos can
-do something like this in the future.
+This tree is generates by Abidos C++ making process in *test_out/* when the
+make test_run is executed like this file *trace_t001.cpp_pruned.gv*, and this
+work is do by *scripts/trace_prune.pl*.
 ====
+indexterm:[trace_prune.pl]
+
 
 * Abidos must consume all the tokens scanned in the test file, when Abidos is
 called from the test_run script *scripts/tests_run.pl* the call is like this:
