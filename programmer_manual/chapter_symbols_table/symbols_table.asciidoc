@@ -1,0 +1,37 @@
+== Symbols table
+
+When Abidos are parsing a source C++ file; lexical analyzer give to syntactic
+analyzer all the tokens founded in the source file, some of this tokens
+are saved in the table symbols.
+
+.c_symbols_table UML diagram 1
+image::images/chapter_symbols_table_c_symbols_table_uml_01.{eps_svg}[align="center"]
+
+.c_symbols_table c_declarator UML diagram 2
+image::images/chapter_symbols_table_c_declarator_table_uml_01.{eps_svg}[align="center"]
+
+Example
+----
+int a; <1>
+----
+
+<1> there are 3 tokens here: "int", "a" and ";"
+
+Abidos when process this 3 tokens knows "a" is a variable and his type is "int"
+one.
+
+These identifiers are stored in a map
+
+//## explain how c_token is transformed to a c_symbol
+
+In computer programming, a scope is the context within a program in
+which a variable name or other identifier is valid and can be used,
+or within which a declaration has effect.
+
+=== Saving context
+
+Abidos uses c_context_tokens to store in which token has being parsing in the
+begin of a syntactic rule.
+
+c_context_tokens context_tokens(context);
+indexterm:[context]

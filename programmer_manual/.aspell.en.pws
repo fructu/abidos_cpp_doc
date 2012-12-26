@@ -2,8 +2,8 @@ personal_ws-1.1 en 97
 Makefile
 py
 refactoring
-preanalisys
 aspell
+preanalisys
 resize
 CMakeLists
 yyparser
@@ -88,8 +88,8 @@ README
 uml
 docbook
 lang
-cmake
 CMake
+cmake
 LALR
 toolchain
 workspaces

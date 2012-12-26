@@ -1,0 +1,48 @@
+digraph R {
+  size ="4, 6!";
+  fontsize = 6;
+//  rankdir=LR;
+//  node [style=rounded]
+
+  loader [
+    shape="component",
+    label="loader"
+  ]
+
+  lexical_analyzer [
+    shape="component",
+    label="lexical analyzer"
+  ]
+
+  syntactic_analyzer [
+    shape="component",
+    label="syntactic analyzer"
+  ]
+
+  semantic_analyzer [
+    shape="component",
+    label="semantic analyzer"
+  ]
+
+  symbols_table [
+    shape="component",
+    label="semantic analyzer"
+  ]
+
+  generators [
+    shape="component",
+    label="generators: UML, original code"
+  ]
+
+  trace_system [
+    shape=component,
+    label="trace system"
+  ]
+
+   loader->lexical_analyzer;
+   lexical_analyzer->syntactic_analyzer;
+   syntactic_analyzer->semantic_analyzer;
+   semantic_analyzer->symbols_table;
+   symbols_table->generators;
+   syntactic_analyzer->trace_system;
+}
