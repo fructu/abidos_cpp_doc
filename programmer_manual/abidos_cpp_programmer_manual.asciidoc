@@ -16,8 +16,9 @@ include::chapter_architecture/architecture.asciidoc[]
 include::chapter_loader/loader.asciidoc[]
 include::chapter_lexer/lexer.asciidoc[]
 include::chapter_parsing/parsing.asciidoc[]
-include::chapter_symbols_table/chapter_symbols_table.asciidoc[]
 include::chapter_trace/trace.asciidoc[]
+include::chapter_context/context.asciidoc[]
+include::chapter_symbols_table/symbols_table.asciidoc[]
 include::chapter_testing/testing.asciidoc[]
 //-------------------------------------------------------------------------------
 //for now the index follows normal numeration

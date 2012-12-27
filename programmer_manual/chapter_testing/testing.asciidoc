@@ -23,6 +23,7 @@ This command internally invokes the script *scripts/tests_run.pl*; you would
 call this script in a console but is a clumsy way of do it, because you must
 pass it a lot of directories that make do for you.
 
+[[test_run_output]]
 .example of test_run output
 ----
 abidos running suit tests [0.0.06] 
@@ -51,9 +52,9 @@ This script generates these files in test_out/ directory:
 |out_t<number>.cpp.txt     | Abidos verbose output with Symbols table printed
 |trace_t<number>.cpp.gv    | tree with the rules used by Abidos C++
 |trace_t<number>.cpp_urls_pruned.gv | tree with rules and *click & go*
-|prune.log               | show how many nodes have been cut in
+|prune.log               | shows how many nodes have been cut in
                            the prune process
-|test_out.log            | show all Abidos calls with his parameters
+|test_out.log            | shows all Abidos calls with his parameters
 |===============================================================================
 
 === Hey wait a moment, testing files are C++ files!
@@ -64,7 +65,7 @@ that this rules are working correctly, this means:
 
 
 //
-* UML diagram, Other hand made test is check the UML output of the test that
+* UML diagram, it is a hand made test; check the UML output of the test that
 the testing process generated, for example to check the diagram of the previous
 file:
 
@@ -88,7 +89,8 @@ this file have the same information than the original file the whole process
 is all right. But so far this file has not all the original tokens... yes
 exactly i have other priorities.
 
-For example, for this file *test/t001.cpp*:
+For now we can see the information gathered in the symbols table, for example in
+this file *test/t001.cpp*:
 
 ----
 class A
@@ -147,14 +149,19 @@ indexterm:[trace_graph]
 .trace_t001.cpp_pruned.gv
 image::images/chapter_testing_trace_t001.cpp_pruned.{eps_svg}[align="center"]
 
+This tree is generates by Abidos C++ making process in *test_out/* when the
+make test_run is executed.
+
+One example is *test_out/trace_t001.cpp_pruned.gv*, you can read more about this
+in the chapter trace, trace component is the part of Abidos that generates
+annotated parse trees.
+
 [NOTE]
 ====
-This tree is generates by Abidos C++ making process in *test_out/* when the
-make test_run is executed like this file *trace_t001.cpp_pruned.gv*, and this
-work is do by *scripts/trace_prune.pl*.
+You can see the version without pruning if you need more detailed history of the
+syntactic rules used in the cpp file, just open *test_out/trace_t001.cpp.gv*.
 ====
-indexterm:[trace_prune.pl]
-
+indexterm:[annotated parse tree]
 
 * Abidos must consume all the tokens scanned in the test file, when Abidos is
 called from the test_run script *scripts/tests_run.pl* the call is like this:
@@ -174,4 +181,7 @@ called from the test_run script *scripts/tests_run.pl* the call is like this:
 generates in his output *##ALL_TOKENS_CONSUMED* then the script knows the cpp
 file tested is OK. For this all the tokens in the tested file must bee processed
 successfully in some grammar rules.
+
+This is the only automated test you can see it in the begin of this chapter
+figure <<test_run_output,test run output>>
 

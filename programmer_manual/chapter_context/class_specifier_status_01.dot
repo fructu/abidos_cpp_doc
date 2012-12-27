@@ -1,0 +1,20 @@
+digraph finite_state_machine {
+//	rankdir=LR;
+//	size="6,10!";
+//	size="8,14!";
+	node [shape = box, style=rounded];
+
+	S [label="", shape = doublecircle];
+
+  S->NO_CLASS_STATUS;
+  NO_CLASS_STATUS -> STATUS_IDENTIFIER;
+  STATUS_IDENTIFIER        -> STATUS_BASE_DECLARATION   [label ="class_head"];
+  STATUS_BASE_DECLARATION  -> STATUS_MEMBER_SPECIFIER   [label ="member_declaration"];
+  STATUS_MEMBER_SPECIFIER  -> STATUS_MEMBER_DECLARATOR  [label ="member_declaration"];
+  STATUS_MEMBER_DECLARATOR -> STATUS_MEMBER_SPECIFIER   [label ="member_declaration"];
+  STATUS_BASE_DECLARATION  -> STATUS_FRIEND_DECLARATOR  [label ="friend_specifier"];
+  STATUS_MEMBER_SPECIFIER  -> STATUS_FRIEND_DECLARATOR  [label ="friend_specifier"];
+  STATUS_MEMBER_SPECIFIER  -> STATUS_MEMBER_DECLARATOR  [label ="function_definition"];
+  STATUS_FRIEND_DECLARATOR -> STATUS_MEMBER_SPECIFIER   [label ="member_declaration"];
+  STATUS_MEMBER_DECLARATOR -> NO_CLASS_STATUS           [label ="class_specifier"];
+}

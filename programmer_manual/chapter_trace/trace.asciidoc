@@ -12,7 +12,7 @@ int c_parser_descent::extern_c(c_trace_node trace_node)
 }
 ----
 
-<1> that is how trace system knows what rule has being called.
+<1> that is how trace system knows what rule has been called.
 
 c_trace_graph trace_graph
 indexterm:[c_trace_node]

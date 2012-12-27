@@ -1,0 +1,136 @@
+== Context
+[[context]]
+
+Now you had a quick look about how parser works and you know about trace system,
+we can understand *Context* that is a very important part of Abidos, in order
+to know the need of Context lets see some things Abidos needs to know when
+he is parsing a C++ project.
+
+.test/book_02.cpp
+----
+int a1; <1>
+
+class A
+{
+	int a2; <2>
+};
+----
+indexterm:[context]
+
+<1> here a1 is a free variable declaration.
+
+<2> a2 is a member variable of A class.
+
+When Abidos enters in a Class Scope he has to know that he is inside of a Class
+in all rules executed in that class, in the previous example How do Abidos know
+*a2* is a member of *A class* ?
+
+To answers this question first take a look of the *annotated parse tree* for
+this example.
+
+We can see the *annotated parse tree* writing in a console:
+----
+make test_run
+xdot_run.py test_out/trace_book_02.cpp_urls_pruned.gv
+----
+
+indexterm:[annotated parse tree]
+
+You will see a tree like this:
+
+.trace_book_02.cpp_urls_pruned
+image::images/chapter_context_trace_book_02.cpp_urls_pruned.{eps_svg}[align="center"]
+
+* How Abidos parses *A*
+When Abidos enters in *_71_class_specifier* the context set the next value:
+
+----
+int c_parser_descent::class_specifier(c_trace_node trace_node)
+{
+  ...
+  context.class_specifier_status = CLASS_SPECIFIER_STATUS_IDENTIFIER; <1>
+  ...
+}
+----
+
+<1> with this line Abidos knows he are inside of a Class scope.
+
+Later in the rule *_75_identifier* Abidos parses *A* identifier and calls
+
+----
+int c_parser_descent::identifier(c_trace_node trace_node)
+{
+  ...
+  semantic.identifier(context, c_token_get());
+  ...
+}
+----
+
+Semantic process it:
+
+----
+void c_semantic::identifier(c_context & context, c_token token)
+{
+    ...
+    if (CLASS_SPECIFIER_STATUS_IDENTIFIER ==
+            context.class_specifier_status) {
+        class_specifier_identifier(context, token); <1>
+    }
+    ...    
+}
+----
+
+<1> by the *context* knows *A* is the name of a Class.
+
+[NOTE]
+====
+context is a glue to join the knowledge of parser and semantic.
+====
+
+* When Abidos parses *a2* 
+
+first in _101_member_declaration context set:
+
+----
+int c_parser_descent::member_declaration(c_trace_node trace_node)
+{
+    ...
+    context.class_specifier_status =
+        CLASS_SPECIFIER_STATUS_MEMBER_SPECIFIER;
+    ...
+    decl_specifier_seq_opt(trace_node); <1>
+    ...
+    context.class_specifier_status =
+        CLASS_SPECIFIER_STATUS_MEMBER_DECLARATOR; <2>
+    ...    
+}        
+----
+
+<1> this rule is to process the *int* token.
+
+<2> this state will be use by semantic.
+
+
+and when Abidos uses _109_identifier and this rule calls *semantic::identifier*:
+
+----
+    ...
+    if (CLASS_SPECIFIER_STATUS_MEMBER_DECLARATOR ==
+            context.class_specifier_status) {
+    ...
+            class_member_declarator(context, token); <1>
+    ...
+----
+
+<1> semantic process *a2* like a member.
+
+*A* and *a2* has been processed by the same rule *c_parser_descent::identifier*
+but the context is the key for semantic can do his work, and put *A* like a
+class in the symbols table and *a2* like a a member of *A*.
+
+In this state machine we can see the states and the syntactic rules that change
+the states:
+
+.state machine
+image::images/chapter_context_class_specifier_status_01.{eps_svg}[align="center"]
+

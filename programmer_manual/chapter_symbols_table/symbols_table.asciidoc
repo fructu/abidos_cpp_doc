@@ -35,3 +35,7 @@ begin of a syntactic rule.
 
 c_context_tokens context_tokens(context);
 indexterm:[context]
+
+You can read more about context in <<context, Chapter context>>.
+
+

@@ -24,17 +24,34 @@ indexterm:[syntactic]
 in symbols table.
 indexterm:[semantic]
 
-* symbols table
+* symbols table: Stores information about Classes, Structures ... this
+information is used by parser and generators.
 indexterm:[symbols]
 
-* generators
+* generators: Traverses the information of symbols table and generates an
+output:
 indexterm:[generators]
 
-** uml diagrams
-** original code
+** UML diagrams: The output are dot files *.abidos/files_output.dot*
 
-* trace system
+** original code: This generator tries to generate the same input cpp file
+for example *test/t001.cpp* -> *test_out/out_t001.cpp*
 
-* dot viewer
+* trace system: When the parser is working send to trace system information
+about what rules has been used, when the parser finishes his work, trace system
+generates trace output with *annotated parse trees*.
+indexterm:[annotated parse trees]
+
+
+* dot viewer: used to see the dot output of Abidos examples:
 indexterm:[dot viewer]
+----
+xdot_run.py .abidos/files_output.dot <1>
+xdot_run.py test_out/trace_t031_01.cpp_urls_pruned.gv <2>
+----
+
+<1> This is the standard output of Abidos to see the UML diagram generated.
+
+<2> Parser annotated tree of the test file tests/t031_01.cpp.
+
 

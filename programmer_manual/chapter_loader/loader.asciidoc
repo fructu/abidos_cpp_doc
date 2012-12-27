@@ -1,4 +1,5 @@
 == Loader
+[[loader]]
 indexterm:[loader]
 
 Yo have seen in the user manual that abidos needs to be loaded with 2 options:

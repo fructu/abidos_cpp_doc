@@ -1,0 +1,17 @@
+digraph stack_01 {
+	rankdir=LR;
+	size="6,10!";
+
+	node [shape = record];
+
+  s1 [label=" f1.cpp"];
+  s2 [label=" <f2>f2.h|f1.cpp"];
+  s3 [label=" <f3>f3.h|f2.h|f1.cpp"];
+  s4 [label=" <f2>f2.h|f1.cpp"];
+  s5 [label=" f1.cpp"];
+
+  s1    -> s2:f2 [label ="#include \"f2.h\""];
+  s2:f2 -> s3:f3 [label ="#include \"f3.h\""];
+  s3:f3 -> s4:f2 [label ="eof \"f3.h\""];
+  s4:f2 -> s5    [label ="eof \"f2.h\""];
+}
