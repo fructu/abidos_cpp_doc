@@ -27,8 +27,10 @@ all:	check_grammar\
 
 clean:
 	rm -rf out/*
+	rm -f  .aspell.en.pws	
 
 check_grammar:
+	cp white_list.txt .aspell.en.pws
 	find . -name "*.asciidoc" -exec aspell -l "en_EN" --personal=./.aspell.en.pws -c {} \;
 	find . -name "*.asciidoc" -exec echo "  aspell processed:" {} \;	
 

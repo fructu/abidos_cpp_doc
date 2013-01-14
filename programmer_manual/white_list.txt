@@ -1,4 +1,4 @@
-personal_ws-1.1 en 98 
+personal_ws-1.1 en
 backends
 docbook
 yacc
@@ -97,3 +97,4 @@ yyparse
 por
 decl
 aspell
+pdftk

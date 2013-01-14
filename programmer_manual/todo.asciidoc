@@ -7,3 +7,8 @@
 - diagram explaining making process.
 
 - epub support
+
+- now pdftk is used to join cover, this fix bad anchors in toc and index
+
+- .aspell.en.pws is generated from white_list.txt to avoid undesired changes in
+this file.

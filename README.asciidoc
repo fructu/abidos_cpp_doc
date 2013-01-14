@@ -195,3 +195,6 @@ wkhtmltopdf-amd64 cover.html cover.pdf
 make generate_cover
 ----
 
+
+- pdftk to join pdf documents:
+  sudo apt-get install pdftk

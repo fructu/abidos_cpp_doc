@@ -27,8 +27,10 @@ all:	check_grammar\
 
 clean:
 	rm -rf out/*
+	rm -f  .aspell.en.pws
 
 check_grammar:
+	cp white_list.txt .aspell.en.pws
 	find .. -name "*.asciidoc" -exec aspell -l "en_EN" \
 	  --personal=./.aspell.en.pws -c {} \;
 	find .. -name "*.asciidoc" -exec echo "  aspell processed:" {} \;
@@ -112,10 +114,17 @@ generate_images:
 
 generate_cover:
 	wkhtmltopdf-amd64 cover/cover.html out/pdf/cover.pdf
-	gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite \
-	  -sOutputFile=out/pdf/$(MAIN)_cover.pdf \
-	  out/pdf/cover.pdf \
-	  out/pdf/$(MAIN).pdf
+#
+# when the cover is join with gs
+# the links in Toc and Index are bad they refers to the previous pages
+# pdftk do a good job with that, but the output is bigger.
+#
+#	gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite \
+#	  -sOutputFile=out/pdf/$(MAIN)_cover.pdf \
+#	  out/pdf/cover.pdf \
+#	  out/pdf/$(MAIN).pdf
+	pdftk out/pdf/cover.pdf out/pdf/$(MAIN).pdf \
+				cat output out/pdf/$(MAIN)_cover.pdf
 
 #-------------------------------------------------------------------------------
 
