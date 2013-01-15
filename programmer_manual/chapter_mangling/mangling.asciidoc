@@ -1,0 +1,246 @@
+== Mangling
+indexterm:[mangling]
+
+In order to store the symbols Abidos C++ uses 2 different ways to set
+the relations between them.
+
+=== Composite
+
+Is used inside of classes lets see it with an example:
+
+[code, c]
+.test/book_03.cpp
+----
+class A {
+  int a1;
+  int a2;
+};
+----
+
+The symbols table at the end of his execution has:
+
+.test_out/out_book_03.cpp.txt
+----
+c_symbols_table::print
+{
+  stack level[0]
+  {
+    first[A]\
+      /.../abidos/processor/test/book_03.cpp:4 \
+      id[258]->[IDENTIFIER] text[A] type[265]->[CLASS_NAME] \
+      class_key[300]->[CLASS]
+    {
+      map_base_class
+      {
+        empty
+      }
+      map_friend_class
+      {
+        empty
+      }
+      vector_class_member [2] <1>
+      {
+       [int] [a1] 
+       [int] [a2] 
+      }
+      map_class_member [2] <2>
+      {
+       [PRIVATE]: [int] first[a1]->[a1]
+       [PRIVATE]: [int] first[a2]->[a2]
+      }
+      free_declarator
+      {
+      }
+    }
+  }
+}
+----
+
+<1> c_class_members has vector_class_member to show the members of a class in 
+the same order than has been founded in the parsing of their class.
+    
+<2> c_class_members has map_class_member too, to do search of this symbols
+faster than in the previous vector.
+
+We can see a diagram of how is that table of symbols when the example has been
+parsed.
+
+.Object diagram when book_03.cpp has been parsed
+image::images/chapter_mangling_object_diagram_01.{eps_svg}[align="center"]
+
+Symbols table has a stack to deal the scope of the symbols for example:
+
+[code, c]
+-----
+int i; <1>
+
+void f1(void)
+{
+  int a1; <2>
+};
+
+void f2(void)
+{
+  int b1; <3>
+
+  ++i;
+};
+-----
+
+<1> this is the lowest level of the stack.
+
+<2> in this level we can see *int i* and *int a1*.
+
+<3> this level is the same level than the previous level but when f1
+has been parsed the level can be deleted and there is not a1 token anymore, but
+from this level we can reach *i*.
+
+A stack is the easy way used by compilers to deal with scopes.
+
+But when we are deal with declarations of classes 
+
+[code, c]
+.test/book_04.cpp
+-----
+int i;
+
+class A
+{
+  int a1; 
+};
+
+class B
+{
+  int b1; 
+  void bf(void){
+    A a; <1>
+  }
+};
+-----
+
+<1> *i*,*A* and *B* are in the same level of scope, inside of A we are in a inner
+scope saved in the members vector of the *A* symbol we can not lose this
+information when the declaration has been finished because can happens like this
+and we need check what is A and if A contains a1.
+
+//
+[NOTE]
+====
+we can dispose the scope inside of a function implementation when its scope
+finished because we do not need this information more but we can not dispose the
+information of the scope inside of a class therefore deleting scopes only is
+when we are parsing functions.
+====
+
+=== Mangling classes
+
+When abidos C++ has to deal with inner classes or classes inside of name spaces
+would can use a composite too. But do not use it.
+
+----
+class A {
+  int a1;
+  class B{
+    int b1;
+  }
+};
+----
+
+The symbols table at the end of his execution has:
+
+.test_out/out_book_04.cpp.txt
+----
+c_symbols_table::print
+{
+  stack level[0]
+  {
+    first[A]/.../abidos/processor/test/book_04.cpp:4 \
+      id[258]->[IDENTIFIER] text[A] type[265]->[CLASS_NAME] \
+      class_key[300]->[CLASS]
+    {
+      ...
+      vector_class_member [1]
+      {
+       [int] [a1]
+      }
+      map_class_member [1]
+      {
+       [PRIVATE]: [int] first[a1]->[a1]
+      }
+      ...
+    }
+    first[A::B]/.../abidos/processor/test/book_04.cpp:6 \
+      id[258]->[IDENTIFIER] text[A::B] type[265]->[CLASS_NAME] \ <1>
+      class_key[300]->[CLASS]
+    {
+      ...
+      vector_class_member [1]
+      {
+       [int] [b1]
+      }
+      map_class_member [1]
+      {
+       [PRIVATE]: [int] first[b1]->[b1]
+      }
+      ...
+    }
+  }
+
+----
+
+<1> Here we can see the trick *B* is saved like *A::B*.
+
+With this mangling technique Abidos C++ does not need a composite system to
+store inner classes and the processes of store and retrieve that information
+from the symbols table is more straight.
+
+=== Mangling functions
+
+In C++ you can have 2 function like this:
+
+[code, c]
+.test/book_05.cpp
+----
+int f1(void);
+int f1(int a);
+----
+
+This overload functions need something more than *f1* to identified each one,
+lets go to see how Abidos do it.
+
+----
+c_symbols_table::print
+{
+  stack level[0]
+  {
+    first[f1(int)]/.../abidos/processor/test/book_05.cpp:5 \ <1>
+    id[258]->[IDENTIFIER] text[f1] type[0]->[0 UNDEFINED] \
+    class_key[0]->[0 UNDEFINED]
+    {
+      ...
+      free_declarator
+      {
+       [int] [f1]( [int] [a])
+      }
+    }
+    first[f1(void)]/.../abidos/processor/test/book_05.cpp:4 \ <2>
+    id[258]->[IDENTIFIER] text[f1] type[0]->[0 UNDEFINED] \
+    class_key[0]->[0 UNDEFINED]
+    {
+      ...
+      free_declarator
+      {
+       [int] [f1]( [void] [void])
+      }
+    }
+  }
+}
+----
+
+<1> the name mangled of the first function is *f1(int)*
+
+<2> the name mangled of the second function is *f1(void)*
+
+I think this is a easy form to understand what is each symbol you see the ()
+and you know that is a function.
+

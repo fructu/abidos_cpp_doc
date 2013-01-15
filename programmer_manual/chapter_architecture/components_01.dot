@@ -26,7 +26,7 @@ digraph R {
 
   symbols_table [
     shape="component",
-    label="semantic analyzer"
+    label="symbols table"
   ]
 
   generators [

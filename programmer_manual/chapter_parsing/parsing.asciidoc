@@ -41,7 +41,9 @@ states in the backtracking process.
 
 === Debugging Abidos
 
-In order to see how Abidos works we will use gdb to trace an Abidos execution.
+In order to see how Abidos works we will use gdb to trace an Abidos execution,
+in this session i introduce you some topic that will be explained more deeply
+in next chapters: context, translation rules from bison to descent form ...
 
 Abidos have an X file, it is used for debugging purpose with gdb:
 

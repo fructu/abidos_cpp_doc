@@ -1,0 +1,18 @@
+digraph stack_01 {
+//	rankdir=LR;
+	size="2,3!";
+
+	node [shape = record];
+
+  ts [label="symbols_table"];
+
+  stack [label="stack_symbols| level 0 | level 1"];
+  t_symbols [label="A: c_symbol|..."];
+
+  A [label="a1|a2"];
+
+  ts->stack        [label=""  , dir = "back", color = "gray", arrowtail = "diamond"];
+  stack->t_symbols [label="t_symbols=" , dir = "back", color = "gray", arrowtail = "diamond"];
+  t_symbols->A     [label="members="   , dir = "back", color = "gray", arrowtail = "diamond"];
+}
+

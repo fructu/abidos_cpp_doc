@@ -145,7 +145,7 @@ generate_begin_graph.cpp is put here but in the future i want to put the output
 files of flex, bison ... but for the moment i have other priorities.
 
 ** test_out the output of the *make test_run* the files generates in this
-directory are explained forward in the testing section.
+directory are explained forward in the testing chapter.
 
 ** .abidos this directory has the files input and output of Abidos C++ :
 
