@@ -65,7 +65,7 @@ faster than in the previous vector.
 We can see a diagram of how is that table of symbols when the example has been
 parsed.
 
-.Object diagram when book_03.cpp has been parsed
+.Object diagram when book_03.cpp has been parsed (this is an approximation)
 image::images/chapter_mangling_object_diagram_01.{eps_svg}[align="center"]
 
 Symbols table has a stack to deal the scope of the symbols for example:
@@ -118,8 +118,8 @@ class B
 };
 -----
 
-<1> *i*,*A* and *B* are in the same level of scope, inside of A we are in a inner
-scope saved in the members vector of the *A* symbol we can not lose this
+<1> *i*,*A* and *B* are in the same level of scope, inside of A we are in a
+inner scope saved in the members vector of the *A* symbol we can not lose this
 information when the declaration has been finished because can happens like this
 and we need check what is A and if A contains a1.
 
@@ -241,6 +241,6 @@ c_symbols_table::print
 
 <2> the name mangled of the second function is *f1(void)*
 
-I think this is a easy form to understand what is each symbol you see the ()
-and you know that is a function.
+I think this is a easy form to understand what is each symbol, you see the ()
+and you know that symbol is a function.
 

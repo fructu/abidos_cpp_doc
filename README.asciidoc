@@ -21,6 +21,10 @@ https://github.com/fructu/abidos
 == useful commands:
 
 ----
+make clean; make; okular out/pdf/abidos_cpp_programmer_manual_cover.pdf
+----
+
+----
 aspell --lang "en_EN" --personal=./.aspell.en.pws --check abidos_cpp.txt
 aspell --lang "en_EN" --personal=./.aspelgel.en.pws --check README.txt
 ----

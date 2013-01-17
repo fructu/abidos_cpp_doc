@@ -98,3 +98,13 @@ por
 decl
 aspell
 pdftk
+okular
+ptr
+cv
+TYPEDEF
+typedef
+INLINE
+enum
+endif
+typename
+pre

@@ -4,15 +4,15 @@ digraph stack_01 {
 
 	node [shape = record];
 
-  ts [label="symbols_table"];
+  ts [label="{ts: symbols_table | <ts_stack>stack = }"];
 
-  stack [label="stack_symbols| level 0 | level 1"];
+  stack_value [label="{... | level 1 | <stack_level_0> level 0 }"];
   t_symbols [label="A: c_symbol|..."];
 
   A [label="a1|a2"];
 
-  ts->stack        [label=""  , dir = "back", color = "gray", arrowtail = "diamond"];
-  stack->t_symbols [label="t_symbols=" , dir = "back", color = "gray", arrowtail = "diamond"];
-  t_symbols->A     [label="members="   , dir = "back", color = "gray", arrowtail = "diamond"];
+  ts:ts_stack->stack_value [label=""  , dir = "back", color = "gray", arrowtail = "diamond"];
+  stack_value:stack_level_0->t_symbols [label="t_symbols\<vector\>-\>\<map\>=" , dir = "back", color = "gray", arrowtail = "diamond"];
+  t_symbols->A [label="members="   , dir = "back", color = "gray", arrowtail = "diamond"];
 }
 

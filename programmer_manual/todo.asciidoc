@@ -12,3 +12,5 @@
 
 - .aspell.en.pws is generated from white_list.txt to avoid undesired changes in
 this file.
+
+- table with: functionality, file test, some important rules tested.

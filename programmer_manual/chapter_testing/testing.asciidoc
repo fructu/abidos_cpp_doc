@@ -44,6 +44,7 @@ abidos running suit tests [0.0.06]
 
 This script generates these files in test_out/ directory:
 
+.test_out files
 [width="100%",cols="<,<",frame="topbot",options="header", grid="none"]
 |===============================================================================
 |File                  | Description
@@ -184,4 +185,167 @@ successfully in some grammar rules.
 
 This is the only automated test you can see it in the begin of this chapter
 figure <<test_run_output,test run output>>
+
+=== Test files and what they testing
+
+When Abidos C++ grows some new rules are wrote then some new test files are
+rotten in order to test this new functionality and to preserve that this
+new functionality is not broken in the future due to the introduction of more
+rules or changes did in other rules, will see a useful catalog about
+functionality and what test files use it.
+
+[NOTE]
+====
+test files are in abidos/processor/test directory
+====
+
+.test files rules used
+[width="70%",cols="s,^m,e",frame="topbot",options="header"]
+|====
+
+|functionality | file test | some important rules tested
+
+|abstract class | t044.cpp | direct_declarator
+indexterm:[abstract class]
+
+|array | t046.cpp | consume_array_brackets
+indexterm:[array]
+
+|class access specifier | t010.cpp, t032.cpp | access_specifier
+(PRIVATE, PROTECTED, PUBLIC)
+indexterm:[access_specifier, PRIVATE, PROTECTED, PUBLIC]
+
+|class declaration | t001.cpp, t002.cpp and almost all test files |
+class_specifier
+indexterm:[class_specifier]
+
+|class simple inheritance| t001.cpp, t002.cpp | base_clause_opt, base_clause
+indexterm:[simple inheritance, inheritance simple]
+indexterm:[base_clause]
+
+|class multiple inheritance | t002.cpp, t003.cpp | base_clause_opt, base_clause
+indexterm:[multiple inheritance, inheritance multiple]
+
+|constructor | t014.cpp, t030.cpp | function_definition, decl_specifier, type_specifier,
+nested_name_specifier
+indexterm:[constructor, nested_name_specifier]
+indexterm:[function_definition]
+indexterm:[type_specifier]
+
+|compositions & aggregations | t023.cpp |
+indexterm:[aggregations]
+indexterm:[compositions]
+
+|cv_qualifier | t026.cpp | decl_specifier, cv_qualifier
+indexterm:[cv_qualifier]
+
+|decl specifier  FRIEND| t022.cpp, t024.cpp, t027.cpp | decl_specifier
+(FRIEND, TYPEDEF)
+indexterm:[FRIEND]
+indexterm:[TYPEDEF,typedef]
+
+|default parameters values | t045.cpp | parameter_declaration
+indexterm:[default parameters values]
+
+|destructor | t015.cpp, t030.cpp | function_definition, direct_declarator, unqualified_id
+indexterm:[destructor, unqualified_id]
+indexterm:[unqualified_id]
+
+|enum | t039.cpp | enum_specifier, enum_name
+indexterm:[enum, enum_specifier, enum_name]
+
+|extern | t046.cpp | extern
+indexterm:[extern]
+
+|extern_c | t042.cpp | extern_c
+indexterm:[extern_c]
+
+|free declarator | t004.cpp | declarator, member_declaration
+indexterm:[declarator]
+indexterm:[member_declaration]
+
+|free declarator multiples decl | t008.cpp |decl_specifier_seq
+indexterm:[decl multiples]
+
+|free declarator multiples declarator | t008.cpp |decl_specifier_seq
+indexterm:[declarator multiples]
+
+|free function body | t011.cpp | function_definition, function_body
+indexterm:[free function, function free]
+indexterm:[function_body]
+
+|function specifier | t021.cpp | function_specifier (INLINE, VIRTUAL, EXPLICIT)
+indexterm:[function_specifier, INLINE, VIRTUAL, EXPLICIT]
+
+|namespace | t037.cpp, t038.cpp | original_namespace_definition,
+named_namespace_definition
+indexterm:[namespace]
+
+|namespace using| t046.cpp | using_directive
+indexterm:[namespace, using_directive]
+
+|default parameters values | t045.cpp | parameter_declaration
+indexterm:[default parameters values]
+
+|mangling class names | t028.cpp, t031.cpp |  class_name, nested_name_specifier
+indexterm:[mangling]
+indexterm:[nested_name_specifier]
+
+|member variable declarator | t004.cpp, t006.cpp | member_declaration
+
+|member function declarator | t005.cpp | member_declaration
+
+|member function definition inside | t012.cpp | member_declaration,
+function_definition, function_body
+
+|member function definition inside with dummy body | t013.cpp |
+member_declaration, function_definition, function_body
+
+|member function definition outside  | t007.cpp, t016.cpp, t017.cpp, t018.cpp,
+t029.cpp | member_declaration, function_definition, function_body
+
+|parameter declaration | t006.cpp | parameter_declaration
+indexterm:[parameter_declaration]
+
+|parameter declaration multiples decl | t009.cpp | parameter_declaration,
+decl_specifier
+
+|parameter ellipsis | t007.cpp | ELLIPSIS_opt (...)
+indexterm:[ELLIPSIS]
+
+|pointer operator| t018.cpp | ptr_operator (*,&)
+indexterm:[pointer]
+
+|pre-declaration | t044.cpp |
+indexterm:[pre-declaration]
+
+|preprocessor include | t034.cpp | preprocessor_include
+indexterm:[preprocessor, include]
+
+|preprocessor | t040.cpp | #ifndef, #define, #endif
+indexterm:[preprocessor, ifndef, define, endif]
+
+|overloading operators | t045.cpp | operator_function_id, _operator
+indexterm:[overloading operators, operator_function_id, _operator]
+
+|static outside initialization | t043.cpp | storage_class_specifier,
+init_declarator
+
+|storage class specifier | t020.cpp | storage_class_specifier (AUTO, REGISTER,
+STATIC, EXTERN, MUTABLE)
+indexterm:[storage_class_specifier, AUTO, REGISTER, STATIC, EXTERN, MUTABLE]
+
+|struct alignment | t046.cpp | direct_declarator
+indexterm:[alignment]
+
+|using class like a type | t025.cpp | decl_specifier, type_name
+indexterm:[typename]
+
+|template declaration | t035.cpp, t038.cpp | template_declaration, template_parameter
+indexterm:[template]
+
+|template instantiation | t036.cpp, t038.cpp | template_argument_list
+
+|====
+
 
