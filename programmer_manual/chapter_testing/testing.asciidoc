@@ -199,8 +199,8 @@ functionality and what test files use it.
 test files are in abidos/processor/test directory
 ====
 
-.test files rules used
-[width="70%",cols="s,^m,e",frame="topbot",options="header"]
+.test files rules used part 1
+[width="70%", cols="default,^default,default", frame="all", grid="rows", options="header"]
 |====
 
 |functionality | file test | some important rules tested
@@ -210,6 +210,9 @@ indexterm:[abstract class]
 
 |array | t046.cpp | consume_array_brackets
 indexterm:[array]
+
+|ban symbols | t046.cpp | ban_symbols_on, ban_symbols_off
+indexterm:[ban symbols, baning symbols]
 
 |class access specifier | t010.cpp, t032.cpp | access_specifier
 (PRIVATE, PROTECTED, PUBLIC)
@@ -227,8 +230,9 @@ indexterm:[base_clause]
 indexterm:[multiple inheritance, inheritance multiple]
 
 |constructor | t014.cpp, t030.cpp | function_definition, decl_specifier, type_specifier,
-nested_name_specifier
+nested_name_specifier, qualified_id
 indexterm:[constructor, nested_name_specifier]
+indexterm:[qualified_id]
 indexterm:[function_definition]
 indexterm:[type_specifier]
 
@@ -236,7 +240,7 @@ indexterm:[type_specifier]
 indexterm:[aggregations]
 indexterm:[compositions]
 
-|cv_qualifier | t026.cpp | decl_specifier, cv_qualifier
+|cv_qualifier | t026.cpp | decl_specifier, cv_qualifier (const, VOLATILE)
 indexterm:[cv_qualifier]
 
 |decl specifier  FRIEND| t022.cpp, t024.cpp, t027.cpp | decl_specifier
@@ -260,7 +264,7 @@ indexterm:[extern]
 |extern_c | t042.cpp | extern_c
 indexterm:[extern_c]
 
-|free declarator | t004.cpp | declarator, member_declaration
+|free declarator | t008.cpp | declarator, member_declaration
 indexterm:[declarator]
 indexterm:[member_declaration]
 
@@ -303,6 +307,13 @@ member_declaration, function_definition, function_body
 
 |member function definition outside  | t007.cpp, t016.cpp, t017.cpp, t018.cpp,
 t029.cpp | member_declaration, function_definition, function_body
+|====
+
+//
+.test files rules used part 2
+[width="70%", cols="default,^default,default", frame="all", grid="rows", options="header"]
+|====
+|functionality | file test | some important rules tested
 
 |parameter declaration | t006.cpp | parameter_declaration
 indexterm:[parameter_declaration]
@@ -313,7 +324,7 @@ decl_specifier
 |parameter ellipsis | t007.cpp | ELLIPSIS_opt (...)
 indexterm:[ELLIPSIS]
 
-|pointer operator| t018.cpp | ptr_operator (*,&)
+|pointer operator| t019.cpp | ptr_operator (*,&)
 indexterm:[pointer]
 
 |pre-declaration | t044.cpp |
@@ -324,6 +335,9 @@ indexterm:[preprocessor, include]
 
 |preprocessor | t040.cpp | #ifndef, #define, #endif
 indexterm:[preprocessor, ifndef, define, endif]
+
+|overloading functions | t009.cpp, t012.cpp, t017.cpp, t018.cpp, t019.cpp |
+indexterm:[overloading functions]
 
 |overloading operators | t045.cpp | operator_function_id, _operator
 indexterm:[overloading operators, operator_function_id, _operator]
@@ -341,7 +355,8 @@ indexterm:[alignment]
 |using class like a type | t025.cpp | decl_specifier, type_name
 indexterm:[typename]
 
-|template declaration | t035.cpp, t038.cpp | template_declaration, template_parameter
+|template declaration | t035.cpp, t038.cpp | template_declaration,
+template_parameter
 indexterm:[template]
 
 |template instantiation | t036.cpp, t038.cpp | template_argument_list
