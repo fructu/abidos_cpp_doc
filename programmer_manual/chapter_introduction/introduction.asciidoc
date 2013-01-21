@@ -1,8 +1,8 @@
 == Introduction
 
-In this manual i am going to explain how Abidos works, is important the reader
-of this manual have read the user manual and knows how to use Abidos to parse
-C++ projects.
+In this manual i am going to explain how Abidos works, is important that the
+reader of this manual have read the user manual and knows how to use Abidos
+to parse C++ projects.
 
 Parsing C++ is a hard task it has a complex grammar and Abidos is a
 experimental solution using a descent parser handmade instead of an ascent parser

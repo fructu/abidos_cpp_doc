@@ -13,7 +13,7 @@ structures to scan it for example the stack of files.
 . yylex(), iterating with this function parser obtain the tokens of the source
 file.
 
-. lex_file_push, if the actual file have #include "<file>"
+. lex_file_push, if the actual file has #include "<file>"
 then src/parser_descent_preprocessor.cpp push it and the scanner:
 .. stop to scan the actual file.
 .. saves the environment of his structures.

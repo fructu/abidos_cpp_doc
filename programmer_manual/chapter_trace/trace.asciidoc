@@ -68,7 +68,9 @@ to improve this with pruning methods. And remember C++ is a complex grammar to
 do in yacc because is a tough task write his grammar using LALR.
 
 If you wan see the *annotated parse tree* without only the successfully branches
-you can open the *_pruned* version like this:
+or at least branches where some tokens has been matched because in some example
+one successfully branch can be the son of a node pruned by backtracking and
+Abidos shows it. You can open the *_pruned* version like this:
 indexterm:[annotated parse tree]
 
 .trace tree pruned example

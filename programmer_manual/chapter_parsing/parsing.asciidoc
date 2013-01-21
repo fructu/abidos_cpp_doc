@@ -42,10 +42,10 @@ states in the backtracking process.
 === Debugging Abidos
 
 In order to see how Abidos works we will use gdb to trace an Abidos execution,
-in this session i introduce you some topic that will be explained more deeply
+in this session i introduce you some topics that will be explained more deeply
 in next chapters: context, translation rules from bison to descent form ...
 
-Abidos have an X file, it is used for debugging purpose with gdb:
+Abidos have an X file, it is used for debugging purposes with gdb:
 
 ----
 dir .
@@ -83,7 +83,7 @@ I like use X file, in this way i have all the begin commands in the file and is
 more easy execute gdb the next day.
 ====
 
-First the loader start to work looking what files Abidos will parse.
+First the loader starts to work looking what files Abidos will parse.
 
 The parser starts to work in this line of main.cpp:
 
@@ -213,7 +213,7 @@ indexterm:[context]
 
 [NOTE]
 ====
-context allow Abidos to know where hi is, and what is the semantic value of a
+context allow Abidos to know where he is, and what is the semantic value of a
 token.
 ====
 
@@ -262,7 +262,7 @@ The easy solution taken in Abidos is:
 
 With this lines of code we can *prune* sub-trees and Abidos save resources
 in this rule we know that a *decl* can not be a *#* or a *;* therefore if some
-of this symbols are present we prune and don not get more deep.
+of this symbols are present we prune and does not get more deep.
 indexterm:[preanalisys_has_one]
 indexterm:[prune]
 
@@ -294,11 +294,11 @@ Abidos put the decl *int* in the semantic class.
 ----
 
 And this rule returns 1 indicating success, and In this case int should
-be consumed therefore *context = context_tokens.restore();* are no used
+be consumed therefore *context = context_tokens.restore();* are not used
 to restore the context and forcing to process *int* again with other rules.
 
 * decl_specifier_seq, Abidos try to iterates again with decl_specifier but
-now *i* token is a IDENTIFIER.
+now *i* token is an IDENTIFIER.
 
 * init_declarator_list_opt
 

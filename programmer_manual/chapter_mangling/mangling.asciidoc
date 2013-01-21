@@ -205,8 +205,9 @@ int f1(void);
 int f1(int a);
 ----
 
-This overload functions need something more than *f1* to identified each one,
+This overloaded functions need something more than *f1* to identified each one,
 lets go to see how Abidos do it.
+indexterm:[overloaded functions]
 
 ----
 c_symbols_table::print

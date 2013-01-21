@@ -108,3 +108,5 @@ enum
 endif
 typename
 pre
+Kernighan
+astyle

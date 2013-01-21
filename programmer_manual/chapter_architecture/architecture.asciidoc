@@ -1,8 +1,14 @@
 == Architecture of abidos
 
 The Goal of this chapter is to show you what components have Abidos and which is
-the purpose of this components. All this components will be explain in a
-chapter for each of them.
+the purpose of this components. All this components have a brief explanation and
+will be explain deeply in a chapter for each of them. The idea is you reach a
+overview knowledge of the Abidos parts and know his most important relations
+between them.
+
+=== Abidos Components
+
+In this diagram you can see the main parts of Abidos:
 
 .Abidos components
 image::images/chapter_architecture_components_01.{eps_svg}[align="center"]

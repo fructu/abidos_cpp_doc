@@ -1,16 +1,25 @@
 == To do
 
-- i will pass the architecture chapter sections to others chapters.
+- [v] i will pass the architecture chapter sections to others chapters.
 
-- create out/web and out/pdf, change make process to do it.
+- [v] create out/web and out/pdf, change make process to do it.
 
-- diagram explaining making process.
+- [v] diagram explaining making process.
 
-- epub support
+- [v] epub support
 
-- now pdftk is used to join cover, this fix bad anchors in toc and index
+- [v] now pdftk is used to join cover, this fix bad anchors in toc and index
 
-- .aspell.en.pws is generated from white_list.txt to avoid undesired changes in
-this file.
+- [v] .aspell.en.pws is generated from white_list.txt to avoid undesired changes
+in this file.
 
-- table with: functionality, file test, some important rules tested.
+- [v] table with: functionality, file test, some important rules tested.
+
+- [v] put in test_run the need to execute before:
+  abidos/processor$ abidos_make_process.pl
+
+- [v] list of key concept that must be explained before of use them:
+-- making chapter
+--- token is and token is not
+--- indent_run
+

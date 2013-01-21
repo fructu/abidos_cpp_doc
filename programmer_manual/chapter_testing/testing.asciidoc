@@ -3,7 +3,7 @@
 In the making chapter you can see how Abidos C++ is built, is very important 
 that when we are development a new rule, or we are changing some of this rules
 or maybe doing other hacking of the project, we should test that the new patches
-has not introduced new fault.
+has not introduced new faults.
 indexterm:[test]
 indexterm:[tests_run.pl]
 
@@ -11,6 +11,10 @@ indexterm:[tests_run.pl]
 image::images/chapter_testing_testing_1.{eps_svg}[align="center"]
 
 === Executing the tests
+
+Before you can run the tests you need *abidos_make_process.pl* has been
+executed.
+indexterm:[abidos_make_process.pl]
 
 To run the testing process write this in a console:
 
@@ -60,7 +64,7 @@ This script generates these files in test_out/ directory:
 
 === Hey wait a moment, testing files are C++ files!
 
-Very clever that is, when Abidos parses a file it use a set of grammar tools
+Very clever that is, when Abidos parses a file it use a set of grammar rules
 to do it, when i write a new rule i write a set of cpp testing files to check
 that this rules are working correctly, this means:
 
@@ -135,7 +139,7 @@ You can see his output in *test_out/out_t001.cpp.txt*:
  ....
 ----
 
-<1> B token has bee processed with these information, the token is scanned like
+<1> B token has been processed with these information, the token is scanned like
 an IDENTIFIER then the parser knows with the help of some rules that this token
 should be a symbol of type=CLASS.
 
@@ -187,9 +191,8 @@ This is the only automated test you can see it in the begin of this chapter
 figure <<test_run_output,test run output>>
 
 === Test files and what they testing
-
-When Abidos C++ grows some new rules are wrote then some new test files are
-rotten in order to test this new functionality and to preserve that this
+When Abidos C++ grows some new rules are written then some new test files are
+written in order to test this new functionality and to preserve that this
 new functionality is not broken in the future due to the introduction of more
 rules or changes did in other rules, will see a useful catalog about
 functionality and what test files use it.
@@ -229,8 +232,8 @@ indexterm:[base_clause]
 |class multiple inheritance | t002.cpp, t003.cpp | base_clause_opt, base_clause
 indexterm:[multiple inheritance, inheritance multiple]
 
-|constructor | t014.cpp, t030.cpp | function_definition, decl_specifier, type_specifier,
-nested_name_specifier, qualified_id
+|constructor | t014.cpp, t030.cpp | function_definition, decl_specifier,
+type_specifier, nested_name_specifier, qualified_id
 indexterm:[constructor, nested_name_specifier]
 indexterm:[qualified_id]
 indexterm:[function_definition]
@@ -251,7 +254,8 @@ indexterm:[TYPEDEF,typedef]
 |default parameters values | t045.cpp | parameter_declaration
 indexterm:[default parameters values]
 
-|destructor | t015.cpp, t030.cpp | function_definition, direct_declarator, unqualified_id
+|destructor | t015.cpp, t030.cpp | function_definition, direct_declarator,
+unqualified_id
 indexterm:[destructor, unqualified_id]
 indexterm:[unqualified_id]
 

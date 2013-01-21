@@ -21,7 +21,7 @@ https://github.com/fructu/abidos
 == useful commands:
 
 ----
-make clean; make; okular out/pdf/abidos_cpp_programmer_manual_cover.pdf
+make clean; make; okular out/pdf/abidos_cpp_programmer_manual_cover.pdf &
 ----
 
 ----

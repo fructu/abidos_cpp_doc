@@ -114,7 +114,7 @@ config.h using the script put_ifndef_date.pl
 
 === Files generated automatically
 
-I am going to describe you how the builders scripts generate files needed by
+I am going to describe you how the builder scripts generate files needed by
 Abidos. These scripts are located in processor/scripts/ directory.
 
 When you have configured Abidos C++ a Makefile was generated, you can invoke:
@@ -176,7 +176,10 @@ In this table we have the description of the tokens for debug purposes,
 for example if lexer passes token number 258 to parser with this table we
 know 258 is "IDENTIFIER".
 Is used by descent parser to print the tokens processed and to generates the
-nodes of trace tree with *token is* and *token is not* entries.
+nodes of trace tree, trace tree is an output of the trace system of Abidos this
+system can generate kind of trees to show how the syntactic rules are used and
+there are nodes with *token is* and *token is not* entries where you can see
+what tokens are processed that will be explained deeply in the trace chapter.
 indexterm:[yytokens]
 
 ** yytokens_short: static const char \*const yytokens_short[]
@@ -196,12 +199,14 @@ linking process generates src/abidos executable.
 
 === Other make rules
 
-* test_run that calls tests_run.pl
-  Explained in the testing chapter
-  indexterm:[tests_run.pl]
+* test_run that calls tests_run.pl Explained in the testing chapter
+indexterm:[tests_run.pl]
 
-* indent_run that calls
-  check_indent.sh and indent_run.sh.
-  indexterm:[check_indent.sh]
-  indexterm:[indent_run.sh]
+* indent_run that calls check_indent.sh and indent_run.sh, this scripts put all
+the Abidos code in a style of codification for now that style is Kernighan and
+Ritchie's http://en.wikipedia.org/wiki/Indent_style and the beautifier used
+is *astyle*
+indexterm:[check_indent.sh]
+indexterm:[indent_run.sh]
+indexterm:[astyle]
 

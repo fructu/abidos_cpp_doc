@@ -1,5 +1,5 @@
 digraph R {
-  size ="4, 6!";
+  size ="3, 4!";
   fontsize = 6;
 //  rankdir=LR;
 //  node [style=rounded]
