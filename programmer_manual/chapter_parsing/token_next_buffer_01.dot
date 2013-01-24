@@ -1,0 +1,60 @@
+digraph stack_01 {
+//x,y
+//	size="4,10!";
+
+	node [shape = record];
+
+  s [label="S"];
+
+  s1 [label="<p>int"];
+  s2 [label="int|<p>f}"];
+  s3 [label="int|f|<p>("];
+  s4 [label="<p>int|f|("];
+
+  t1 [label=" token_next()", shape = "ellipse"];
+  t2 [label=" token_next()", shape = "ellipse"];
+  t3 [label=" token_next()", shape = "ellipse"];
+  t4 [label=" retore()",     shape = "ellipse"];
+
+  rankdir=TB;
+  subgraph cluster_variable_rule {
+    label="VARIABLE_rule";
+    t1->t2;
+    t2->t3;
+    t3->t4;    
+  }
+
+  sf1 [label="<p>int"];
+  sf2 [label="int|<p>f"];
+  sf3 [label="int|f|<p>("];
+  sf4 [label="int|f|(|<p>)"];
+  sf5 [label="int|f|(|)|<p>;"];  
+
+  tf1 [label=" token_next()", shape = "ellipse"];
+  tf2 [label=" token_next()", shape = "ellipse"];
+  tf3 [label=" token_next()", shape = "ellipse"];
+  tf4 [label=" token_next()", shape = "ellipse"];
+  tf5 [label=" token_next()", shape = "ellipse"];    
+  
+  subgraph cluster_function_rule {
+    label="FUNCTION_rule";
+    tf1->tf2;
+    tf2->tf3;
+    tf3->tf4;
+    tf4->tf5;
+  }
+
+  s->t1;
+  s->tf1;
+
+  t1->s1:p [label="context.i_token"  , color = "gray", style="dotted"];
+  t2->s2:p [label="context.i_token"  , color = "gray", style="dotted"];
+  t3->s3:p [label="context.i_token"  , color = "gray", style="dotted"];
+  t4->s4:p [label="context.i_token"  , color = "gray", style="dotted"];
+
+  tf1->sf1:p [label="context.i_token"  , color = "gray", style="dotted"];
+  tf2->sf2:p [label="context.i_token"  , color = "gray", style="dotted"];
+  tf3->sf3:p [label="context.i_token"  , color = "gray", style="dotted"];
+  tf4->sf4:p [label="context.i_token"  , color = "gray", style="dotted"];
+  tf5->sf5:p [label="context.i_token"  , color = "gray", style="dotted"];
+}

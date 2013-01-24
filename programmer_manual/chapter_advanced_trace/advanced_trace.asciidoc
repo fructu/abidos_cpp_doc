@@ -1,0 +1,60 @@
+== Advanced trace
+
+Now you have an idea about how Abidos works, we can start the explanation of
+the advanced issues. In this chapter we will see examples of C++ code and how
+Abidos deal with them using all the previous explained topics (trace trees,
+mangling, symbols table listed, ...)
+
+==== Inner classes
+
+When we have a class inside other class Abidos uses a mangling method to put
+the classes in the symbol table, lets go to see the whole process with this
+example:
+
+[code, c]
+.abidos/processor$ vi test/book_inner_class_01.cpp
+----
+class A {
+  class B {
+    void f_b();
+  };
+};
+----
+
+The interesting point in this example is how Abidos do the mangling of *B*, we
+can see it in:
+
+.abidos/processor$ vi test_out/out_book_inner_class_01.cpp.txt
+----
+    ...
+    first[A::B]/.../abidos/processor/test/book_inner_class_01.cpp:2 \
+      id[258]->[IDENTIFIER] \
+      text[A::B] type[265]->[CLASS_NAME] \
+      class_key[300]->[CLASS]
+    ...
+----
+
+We are going to trace the code with gdb using this X file:
+
+.X file for gdb
+----
+# gdb src/abidos -x X
+dir .
+set print address off
+b c_parser_descent::colon_colon_chain_process
+run --includes test_includes/ \
+    --out_dir test_out/ \
+    --test_all_tokens_consumed_flag \
+    --test_original \
+    --ts_show \
+    --verbose test/book_inner_class_01.cpp \
+      > test_out/out_book_inner_class_01.cpp.txt
+----
+
+We run gdb like this:
+
+.gdb execution
+----
+abidos/processor$ gdb src/abidos -x X
+----
+

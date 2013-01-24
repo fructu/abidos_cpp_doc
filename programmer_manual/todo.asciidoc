@@ -23,3 +23,10 @@ in this file.
 --- token is and token is not
 --- indent_run
 
+- [] explain: in the parser chapter Meaningful parts of parser
+-- void c_parser_descent::token_next(string tab)
+-- check_identifier
+
+- [] when the previous point will have enough things continue the chapter
+chapter_advanced_trace.
+

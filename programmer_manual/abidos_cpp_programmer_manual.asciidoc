@@ -21,6 +21,7 @@ include::chapter_context/context.asciidoc[]
 include::chapter_symbols_table/symbols_table.asciidoc[]
 include::chapter_mangling/mangling.asciidoc[]
 include::chapter_testing/testing.asciidoc[]
+include::chapter_advanced_trace/advanced_trace.asciidoc[]
 //-------------------------------------------------------------------------------
 //for now the index follows normal numeration
 //:numbered!:

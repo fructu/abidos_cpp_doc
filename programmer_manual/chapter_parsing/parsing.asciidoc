@@ -366,3 +366,219 @@ indexterm:[destructor]
   semantic.identifier(context, c_token_get());
 ----
 
+=== Meaningful parts of parser
+
+Now we can go to see what parts have Abidos parser to do his work, all these
+are the core of the project and understand them is a *must* to begin to hack
+Abidos.
+
+Parser function token_next uses yylex() function to get tokens from lexer, but
+parser needs a buffer to store these tokens and tokens_vector is that buffer. To
+explain this more deeply lets see an example.
+indexterm:[yylex]
+indexterm:[tokens_vector]
+
+Abidos have a big grammar because C++ is a complex language, the first step is
+hack that grammar and do a little grammar in order to have a clear explanation,
+the mechanics of the whole set of Abidos rules are the same. we will work with
+this little grammar:
+
+.little grammar
+----
+S->VARIABLE|FUNCTION
+VARIABLE->int <IDENTIFIER>;
+FUNCTION->int <IDENTIFIER>();
+----
+
+this grammar can match expressions like these:
+
+.expressions matched by little grammar
+----
+int i;
+int f();
+----
+
+We can translate these rules to Abidos fashion and the result is these method
+rules of parser:
+
+* S rule
+
+Has the initialization of the trace system and the calls to the other rules.
+
+[code, c]
+----
+int c_parser_descent::S(void)
+{
+    c_trace_node trace_node; <1>
+
+    trace_node.set("S");
+
+    tokens_vector_clear(); <2>
+
+    if (1 == VARIABLE(trace_node)) { <3>
+        return 1;
+    }
+
+    if (1 == FUNCTION(trace_node)) {
+        return 1;
+    }
+
+    return 0;
+}
+----
+
+<1> here is where trace tree begins, with this tree we will see the rules used
+by Abidos to parser an example.
+
+<2> parser uses this vector like a buffer between lexer and himself, it will
+full explained in a moment.
+
+<3> this is the codification of a rule like *VARIABLE->int <IDENTIFIER>;*.
+
+//
+* VARIABLE rule
+
+This rule tries to match expressions like *int i;*.
+
+[code, c]
+----
+int c_parser_descent::VARIABLE(c_trace_node trace_node)
+{
+    trace_graph.add(trace_node, "VARIABLE"); <1>
+    c_context_tokens context_tokens(context); <2>
+
+    token_next(trace_node.get_tab()); <3>
+    if ( token_is_not(INT, trace_node) ) { <4>
+        context = context_tokens.restore(); <5>
+        return 0;
+    }
+
+    token_next(trace_node.get_tab());
+    if ( token_is_not(IDENTIFIER, trace_node) ) {
+        context = context_tokens.restore();
+        return 0;
+    }
+
+    token_next(trace_node.get_tab());
+    if ( token_is_not(';', trace_node) ) {
+        context = context_tokens.restore();
+        return 0;
+    }
+
+    return 1;
+}
+----
+<1> this is how trace system knows what rule is working.
+
+<2> here we save the context in the point 5 we will see why is important.
+
+<3> in this function parser read a token from the buffer or from the lexer.
+
+<4> this is the way to check if the actual token is an *INT*.
+
+<5> suppose the token read is *VOID* we need restore the context in order to can
+read *VOID* in other rule if we do not restore the context we would lose the
+actual token.
+
+//
+* FUNCTION rule
+
+This rule tries to match expressions like *int f();*.
+
+[code, c]
+----
+int c_parser_descent::FUNCTION(c_trace_node trace_node)
+{
+    trace_graph.add(trace_node, "FUNCTION");
+    c_context_tokens context_tokens(context);
+
+    token_next(trace_node.get_tab());
+    if ( token_is_not(INT, trace_node) ) {
+        context = context_tokens.restore();
+        return 0;
+    }
+
+    token_next(trace_node.get_tab());
+    if ( token_is_not(IDENTIFIER, trace_node) ) {
+        context = context_tokens.restore();
+        return 0;
+    }
+
+    token_next(trace_node.get_tab());
+    if ( token_is_not('(', trace_node) ) {
+        context = context_tokens.restore();
+        return 0;
+    }
+
+    token_next(trace_node.get_tab());
+    if ( token_is_not(')', trace_node) ) {
+        context = context_tokens.restore();
+        return 0;
+    }
+
+    token_next(trace_node.get_tab());
+    if ( token_is_not(';', trace_node) ) {
+        context = context_tokens.restore();
+        return 0;
+    }
+
+    return 1;
+}
+----
+
+This rule is pretty similar to the previous one except in this rule we need
+match *(* and *)* before *;*.
+
+Lets see an example of a variable declaration:
+
+[code, c]
+----
+int i;
+----
+
+We can see how all the tokens are matched in the VARIABLE rule.
+
+.variable trace tree
+image::images/chapter_parsing_trace_book_little_grammar_variable.cpp.{eps_svg}[align="center"]
+
+Now lets see an example of a function declaration:
+
+[code, c]
+----
+int f();
+----
+
+now the VARIABLE rule does not match all the tokens and Abidos executes the
+another rule FUNCTION.
+
+.function trace tree
+image::images/chapter_parsing_trace_book_little_grammar_function.cpp.{eps_svg}[align="center"]
+
+When Abidos executes VARIABLE rule here get from lexer the tokens *int f (* and
+stores these in *tokens_vector* a buffer queue each time *token_next* is called,
+when VARIABLE rule tries to
+match *(* like a *;* fails and restore context when FUNCTION rule starts to work
+token_next use *tokens_vector* to get the tokens starting in *context.i_token*
+therefore *int f (* are processed another time, when *(* is read the next time
+token_next is called it calls *yylex()* to obtain *)* from lexer
+because *context.i_token* reaches the end of *tokens_vector*.
+indexterm[tokens_vector]
+indexterm[i_token, context.i_token]
+indexterm[context.restore, restore]
+
+In the next diagram we can see how S calls VARIABLE rule and inside of the rule
+execute the *token_next()* in order to obtain the tokens from lexer and putting
+them in the queue *tokens_vector*.
+
+.token_next() calls and buffer changes
+image::images/chapter_parsing_token_next_buffer_01.{eps_svg}[align="center"]
+
+[NOTE]
+====
+context.i_token have i_token which is an index to the actual token and when
+restore() is called *context.i_token* points to *int* again and then FUNCTION rule
+can parse the same tokens and ")" ";" too.
+====
+
+//
+

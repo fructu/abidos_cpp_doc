@@ -1,0 +1,13 @@
+/*
+ cat /home/hevia/working/abidos_little_gramar/processor/test_out//trace_book_little_grammar_function.cpp.gv | dot -Tpng > /home/hevia/working/abidos_little_gramar/processor/test_out//trace_book_little_grammar_function.cpp.gv.png
+*/
+digraph G {
+  //x,y
+  size ="5, 3!";
+
+  _1_S[label="S"]
+  _2_VARIABLE[label="{_2_VARIABLE|int is INT f is IDENTIFIER \l|(\ is_not ; }", shape="record", color=green]
+  _3_FUNCTION[label="{_3_FUNCTION|int is INT f is IDENTIFIER ( is  (  ) is  )  ; is  ;  \l}", shape="record", color=green]
+  _1_S->_2_VARIABLE;
+  _1_S->_3_FUNCTION;
+}

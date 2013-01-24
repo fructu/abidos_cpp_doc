@@ -2,6 +2,8 @@
  cat /home/hevia/working/abidos/processor/test_out//trace_book_01.cpp.gv | dot -Tpng > /home/hevia/working/abidos/processor/test_out//trace_book_01.cpp.gv.png
 */
 digraph G {
+//  size ="8, 10!";
+
   ROOT[label="ROOT"]
   _2_declaration_seq_opt[label="_2_declaration_seq_opt"]
   _3_declaration_seq[label="_3_declaration_seq"]

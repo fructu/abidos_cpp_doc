@@ -1,0 +1,10 @@
+/*
+ cat /home/hevia/working/abidos_little_gramar/processor/test_out//trace_book_little_grammar_variable.cpp.gv | dot -Tpng > /home/hevia/working/abidos_little_gramar/processor/test_out//trace_book_little_grammar_variable.cpp.gv.png
+*/
+digraph G {
+  size ="2, 3!";
+
+  ROOT[label="S"]
+  _2_VARIABLE[label="{_2_VARIABLE|int is INT i is IDENTIFIER ; is  ;  \l}", shape="record", color=green]
+  ROOT->_2_VARIABLE;
+}
