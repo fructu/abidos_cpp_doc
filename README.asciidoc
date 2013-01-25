@@ -20,63 +20,54 @@ https://github.com/fructu/abidos
 
 == useful commands:
 
-----
-make clean; make; okular out/pdf/abidos_cpp_programmer_manual_cover.pdf &
-----
+* make and view pdf:
 
-----
-aspell --lang "en_EN" --personal=./.aspell.en.pws --check abidos_cpp.txt
-aspell --lang "en_EN" --personal=./.aspelgel.en.pws --check README.txt
-----
+ make clean; make; okular out/pdf/abidos_cpp_programmer_manual_cover.pdf &
+
+* aspell to check grammar:
+
+ aspell --lang "en_EN" --personal=./.aspell.en.pws --check abidos_cpp.txt
+ aspell --lang "en_EN" --personal=./.aspelgel.en.pws --check README.txt
+
 
 * make generate in out/ the pdf and web documentation
 
 * to see aspell personal dictionary:
+ aspell config personal-path
+ ls -l /home/hevia/.aspell.*
 
------
-aspell config personal-path
-ls -l /home/hevia/.aspell.*
------
+white_list.txt -> .aspell.
 
 * delete temporal files:
+ find . -name "*.bak" -exec rm {} \;
+ find . -name "*.new" -exec rm {} \;
 
-----
-find . -name "*.bak" -exec rm {} \;
-find . -name "*.new" -exec rm {} \;
-----
 
 == working with abidos
 
 * first you need have executed:
 
-----
   abidos/processor$ abidos_make_process.pl
-----
 
-  *abidos* and *abidos_cpp_doc* must bee in the same level of directories.
+
+Directories *abidos* and *abidos_cpp_doc* must bee in the same level of
+directories.
 
 * create a file like this:
-----
-  chapter_<chapter>/<name>_white_list.txt
-----
+
+ chapter_<chapter>/<name>_white_list.txt
 
 make will scan this _white_list.txt files and generates:
 
-----
-    out/images/chapter_architecture_c_loader_uml_01.eps
-    out/images/chapter_architecture_c_loader_uml_01.svg
-----
+ out/images/chapter_architecture_c_loader_uml_01.eps
+ out/images/chapter_architecture_c_loader_uml_01.svg
+
 
 therefore you can insert the image with:
+ image::out/images/chapter_architecture_c_loader_uml_01.{eps_svg}[align="center"]
 
-----
-image::out/images/chapter_architecture_c_loader_uml_01.{eps_svg}[align="center"]
-----
-
-[note]
-====
-in the image tag change before chapter */* to *_*
-====
+[NOTE]
+In the image tag change before chapter */* to *_*
 
 == Create a new repository on the command line
 
@@ -102,46 +93,38 @@ in the image tag change before chapter */* to *_*
 == git configuring
 
 .git/config
--------
-[core]
-	repositoryformatversion = 0
-	filemode = true
-	bare = false
-	logallrefupdates = true
-[remote "origin"]
-	fetch = +refs/heads/*:refs/remotes/origin/*
-	url = git@github.com:fructu/abidos_cpp_doc.git
-[branch "master"]
-	remote = origin
-	merge = refs/heads/master
--------
+ [core]
+ 	repositoryformatversion = 0
+ 	filemode = true
+ 	bare = false
+ 	logallrefupdates = true
+ [remote "origin"]
+ 	fetch = +refs/heads/*:refs/remotes/origin/*
+ 	url = git@github.com:fructu/abidos_cpp_doc.git
+ [branch "master"]
+ 	remote = origin
+ 	merge = refs/heads/master
+
 
 == Another way to create repository.
 
------
-touch README.md
-git init
-git add README.md
-git commit -m "first commit"
-git remote add origin git@github.com:fructu/abidos_cpp_doc.git
-git push -u origin master
------
+ touch README.md
+ git init
+ git add README.md
+ git commit -m "first commit"
+ git remote add origin git@github.com:fructu/abidos_cpp_doc.git
+ git push -u origin master
 
 Push an existing repository from the command line:
 
------
-git remote add origin git@github.com:fructu/abidos_cpp_doc.git
-git push -u origin master
------
+ git remote add origin git@github.com:fructu/abidos_cpp_doc.git
+ git push -u origin master
 
 == working with images:
-
------
-images$ convert example_01.png -resize 30% example_01.png
-identify -verbose example_01.png | egrep 'Geometry|Resolution'
-convert -density 200% example_01.png example_01.jpg
-convert -density 80%  example_02.png example_02.jpg
------
+ images$ convert example_01.png -resize 30% example_01.png
+ identify -verbose example_01.png | egrep 'Geometry|Resolution'
+ convert -density 200% example_01.png example_01.jpg
+ convert -density 80%  example_02.png example_02.jpg
 
 == useful commands
 
@@ -160,45 +143,37 @@ http://www.graphviz.org/doc/info/shapes.html#epsf
 
 * cover :-)
 
-----
-Title: Abidos
-Sub-title: programmer manual
-Top Title: C++ browser & refactor
-Image: http://upload.wikimedia.org/wikipedia/commons/2/29/Beaver_%28PSF%29.jpg
-Publisher: F. Hevia
-Author: Fructu
-----
+ Title: Abidos
+ Sub-title: programmer manual
+ Top Title: C++ browser & refactor
+ Image: http://upload.wikimedia.org/wikipedia/commons/2/29/Beaver_%28PSF%29.jpg
+ Publisher: F. Hevia
+ Author: Fructu
 
-http://pt.wikipedia.org/wiki/Ficheiro:Beaver_%28PSF%29.jpg
+beaver:
+  http://pt.wikipedia.org/wiki/Ficheiro:Beaver_%28PSF%29.jpg
 
-- to convert HTML into PS
+* to convert HTML into PS
 
-sudo apt-get install html2ps
-
-html2ps cover.html > cover.eps
+  sudo apt-get install html2ps
+  html2ps cover.html > cover.eps
 
 [NOTE]
-====
 The result is not very good, css style is not processed
-====
 
-- http://code.google.com/p/wkhtmltopdf/
+* http://code.google.com/p/wkhtmltopdf/
 
-----
-wget "http://wkhtmltopdf.googlecode.com/files/wkhtmltopdf-0.9.9-static-amd64.tar.bz2"
-tar -jxvf detail\?name\=wkhtmltopdf-0.11.0_rc1-static-amd64.tar.bz2
-sudo mv wkhtmltopdf-amd64 /bin/
-#ln -s ~/bin/wkhtmltopdf-amd64 ~/bin/html2pdf
+ wget "http://wkhtmltopdf.googlecode.com/files/wkhtmltopdf-0.9.9-static-amd64.tar.bz2"
+ tar -jxvf detail\?name\=wkhtmltopdf-0.11.0_rc1-static-amd64.tar.bz2
+ sudo mv wkhtmltopdf-amd64 /bin/
+ #ln -s ~/bin/wkhtmltopdf-amd64 ~/bin/html2pdf
 
-wkhtmltopdf-amd64 cover.html cover.pdf
-----
+ wkhtmltopdf-amd64 cover.html cover.pdf
 
--- you can generate cover with:
+* you can generate cover with:
 
-----
-make generate_cover
-----
+ make generate_cover
 
 
-- pdftk to join pdf documents:
-  sudo apt-get install pdftk
+* pdftk to join pdf documents:
+ sudo apt-get install pdftk
