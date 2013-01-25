@@ -21,21 +21,23 @@ digraph stack_01 {
     label="VARIABLE_rule";
     t1->t2;
     t2->t3;
-    t3->t4;    
+    t3->t4;
   }
 
   sf1 [label="<p>int"];
   sf2 [label="int|<p>f"];
   sf3 [label="int|f|<p>("];
   sf4 [label="int|f|(|<p>)"];
-  sf5 [label="int|f|(|)|<p>;"];  
+  sf5 [label="int|f|(|)|<p>;"];
 
   tf1 [label=" token_next()", shape = "ellipse"];
+  tf1_note [label="now \"int\" is read from tokens_vector", shape = "note"];
   tf2 [label=" token_next()", shape = "ellipse"];
   tf3 [label=" token_next()", shape = "ellipse"];
   tf4 [label=" token_next()", shape = "ellipse"];
-  tf5 [label=" token_next()", shape = "ellipse"];    
-  
+  tf4_note [label="now \")\" is read from lexer", shape = "note"];
+  tf5 [label=" token_next()", shape = "ellipse"];
+
   subgraph cluster_function_rule {
     label="FUNCTION_rule";
     tf1->tf2;
@@ -57,4 +59,7 @@ digraph stack_01 {
   tf3->sf3:p [label="context.i_token"  , color = "gray", style="dotted"];
   tf4->sf4:p [label="context.i_token"  , color = "gray", style="dotted"];
   tf5->sf5:p [label="context.i_token"  , color = "gray", style="dotted"];
+
+  tf1_note -> tf1;
+  tf4_note -> tf4;
 }

@@ -151,7 +151,7 @@ int c_parser_descent::declaration_seq(c_trace_node trace_node)
 }
 ----
 
-In a descent parser we can not have left recursion (in yacc we can and we want 
+In a descent parser we can not have left recursion (in yacc we can and we want
 it)
 
 [NOTE]
@@ -573,12 +573,14 @@ them in the queue *tokens_vector*.
 .token_next() calls and buffer changes
 image::images/chapter_parsing_token_next_buffer_01.{eps_svg}[align="center"]
 
-[NOTE]
-====
-context.i_token have i_token which is an index to the actual token and when
-restore() is called *context.i_token* points to *int* again and then FUNCTION rule
-can parse the same tokens and ")" ";" too.
-====
+context have *i_token* which is an index to the actual token, token_next() use
+*i_token* to get tokens from buffer tokens_vector while i_token is <
+tokens_vector.size()
+and when restore() is called *context.i_token* points to *int* again and
+then FUNCTION rule can parse the same tokens and ")" ";" too.
+
+In some points of the grammar *tokens_vector_clear()* can be called to clear
+the buffer but you must be sure that you won need those tokens anymore.
 
 //
 
