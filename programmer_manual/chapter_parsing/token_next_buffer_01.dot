@@ -10,6 +10,7 @@ digraph stack_01 {
   s2 [label="int|<p>f}"];
   s3 [label="int|f|<p>("];
   s4 [label="<p>int|f|("];
+  s4_note [label="context.itoken restored", shape = "note"];
 
   t1 [label=" token_next()", shape = "ellipse"];
   t2 [label=" token_next()", shape = "ellipse"];
@@ -31,11 +32,11 @@ digraph stack_01 {
   sf5 [label="int|f|(|)|<p>;"];
 
   tf1 [label=" token_next()", shape = "ellipse"];
-  tf1_note [label="now \"int\" is read from tokens_vector", shape = "note"];
+  tf1_note [label="\"int\" is read from tokens_vector", shape = "note"];
   tf2 [label=" token_next()", shape = "ellipse"];
   tf3 [label=" token_next()", shape = "ellipse"];
   tf4 [label=" token_next()", shape = "ellipse"];
-  tf4_note [label="now \")\" is read from lexer", shape = "note"];
+  tf4_note [label="\")\" is read from lexer", shape = "note"];
   tf5 [label=" token_next()", shape = "ellipse"];
 
   subgraph cluster_function_rule {
@@ -60,6 +61,7 @@ digraph stack_01 {
   tf4->sf4:p [label="context.i_token"  , color = "gray", style="dotted"];
   tf5->sf5:p [label="context.i_token"  , color = "gray", style="dotted"];
 
+  s4_note  -> s4:p;
   tf1_note -> tf1;
   tf4_note -> tf4;
 }

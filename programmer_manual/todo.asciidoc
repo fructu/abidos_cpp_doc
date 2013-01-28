@@ -16,7 +16,7 @@ in this file.
 - [v] table with: functionality, file test, some important rules tested.
 
 - [v] put in test_run the need to execute before:
-  abidos/processor$ abidos_make_process.pl
+abidos/processor$ abidos_make_process.pl
 
 - [v] list of key concept that must be explained before of use them:
 -- making chapter
@@ -30,3 +30,7 @@ in this file.
 - [] when the previous point will have enough things continue the chapter
 chapter_advanced_trace.
 
+- [] put [code, c] before ---- in c++ examples.
+find . -name "*.asciidoc" -exec grep -E -H -n -i "\-\-\-\-" {} \;
+
+- [] continue to working in parser chapter check_identifier()

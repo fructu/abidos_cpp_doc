@@ -11,8 +11,9 @@ When we have a class inside other class Abidos uses a mangling method to put
 the classes in the symbol table, lets go to see the whole process with this
 example:
 
-[code, c]
+
 .abidos/processor$ vi test/book_inner_class_01.cpp
+[code, c]
 ----
 class A {
   class B {
