@@ -155,72 +155,99 @@ member_declaration rule and now is inside of decl_specifier_seq_opt rule.
 member_declaration rule and now is inside of member_declarator_list_opt rule.
 ** CLASS_SPECIFIER_STATUS_FRIEND_DECLARATOR : parser is inside of
 friend_specifier rule.
+
 * int class_key : in class_key rule this member specified:
 CLASS, STRUCT, UNION.
+
 * int access_specifier: in class_key rule this member contains one of:
 PUBLIC, PRIVATE, PROTECTED.
+
 * string class_name_declaration : contains the name of the class that parser
 are inside.
+
 * int is_abstract : if a class have a function member with "=0;" in his finish
 then the class is abstract.
+
 * int i_am_in_member : set inside of member_declaration rule.
+
 * string member_declaration :	set by semantic::identifier() when
 i_am_in_member is 1.
+
 * int member_definition_outside : set by
 c_semantic::check_coloncolon_member_function() inside of this function where can
 are in the scope of a class for example inside of the member function *A::f(){}*
 we are in the scope of A then we need put that in the context and restore the
 previous context when we reach the *"}"*.
+
 * string declaration : set by c_semantic::identifier() when there
 is *NO_CLASS_STATUS == context.class_specifier_status* condition.
+
 * int i_am_in_parameter_declaration : set in parameter_declaration_clause
 rule.
+
 * int just_reloaded : when the parser calls token_vector.clear() this
 member is set to 1, this is to avoid token_next() go over the first element
 of vector_tokens.
+
 * t_vector_decl_specifier param_vector_decl_specifier : set in
 simple_type_specifier, parameter_declaration_list, ELLIPSIS_opt rules
 when context.i_am_in_parameter_declaration is 1.
-* c_class_member class_member :
 
-[c, code]
+* c_class_member class_member : used in the next rules
+** unqualified_id : class_member.is_destructor.
+** operator_function_id : class_member.operator_overload_suffix,
+class_member.is_operator_overload.
+** _operator : class_member.operator_overload_suffix,
+class_member.is_operator_overload.
+** direct_declarator : class_member.is_function.
+** consume_array_brackets : so far this is a dummy version, use
+class_member.is_function.
+* c_declarator declarator : used in the next rules :
+** compound_statement : context.declarator.has_body = 1.
+** simple_declaration : context.declarator.has_body = 0.
+** direct_declarator : when the function is free ->
+context.declarator.is_function = 1, if the function is a member class_member is
+used.
+
+* int is_typedef : used in typedef_specifier rule and in class_specifier
+some people use typedef class ...
+
+* int i_am_in_template_declaration : used in simple_type_specifier,
+template_declaration.
+
+* int declaring_template_type : used in type_parameter.
+
+* c_template_parameter template_parameter : used in type_parameter.
+
+* t_vector_template_parameter : used in template_id, template_argument rules.
+
+* t_map_template_parameter map_template_parameter : used in template_id rule.
+
+* int is_template_instantiation : used in simple_type_specifier, ptr_specifier,
+template_id, template_argument, init_declarator rules.
+
+* t_vector_template_argument vector_template_argument : used in
+simple_type_specifier, ptr_specifier, template_argument
+
+* t_map_template_argument map_template_argument : used in
+c_semantic: class_member_declarator(), identifier_typedef(),
+declarator_insert().
+
+* string namespace_name_declaration : used in original_namespace_definition
+rule.
+
+* int is_enum_declaration : used in enum_specifier rule.
+
+* int prefix_sharp : used in preprocessor_ifndef rule this is to search
+preprocessor symbols in symbols table with "#" prefix.
+
+* int class_pre_declaration :  used in class_specifier rule and
+semantic::class_pre_declaration_to_declaration()
+[code, c]
 ----
-    c_class_member class_member;
-
-    c_declarator declarator;
-
-    int is_typedef;
-
-    /*
-      template <class identifier>       //i_am_in_template_declaration =1
-      function_declaration;             //i_am_in_template_declaration =2
-
-      template <typename identifier>
-      function_declaration;
-    */
-    //useful in i_am_in_template_declaration = 1
-    int i_am_in_template_declaration; // we are in template declaration
-    int declaring_template_type; //we are in identifier declaration
-    c_template_parameter template_parameter; //we are in identifier declaration
-
-    //useful in i_am_in_template_declaration = 2 and in template_instantiation
-    t_vector_template_parameter vector_template_parameter;
-    t_map_template_parameter map_template_parameter;
-
-//    int template_instantiation;
-    int is_template_instantiation;
-    t_vector_template_argument vector_template_argument;
-    t_map_template_argument map_template_argument;
-
-    string namespace_name_declaration;	// class
-
-    int is_enum_declaration;
-
-    //in preprocessor we must search in ts "#.."
-    int prefix_sharp;
-
-    // class A;
-    int class_pre_declaration;
+class A;
+class A {}; <-- we are in A here
 ----
 
 //
+

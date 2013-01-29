@@ -35,4 +35,4 @@ find . -name "*.asciidoc" -exec grep -E -H -n -i "\-\-\-\-" {} \;
 
 - [v] continue to working in parser chapter check_identifier()
 
-- [] in context chapter finish Parts of context section.
+- [v] in context chapter finish Parts of context section.
