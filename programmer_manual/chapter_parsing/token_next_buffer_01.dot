@@ -25,14 +25,14 @@ digraph stack_01 {
     t3->t4;
   }
 
-  sf1 [label="<p>int"];
-  sf2 [label="int|<p>f"];
+  sf1 [label="<p>int|f|("];
+  sf2 [label="int|<p>f|("];
   sf3 [label="int|f|<p>("];
   sf4 [label="int|f|(|<p>)"];
   sf5 [label="int|f|(|)|<p>;"];
 
   tf1 [label=" token_next()", shape = "ellipse"];
-  tf1_note [label="\"int\" is read from tokens_vector", shape = "note"];
+  tf1_note [label="\"int\" \"f\" \"(\" are read from tokens_vector", shape = "note"];
   tf2 [label=" token_next()", shape = "ellipse"];
   tf3 [label=" token_next()", shape = "ellipse"];
   tf4 [label=" token_next()", shape = "ellipse"];
@@ -62,6 +62,10 @@ digraph stack_01 {
   tf5->sf5:p [label="context.i_token"  , color = "gray", style="dotted"];
 
   s4_note  -> s4:p;
+
   tf1_note -> tf1;
+  tf1_note -> tf2;
+  tf1_note -> tf3;
+
   tf4_note -> tf4;
 }

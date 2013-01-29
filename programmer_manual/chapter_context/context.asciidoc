@@ -6,6 +6,10 @@ we can understand *Context* that is a very important part of Abidos, in order
 to know the need of Context lets see some things Abidos needs to know when
 he is parsing a C++ project.
 
+=== How do context do it?
+
+We start with this example:
+
 .test/book_02.cpp
 ----
 int a1; <1>
@@ -42,6 +46,7 @@ You will see a tree like this:
 image::images/chapter_context_trace_book_02.cpp_urls_pruned.{eps_svg}[align="center"]
 
 * How Abidos parses *A*
+
 When Abidos enters in *_71_class_specifier* the context set the next value:
 
 ----
@@ -134,3 +139,88 @@ the states:
 .state machine
 image::images/chapter_context_class_specifier_status_01.{eps_svg}[align="center"]
 
+=== Parts of context
+
+* unsigned i_token: is a pointer to *tokens_vector*
+
+* enum t_class_specifier_status class_specifier_status: with this semantic know
+where the syntactic are:
+** NO_CLASS_STATUS : parser is out of a class.
+** CLASS_SPECIFIER_STATUS_IDENTIFIER : parser passed for class_specifier rule.
+** CLASS_SPECIFIER_STATUS_BASE_DECLARATION : parser passed for class_head rule
+and now is inside of base_clause_opt rule.
+** CLASS_SPECIFIER_STATUS_MEMBER_SPECIFIER : parser passed for
+member_declaration rule and now is inside of decl_specifier_seq_opt rule.
+** CLASS_SPECIFIER_STATUS_MEMBER_DECLARATOR : parser passed for
+member_declaration rule and now is inside of member_declarator_list_opt rule.
+** CLASS_SPECIFIER_STATUS_FRIEND_DECLARATOR : parser is inside of
+friend_specifier rule.
+* int class_key : in class_key rule this member specified:
+CLASS, STRUCT, UNION.
+* int access_specifier: in class_key rule this member contains one of:
+PUBLIC, PRIVATE, PROTECTED.
+* string class_name_declaration : contains the name of the class that parser
+are inside.
+* int is_abstract : if a class have a function member with "=0;" in his finish
+then the class is abstract.
+* int i_am_in_member : set inside of member_declaration rule.
+* string member_declaration :	set by semantic::identifier() when
+i_am_in_member is 1.
+* int member_definition_outside : set by
+c_semantic::check_coloncolon_member_function() inside of this function where can
+are in the scope of a class for example inside of the member function *A::f(){}*
+we are in the scope of A then we need put that in the context and restore the
+previous context when we reach the *"}"*.
+* string declaration : set by c_semantic::identifier() when there
+is *NO_CLASS_STATUS == context.class_specifier_status* condition.
+* int i_am_in_parameter_declaration : set in parameter_declaration_clause
+rule.
+* int just_reloaded : when the parser calls token_vector.clear() this
+member is set to 1, this is to avoid token_next() go over the first element
+of vector_tokens.
+* t_vector_decl_specifier param_vector_decl_specifier : set in
+simple_type_specifier, parameter_declaration_list, ELLIPSIS_opt rules
+when context.i_am_in_parameter_declaration is 1.
+* c_class_member class_member :
+
+[c, code]
+----
+    c_class_member class_member;
+
+    c_declarator declarator;
+
+    int is_typedef;
+
+    /*
+      template <class identifier>       //i_am_in_template_declaration =1
+      function_declaration;             //i_am_in_template_declaration =2
+
+      template <typename identifier>
+      function_declaration;
+    */
+    //useful in i_am_in_template_declaration = 1
+    int i_am_in_template_declaration; // we are in template declaration
+    int declaring_template_type; //we are in identifier declaration
+    c_template_parameter template_parameter; //we are in identifier declaration
+
+    //useful in i_am_in_template_declaration = 2 and in template_instantiation
+    t_vector_template_parameter vector_template_parameter;
+    t_map_template_parameter map_template_parameter;
+
+//    int template_instantiation;
+    int is_template_instantiation;
+    t_vector_template_argument vector_template_argument;
+    t_map_template_argument map_template_argument;
+
+    string namespace_name_declaration;	// class
+
+    int is_enum_declaration;
+
+    //in preprocessor we must search in ts "#.."
+    int prefix_sharp;
+
+    // class A;
+    int class_pre_declaration;
+----
+
+//

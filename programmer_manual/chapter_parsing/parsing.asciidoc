@@ -729,6 +729,37 @@ check that with the symbols table therefore parser do it in this method.
 ----
 check_identifier()
 {
+    c_symbol *p_symbol = ts.search_symbol(yytext);
+
+    if (p_symbol) {
+        if (p_symbol->type != 0) {
+            if ( 1 == p_symbol->is_template ) {
+                token.id = TEMPLATE_NAME;
+            } else {
+                token.id = p_symbol->type;
+            }
+        }
+
+        return;
+    }
+
+    //from this point i cut the code because is too much long
+    //and you can search it in the code src/parser_descent.cpp
+
+    check destructors A::B::~B() using chain_is_tail()
+
+    check if is template type // template <class T> --> T
+
+    check declarations of members functions outside of his class
+      but inside of the namespace
+
+    check the using namespace
+
+    check context.namespace_name_declaration + "::" + yytext;
+
+    check class defined inside the current class
+
+    check preprocessor hack "#" + yytext;
 }
 ----
 

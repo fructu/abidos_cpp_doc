@@ -23,7 +23,7 @@ abidos/processor$ abidos_make_process.pl
 --- token is and token is not
 --- indent_run
 
-- [] explain: in the parser chapter Meaningful parts of parser
+- [v] explain: in the parser chapter Meaningful parts of parser
 -- void c_parser_descent::token_next(string tab)
 -- check_identifier
 
@@ -33,4 +33,6 @@ chapter_advanced_trace.
 - [] put [code, c] before ---- in c++ examples.
 find . -name "*.asciidoc" -exec grep -E -H -n -i "\-\-\-\-" {} \;
 
-- [] continue to working in parser chapter check_identifier()
+- [v] continue to working in parser chapter check_identifier()
+
+- [] in context chapter finish Parts of context section.

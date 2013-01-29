@@ -110,3 +110,5 @@ typename
 pre
 Kernighan
 astyle
+yytext
+param
