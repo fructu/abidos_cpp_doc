@@ -42,7 +42,7 @@ generate_cpp_dot:
 
 
 $(MAIN).web.xml: $(MAIN).asciidoc
-	asciidoc --doctype=article --backend=docbook \
+	asciidoc --doctype=book --backend=docbook \
 	  -a"eps_svg=svg" $(MAIN).asciidoc
 	mv $(MAIN).xml out/$(MAIN).web.xml
 

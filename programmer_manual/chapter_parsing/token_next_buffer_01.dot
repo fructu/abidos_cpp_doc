@@ -12,6 +12,7 @@ digraph stack_01 {
   s4 [label="<p>int|f|("];
   s4_note [label="context.itoken restored", shape = "note"];
 
+  t1_note [label="\"int\" \"f\" \"(\" are read from lexer", shape = "note"];
   t1 [label=" token_next()", shape = "ellipse"];
   t2 [label=" token_next()", shape = "ellipse"];
   t3 [label=" token_next()", shape = "ellipse"];
@@ -50,22 +51,31 @@ digraph stack_01 {
   s->t1;
   s->tf1;
 
-  t1->s1:p [label="context.i_token"  , color = "gray", style="dotted"];
-  t2->s2:p [label="context.i_token"  , color = "gray", style="dotted"];
-  t3->s3:p [label="context.i_token"  , color = "gray", style="dotted"];
-  t4->s4:p [label="context.i_token"  , color = "gray", style="dotted"];
+  //this is to have this nodes in order and in the same side
+  s1 -> s2 -> s3 -> s4 [style=invis];
 
-  tf1->sf1:p [label="context.i_token"  , color = "gray", style="dotted"];
-  tf2->sf2:p [label="context.i_token"  , color = "gray", style="dotted"];
-  tf3->sf3:p [label="context.i_token"  , color = "gray", style="dotted"];
-  tf4->sf4:p [label="context.i_token"  , color = "gray", style="dotted"];
-  tf5->sf5:p [label="context.i_token"  , color = "gray", style="dotted"];
+  t1->s1:p [label="context.i_token"  , color = "black", style="dashed", minlen = 1];
+  t2->s2:p [label="context.i_token"  , color = "black", style="dashed", minlen = 1];
+  t3->s3:p [label="context.i_token"  , color = "black", style="dashed", minlen = 1];
+  t4->s4:p [label="context.i_token"  , color = "black", style="dashed", minlen = 1];
 
-  s4_note  -> s4:p;
+  t1_note -> t1  [label=""  , color = "black", style="dotted"];
+  t1_note -> t2  [label=""  , color = "black", style="dotted"];
+  t1_note -> t3  [label=""  , color = "black", style="dotted"];
 
-  tf1_note -> tf1;
-  tf1_note -> tf2;
-  tf1_note -> tf3;
+  //this is to have this nodes in order and in the same side
+  sf1 -> sf2 -> sf3 -> sf4 -> sf5 [style=invis];
+  tf1->sf1:p [label="context.i_token"  , color = "black", style="dashed", minlen = 1];
+  tf2->sf2:p [label="context.i_token"  , color = "black", style="dashed", minlen = 1];
+  tf3->sf3:p [label="context.i_token"  , color = "black", style="dashed", minlen = 1];
+  tf4->sf4:p [label="context.i_token"  , color = "black", style="dashed", minlen = 1];
+  tf5->sf5:p [label="context.i_token"  , color = "black", style="dashed", minlen = 1];
 
-  tf4_note -> tf4;
+  s4_note  -> s4:p [label=""  , color = "black", style="dotted"];
+
+  tf1_note -> tf1  [label=""  , color = "black", style="dotted"];
+  tf1_note -> tf2  [label=""  , color = "black", style="dotted"];
+  tf1_note -> tf3  [label=""  , color = "black", style="dotted"];
+
+  tf4_note -> tf4  [label=""  , color = "black", style="dotted", minlen = 2];
 }

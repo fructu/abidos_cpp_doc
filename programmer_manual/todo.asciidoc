@@ -36,3 +36,7 @@ find . -name "*.asciidoc" -exec grep -E -H -n -i "\-\-\-\-" {} \;
 - [v] continue to working in parser chapter check_identifier()
 
 - [v] in context chapter finish Parts of context section.
+
+- [v] if dot file is not generated -> stop make process
+     for now it dot file -> not eps output file -> pdf generation fail.
+

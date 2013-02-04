@@ -5,7 +5,7 @@ the advanced issues. In this chapter we will see examples of C++ code and how
 Abidos deal with them using all the previous explained topics (trace trees,
 mangling, symbols table listed, ...)
 
-==== Inner classes
+=== Inner classes
 
 When we have a class inside other class Abidos uses a mangling method to put
 the classes in the symbol table, lets go to see the whole process with this

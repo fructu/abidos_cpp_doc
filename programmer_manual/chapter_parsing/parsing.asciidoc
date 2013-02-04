@@ -729,17 +729,7 @@ check that with the symbols table therefore parser do it in this method.
 ----
 check_identifier()
 {
-    c_symbol *p_symbol = ts.search_symbol(yytext);
-
-    if (p_symbol) {
-        if (p_symbol->type != 0) {
-            if ( 1 == p_symbol->is_template ) {
-                token.id = TEMPLATE_NAME;
-            } else {
-                token.id = p_symbol->type;
-            }
-        }
-
+    if ( 1 == identifier_search_with_type(tab, yytext, token) ) {
         return;
     }
 
