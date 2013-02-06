@@ -12,6 +12,8 @@
 #       Observaciones :
 #
 #         ->
+#           to change style you can modificate
+#              /usr/share/texmf/tex/latex/dblatex/style/docbook.sty
 #
 #-------------------------------------------------------------------------------
 MAIN=abidos_cpp_programmer_manual
@@ -56,6 +58,7 @@ generate_html_whole: $(MAIN).web.xml
 
 	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_whole/
 	cp /etc/asciidoc/images/icons/*.png out/web_whole/images/icons/
+	cp ../icons/*.png out/web_whole/images/icons/
 
 generate_html_chunked: $(MAIN).web.xml
 	mkdir -p out/web_chunked/images/icons
@@ -67,6 +70,10 @@ generate_html_chunked: $(MAIN).web.xml
 
 	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_chunked/
 	cp /etc/asciidoc/images/icons/*.png out/web_chunked/images/icons/
+	cp ../icons/*.png out/web_chunked/images/icons/
+
+	convert -resize 50%  out/web_chunked/images/icons/note.png \
+		out/web_chunked/images/icons/note.png
 
 generate_pdf:
 	asciidoc --doctype=book --backend=docbook \
@@ -75,12 +82,19 @@ generate_pdf:
 	mkdir -p out/pdf/images/icons/
 	mv out/images/*.eps out/pdf/images/
 	cp /etc/asciidoc/images/icons/*.png out/pdf/images/icons/
+	cp ../icons/*.ps  out/pdf/images/icons/
+
 	mv $(MAIN).xml out/pdf/
 
-	cd out/pdf	;\
-	  dblatex --backend=dvips --fig-path=images/icons \
-	      --pdf --verbose  \
-	      --style=native   --texstyle=docbook $(MAIN).xml
+	cd out/pdf	; \
+	  dblatex --backend=dvips \
+	      --fig-path=images/icons \
+	      --pdf \
+	      --verbose  \
+	      --xsl-user=../../dblatex/asciidoc-dblatex.xsl \
+	      --style=native \
+	      --texstyle=docbook \
+	      $(MAIN).xml
 
 generate_epub_2:
 	mkdir -p out/epub/images/icons
@@ -92,6 +106,7 @@ generate_epub_2:
 generate_epub:
 	mkdir -p out/epub/images/icons
 	cp out/images/*.svg out/epub/images/
+	cp ../icons/*.png out/epub/images/icons/
 
 	asciidoc.py --backend docbook -a "a2x-format=epub" --verbose  \
     --out-file out/epub/$(MAIN).xml $(MAIN).asciidoc
@@ -123,6 +138,7 @@ generate_cover:
 #	  -sOutputFile=out/pdf/$(MAIN)_cover.pdf \
 #	  out/pdf/cover.pdf \
 #	  out/pdf/$(MAIN).pdf
+#
 	pdftk out/pdf/cover.pdf out/pdf/$(MAIN).pdf \
 				cat output out/pdf/$(MAIN)_cover.pdf
 
