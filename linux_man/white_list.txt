@@ -1,0 +1,13 @@
+personal_ws-1.1 en
+abidos
+asciidoc
+cpp
+doctype
+manpage
+UML
+url
+tNUMBER
+dir
+Fructu
+github
+GPL

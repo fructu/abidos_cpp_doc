@@ -3,3 +3,5 @@ user_manual/chapter_01_introduction/images/*.png
 programmer_manual/out/
 programmer_manual/.aspell.en.pws
 user_manual/.aspell.en.pws
+linux_man/.aspell.en.pws
+linux_man/out/

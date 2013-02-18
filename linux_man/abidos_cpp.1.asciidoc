@@ -1,0 +1,102 @@
+
+Abidos(1)
+=========
+:doctype: manpage
+
+
+NAME
+----
+abidos - parses C++ projects then generates UML browse-able diagrams
+in the future re-factor will be available.
+
+
+SYNOPSIS
+--------
+*abidos* [--brief|--verbose] +
+  [--test_original] +
+  [--ts_show] +
+  [--test_all_tokens_consumed_flag] +
+  [--no_std] +
+  [--no_repeat_files] +
+  [--no_url_flag] +
+  [-l <FILE> | --loader <FILE>] +
+  [-i <DIR>  | --includes <DIR>] +
+  [-o <DIR>  | --out_dir <DIR>] +
+  [-w <FILE>  | --white_list <FILE>] +
+  [-v <FILE>  | --version <FILE>] +
+
+
+DESCRIPTION
+-----------
+Abidos parsers C++.
+
+
+OPTIONS
+-------
+*--brief*::
+  abidos shows less trace messages.
+
+*--verbose*::
+  abidos shows more trace messages.
+
+*--test_original*::
+  abidos generates a .cpp file to check if the parser works well with an
+  example test/'tNUMBER'.cpp the output is in test_out/out_ 'tNUMBER'.cpp,
+  for now this is experimental and not all source file is in the output.
+
+*--ts_show*::
+  abidos shows the 'symbols_table' at the end of his execution.
+
+*--test_all_tokens_consumed_flag*::
+  abidos test system uses this flag to know if all tokens has been processed
+  at the end of the file test.
+
+*--no_std*::
+  classes of the 'standard library' are now showed.
+
+*--no_repeat_files*::
+  loader does not process repeated files.
+
+*--no_url_flag*::
+  in 'UML' 'dot format' diagrams URLs are not generated therefore browse able
+  feature won't be available.
+
+*-l, --loader* 'FILE'::
+  loader process each '*.cpp' in 'FILE' and generates the UML diagrams of the
+  all files inside it. The default 'FILE' is '.abidos/files_input' and each line
+  has this format: file.cpp:dir_includes_1:dir_includes_2...
+
+*-i, --includes*  'DIR'::
+  if some include files are not found abidos will search it in 'DIR'.
+
+*-o, --out_dir*  'DIR'::
+  the output files of abidos will be in 'DIR'.
+
+*-w, --white_list*  'FILE'::
+  in the output 'UML' diagram only appears the classes put in this 'FILE'. Each
+  line has the name of a 'CLASS'.
+
+*-v, --version*::
+  abidos shows his version and exit.
+
+
+BUGS
+----
+See the Abidos git repository.
+
+
+AUTHOR
+------
+Abidos was originally written by Fructu.
+
+
+RESOURCES
+---------
+github: Abidos project <https://github.com/fructu/abidos/>
+Abidos doc <https://github.com/fructu/abidos_cpp_doc>
+
+
+COPYING
+-------
+Copyright \(C) 2011-2013 Fructu Free use of this software is
+granted under the terms of the GNU General Public License (GPL).
