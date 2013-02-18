@@ -50,3 +50,6 @@ wget
 url
 logallrefupdates
 browsable
+eps
+svg
+ps

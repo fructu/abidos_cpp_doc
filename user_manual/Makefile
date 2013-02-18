@@ -12,52 +12,153 @@
 #       Observaciones :
 #
 #         ->
+#           to change style you can modificate
+#              /usr/share/texmf/tex/latex/dblatex/style/docbook.sty
 #
 #-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-# Varibales
-#-------------------------------------------------------------------------------
-GENERATOR=a2x
+MAIN=abidos_cpp_user_manual
 #-------------------------------------------------------------------------------
 all:	check_grammar\
 			generate_images\
-			generate_xml\
-			generate_pdf
+			generate_cpp_dot\
+			generate_html_whole\
+			generate_html_chunked\
+			generate_pdf\
+			generate_cover\
+			generate_epub_2
+
+all_2:	check_grammar\
+			generate_images\
+			generate_cpp_dot\
+			generate_pdf\
+			generate_cover
+
+
 
 clean:
 	rm -rf out/*
-	rm -f  .aspell.en.pws	
+	rm -f  .aspell.en.pws
 
 check_grammar:
 	cp white_list.txt .aspell.en.pws
-	find . -name "*.asciidoc" -exec aspell -l "en_EN" --personal=./.aspell.en.pws -c {} \;
-	find . -name "*.asciidoc" -exec echo "  aspell processed:" {} \;	
+	find . -name "*.asciidoc" -exec aspell -l "en_EN" \
+	  --personal=./.aspell.en.pws -c {} \;
+	find . -name "*.asciidoc" -exec echo "  aspell processed:" {} \;
 
-generate_xml:
-#	$(GENERATOR) -f xhtml --doctype book --destination-dir out/ --verbose abidos_cpp_user_manual.asciidoc
-	$(GENERATOR) -f xhtml --doctype article --destination-dir out/ --verbose abidos_cpp_user_manual.asciidoc
+generate_cpp_dot:
+	mkdir -p out/images
+	mkdir -p out/dot
+	find . -name "*_white_list.txt" -exec ../scripts/module_dot.pl {} \;
+
+
+$(MAIN).web.xml: $(MAIN).asciidoc
+	asciidoc --doctype=book --backend=docbook \
+	  -a"eps_svg=svg"	  -a"ps_png=png" $(MAIN).asciidoc
+	mv $(MAIN).xml out/$(MAIN).web.xml
+
+generate_html_whole: $(MAIN).web.xml
+	mkdir -p out/web_whole/images/icons
+	cp out/images/*.svg out/web_whole/images/
+	cp out/images/*.png out/web_whole/images/
+
+	cd out/web_whole ; \
+	xsltproc --nonet /etc/asciidoc/docbook-xsl/xhtml.xsl \
+	  ../$(MAIN).web.xml > $(MAIN).xhtml
+
+	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_whole/
+	cp /etc/asciidoc/images/icons/*.png out/web_whole/images/icons/
+	cp ../icons/*.png out/web_whole/images/icons/
+
+generate_html_chunked: $(MAIN).web.xml
+	mkdir -p out/web_chunked/images/icons
+	cp out/images/*.svg out/web_chunked/images/
+	cp out/images/*.png out/web_chunked/images/	
+
+	cd out/web_chunked ; \
+	xsltproc --nonet /etc/asciidoc/docbook-xsl/chunked.xsl \
+	  ../$(MAIN).web.xml
+
+	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_chunked/
+	cp /etc/asciidoc/images/icons/*.png out/web_chunked/images/icons/
+	cp ../icons/*.png out/web_chunked/images/icons/
+
+	convert -resize 50%  out/web_chunked/images/icons/note.png \
+		out/web_chunked/images/icons/note.png
 
 generate_pdf:
-#	$(GENERATOR) -f pdf --doctype book --destination-dir out/ --verbose abidos_cpp_user_manual.asciidoc
-	$(GENERATOR) -f pdf --doctype article --destination-dir out/ --verbose abidos_cpp_user_manual.asciidoc
+	asciidoc --doctype=book --backend=docbook \
+	  -a"eps_svg=eps" -a"ps_png=ps" -a icons $(MAIN).asciidoc
+
+	mkdir -p out/pdf/images/icons/
+	cp out/images/*.eps out/pdf/images/
+	cp out/images/*.ps out/pdf/images/	
+	cp out/images/*.png out/pdf/images/
+	cp /etc/asciidoc/images/icons/*.png out/pdf/images/icons/
+	cp ../icons/*.ps  out/pdf/images/icons/
+
+	mv $(MAIN).xml out/pdf/
+
+	cd out/pdf	; \
+	  dblatex --backend=dvips \
+	      --fig-path=images/icons \
+	      --pdf \
+	      --verbose  \
+	      --xsl-user=../../dblatex/asciidoc-dblatex.xsl \
+	      --style=native \
+	      --texstyle=docbook \
+	      $(MAIN).xml
+
+generate_epub_2:
+	mkdir -p out/epub/images/icons
+	cp out/images/*.svg out/epub/images/
+	cp out/images/*.png out/epub/images/
+	cp ../icons/*.png   out/epub/images/icons/
+	python ../scripts/a2x_h.py --format=epub --icons  --verbose \
+	  --destination-dir=out/epub $(MAIN).asciidoc
+
+#unfinished
+generate_epub:
+	mkdir -p out/epub/images/icons
+	cp out/images/*.svg out/epub/images/
+	cp out/images/*.png out/epub/images/
+	cp ../icons/*.png   out/epub/images/icons/
+
+	asciidoc.py --backend docbook -a "a2x-format=epub" --verbose  \
+    --out-file out/epub/$(MAIN).xml $(MAIN).asciidoc
+
+	rm -rf out/epub/$(MAIN).d
+	mkdir out/epub/$(MAIN).d
+	cp out/epub/$(MAIN).xml out/epub/$(MAIN).d
+
+	cd out/epub/$(MAIN).d ; \
+
+	xsltproc  --stringparam callout.graphics 1 --stringparam navig.graphics 1 \
+    --stringparam admon.textlabel 0 --stringparam admon.graphics 1  \
+    "/usr/local/etc/asciidoc/docbook-xsl/epub.xsl" \
+    "$(MAIN).xml"
 
 generate_images:
 	mkdir -p out/images
-	convert -density 100% chapter_01_introduction/images/example_01.png out/images/chapter_01_example_01.jpg
-	convert -density 80% chapter_01_introduction/images/example_02.png  out/images/chapter_01_example_02.jpg
-	dot -Tpng chapter_03_abidos_parsing/abidos_flow_diagram_01.dot > out/images/chapter_03_abidos_flow_diagram_01.png
-	convert -density 200% out/images/chapter_03_abidos_flow_diagram_01.png out/images/chapter_03_abidos_flow_diagram_01.jpg
+	find . -name "*.gv"  -exec perl ../scripts/images_dot.pl {} \;
+	find . -name "*.dot" -exec perl ../scripts/images_dot.pl {} \;
+	cp chapter_introduction/*.png out/images
+	convert -density 100% chapter_introduction/chapter_introduction_example_01.png out/images/chapter_introduction_example_01.ps
+	convert -density 70% chapter_introduction/chapter_introduction_example_02.png out/images/chapter_introduction_example_02.ps
+
+generate_cover:
+	wkhtmltopdf-amd64 cover/cover.html out/pdf/cover.pdf
+#
+# when the cover is join with gs
+# the links in Toc and Index are bad they refers to the previous pages
+# pdftk do a good job with that, but the output is bigger.
+#
+#	gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite \
+#	  -sOutputFile=out/pdf/$(MAIN)_cover.pdf \
+#	  out/pdf/cover.pdf \
+#	  out/pdf/$(MAIN).pdf
+#
+	pdftk out/pdf/cover.pdf out/pdf/$(MAIN).pdf \
+				cat output out/pdf/$(MAIN)_cover.pdf
 
 #-------------------------------------------------------------------------------
-#deprecated {
-ASPELL_FILES =			abidos_cpp_user_manual.asciidoc\
-										chapter_01_introduction/introduction.asciidoc
 
-check_grammar_old:
-	@- $(foreach F, $(ASPELL_FILES), \
-		echo -e "checking aspell $F"; \
-		aspell -l "en_EN" --personal=./.aspell.en.pws -c $F; \
-	)
-#}
-#-------------------------------------------------------------------------------

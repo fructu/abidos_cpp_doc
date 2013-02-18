@@ -33,9 +33,9 @@ clean:
 
 check_grammar:
 	cp white_list.txt .aspell.en.pws
-	find .. -name "*.asciidoc" -exec aspell -l "en_EN" \
+	find . -name "*.asciidoc" -exec aspell -l "en_EN" \
 	  --personal=./.aspell.en.pws -c {} \;
-	find .. -name "*.asciidoc" -exec echo "  aspell processed:" {} \;
+	find . -name "*.asciidoc" -exec echo "  aspell processed:" {} \;
 
 generate_cpp_dot:
 	mkdir -p out/images

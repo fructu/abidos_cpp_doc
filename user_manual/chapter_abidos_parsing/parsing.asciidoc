@@ -120,7 +120,7 @@ indexterm:[cmake]
 
 This figure shows the whole process:
 
-image::out/images/chapter_03_abidos_flow_diagram_01.jpg[align="center"]
+image::images/chapter_abidos_parsing_abidos_flow_diagram_01.{eps_svg}[align="center"]
 
 to summarize the different parts of abidos have worked in the previous figure
 are:

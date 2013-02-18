@@ -22,7 +22,7 @@ class world: hello
 ----
 Abidos process it and will show you:
 
-image::out/images/chapter_01_example_01.jpg[align="center"]
+image::images/chapter_introduction_example_01.{ps_png}[align="center"]
 
 ==========================
 
@@ -32,10 +32,10 @@ with that piece of code.
 
 .Cpp Browsing code
 ==========================
-You can clicking in the C2 node and Abidos will open an editor and put the 
-cursor in that exactly line:
+You can click in the a1 method of A class node and Abidos will open an editor
+and put the cursor in that exactly line:
 
-image::out/images/chapter_01_example_02.jpg[align="center"]
+image::images/chapter_introduction_example_02.{ps_png}[align="center"]
 
 ==========================
 
