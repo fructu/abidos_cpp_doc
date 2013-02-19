@@ -32,7 +32,7 @@ pass it a lot of directories that make do for you.
 ----
 abidos running suit tests [0.0.06] 
 {
- executable_with_dir [.../processor/src/abidos]
+ executable_with_dir [.../processor/src/abidos_cpp]
  test_dir            [.../processor/test/]
  test_includes_dir   [.../processor/test_includes/]
  test_out dir        [.../processor/test_out/]

@@ -59,10 +59,10 @@ This script invokes Abidos like this:
 
 .loader file
 ----
-/opt/abidos_cpp/abidos \
+/opt/abidos_cpp/abidos_cpp \
     --test_all_tokens_consumed_flag \
     --no_std \
-    --out_dir .abidos \
+    --out_dir .abidos_cpp \
     --loader .abidos_cpp/files_input <1>
 ----
 <1> *--loader* is the option to use the *loader* module.

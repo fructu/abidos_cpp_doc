@@ -38,13 +38,13 @@ sub special_process
   chmod($mode | 0600, "$file_name");
 }
 
-sub abidos
+sub abidos_cpp
 {
   my $file = shift;
   my $file_output = shift;
 
   my $command = <<END;
-	abidos --out_dir ../../abidos_cpp/processor/.abidos_cpp/ \\
+	abidos_cpp --out_dir ../../abidos_cpp/processor/.abidos_cpp/ \\
 		--loader ../../abidos_cpp/processor/.abidos_cpp/files_input \\
 		--white_list $file \\
 		--no_url
@@ -81,7 +81,7 @@ sub main
     $output_name = $1;
     $output_name =~ s/\//_/;
 
-    abidos($file, $output_name);
+    abidos_cpp($file, $output_name);
   }
 
   print "}\n";

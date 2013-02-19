@@ -36,5 +36,5 @@ generate_man:
 	asciidoc --doctype=manpage --backend=docbook abidos_cpp.1.asciidoc
 	xsltproc --nonet /etc/asciidoc/docbook-xsl/manpage.xsl abidos_cpp.1.xml
 	mv abidos_cpp.1.xml  out/
-	mv abidos.1          out/
+	mv abidos_cpp.1      out/
 

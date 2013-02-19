@@ -6,7 +6,7 @@ If your entire C++ project is only one file you can show his UML diagram in this
 way.
 
 ----
-abidos --out_dir . <file.cpp>
+abidos_cpp --out_dir . <file.cpp>
 xdot_run.py files_output.dot
 ----
 
@@ -15,7 +15,7 @@ Some projects need pass the directories where includes are :
 .passing includes directory
 =====
 ----
-abidos --includes includes/ --out_dir . t034.cpp
+abidos_cpp --includes includes/ --out_dir . t034.cpp
 ----
 =====
 
@@ -103,7 +103,7 @@ a lot of remaining work to do in this script:
 ----
   cd /home/.../src && /usr/bin/c++        \
   -Wall -c -g -I/home/.../includes/       \
-    -o CMakeFiles/abidos.dir/main.cpp.o   \
+    -o CMakeFiles/abidos_cpp.dir/main.cpp.o   \
     -c /home/.../src/main.cpp
 ----
 
@@ -158,7 +158,7 @@ parsing process.
 
 You can invoke abidos to process .abidos_cpp/files_input
 ----
-  abidos --out_dir .abidos --loader .abidos_cpp/files_input <1>
+  abidos_cpp --out_dir .abidos --loader .abidos_cpp/files_input <1>
 ----
 <1> you can check if abidos worked looking if files_output.dot has been
 generated

@@ -147,7 +147,7 @@ files of flex, bison ... but for the moment i have other priorities.
 ** test_out the output of the *make test_run* the files generates in this
 directory are explained forward in the testing chapter.
 
-** .abidos this directory has the files input and output of Abidos C++ :
+** .abidos_cpp this directory has the files input and output of Abidos C++ :
 
 *** files_input
 
@@ -195,7 +195,7 @@ by Bison).
 
 So far make process has generated all necessary files, with this files and the
 other files in src/ and include/ compilation and
-linking process generates src/abidos executable.
+linking process generates src/abidos_cpp executable.
 
 === Other make rules
 

@@ -1,18 +1,18 @@
 
-Abidos(1)
-=========
+abidos_cpp(1)
+=============
 :doctype: manpage
 
 
 NAME
 ----
-abidos - parses C++ projects then generates UML browse-able diagrams
+abidos_cpp - parses C++ projects then generates UML browse-able diagrams
 in the future re-factor will be available.
 
 
 SYNOPSIS
 --------
-*abidos* [--brief|--verbose] +
+*abidos_cpp* [--brief|--verbose] +
   [--test_original] +
   [--ts_show] +
   [--test_all_tokens_consumed_flag] +
@@ -28,7 +28,7 @@ SYNOPSIS
 
 DESCRIPTION
 -----------
-Abidos parsers C++.
+Abidos parses C++.
 
 
 OPTIONS

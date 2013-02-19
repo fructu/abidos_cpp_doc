@@ -75,7 +75,7 @@ abidos parses this and why the tree is so big.
 
 Execute Abidos with gdb like this:
 ----
-abidos_cpp/processor$ gdb src/abidos -x X
+abidos_cpp/processor$ gdb src/abidos_cpp -x X
 ----
 
 [NOTE]

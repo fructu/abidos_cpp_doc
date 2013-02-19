@@ -39,7 +39,7 @@ We are going to trace the code with gdb using this X file:
 
 .X file for gdb
 ----
-# gdb src/abidos -x X
+# gdb src/abidos_cpp -x X
 dir .
 set print address off
 b c_parser_descent::colon_colon_chain_process
@@ -56,6 +56,6 @@ We run gdb like this:
 
 .gdb execution
 ----
-abidos_cpp/processor$ gdb src/abidos -x X
+abidos_cpp/processor$ gdb src/abidos_cpp -x X
 ----
 

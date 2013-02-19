@@ -3,7 +3,7 @@
 In order to uninstall abidos project execute:
 
 ------
-cd abidos-master/processor/
+cd abidos_cpp-master/processor/
 sudo make uninstall
 ------
 indexterm:[uninstall]
