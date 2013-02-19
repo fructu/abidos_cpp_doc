@@ -45,12 +45,13 @@ generate_cpp_dot:
 
 $(MAIN).web.xml: $(MAIN).asciidoc
 	asciidoc --doctype=book --backend=docbook \
-	  -a"eps_svg=svg" $(MAIN).asciidoc
+	  -a"eps_svg=svg" -a"ps_png=png" $(MAIN).asciidoc
 	mv $(MAIN).xml out/$(MAIN).web.xml
 
 generate_html_whole: $(MAIN).web.xml
-	mkdir -p out/web_whole/images/icons
-	cp out/images/*.svg out/web_whole/images/
+	mkdir -p out/web_whole/images/icons/callouts
+	cp  out/images/*.svg out/web_whole/images/
+#	cp  out/images/*.png out/web_whole/images/
 
 	cd out/web_whole ; \
 	xsltproc --nonet /etc/asciidoc/docbook-xsl/xhtml.xsl \
@@ -58,11 +59,17 @@ generate_html_whole: $(MAIN).web.xml
 
 	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_whole/
 	cp /etc/asciidoc/images/icons/*.png out/web_whole/images/icons/
+	cp /etc/asciidoc/images/icons/callouts/*png out/web_whole/images/icons/callouts/
 	cp ../icons/*.png out/web_whole/images/icons/
 
+	convert -resize 50%  out/web_whole/images/icons/note.png \
+		out/web_whole/images/icons/note.png
+
 generate_html_chunked: $(MAIN).web.xml
-	mkdir -p out/web_chunked/images/icons
+	mkdir -p out/web_chunked/images/icons/callouts
+
 	cp out/images/*.svg out/web_chunked/images/
+#	cp out/images/*.png out/web_chunked/images/
 
 	cd out/web_chunked ; \
 	xsltproc --nonet /etc/asciidoc/docbook-xsl/chunked.xsl \
@@ -70,6 +77,7 @@ generate_html_chunked: $(MAIN).web.xml
 
 	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_chunked/
 	cp /etc/asciidoc/images/icons/*.png out/web_chunked/images/icons/
+	cp /etc/asciidoc/images/icons/callouts/*png out/web_chunked/images/icons/callouts/
 	cp ../icons/*.png out/web_chunked/images/icons/
 
 	convert -resize 50%  out/web_chunked/images/icons/note.png \
@@ -77,10 +85,13 @@ generate_html_chunked: $(MAIN).web.xml
 
 generate_pdf:
 	asciidoc --doctype=book --backend=docbook \
-	  -a"eps_svg=eps" -a icons $(MAIN).asciidoc
+	  -a"eps_svg=eps" -a"ps_png=ps" -a icons $(MAIN).asciidoc
 
 	mkdir -p out/pdf/images/icons/
-	mv out/images/*.eps out/pdf/images/
+	cp out/images/*.eps out/pdf/images/
+#	cp out/images/*.ps out/pdf/images/
+#	cp out/images/*.png out/pdf/images/
+
 	cp /etc/asciidoc/images/icons/*.png out/pdf/images/icons/
 	cp ../icons/*.ps  out/pdf/images/icons/
 
@@ -99,14 +110,24 @@ generate_pdf:
 generate_epub_2:
 	mkdir -p out/epub/images/icons
 	cp out/images/*.svg out/epub/images/
-	python ../scripts/a2x_h.py --format=epub --icons  --verbose \
-	  --destination-dir=out/epub $(MAIN).asciidoc
+#	cp out/images/*.png out/epub/images/
+
+	cp ../icons/*.png   out/epub/images/icons/
+	convert -resize 50%  out/epub/images/icons/note.png \
+		out/epub/images/icons/note.png
+
+	cd out/epub	; \
+	  python ../../../scripts/a2x_h.py \
+	  --format=epub --icons  --verbose \
+	  --destination-dir=. ../../$(MAIN).asciidoc
 
 #unfinished
 generate_epub:
 	mkdir -p out/epub/images/icons
 	cp out/images/*.svg out/epub/images/
-	cp ../icons/*.png out/epub/images/icons/
+#	cp out/images/*.png out/epub/images/
+
+	cp ../icons/*.png   out/epub/images/icons/
 
 	asciidoc.py --backend docbook -a "a2x-format=epub" --verbose  \
     --out-file out/epub/$(MAIN).xml $(MAIN).asciidoc
@@ -143,4 +164,5 @@ generate_cover:
 				cat output out/pdf/$(MAIN)_cover.pdf
 
 #-------------------------------------------------------------------------------
+
 

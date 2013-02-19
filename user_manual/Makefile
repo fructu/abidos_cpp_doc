@@ -45,12 +45,12 @@ generate_cpp_dot:
 
 $(MAIN).web.xml: $(MAIN).asciidoc
 	asciidoc --doctype=book --backend=docbook \
-	  -a"eps_svg=svg"	  -a"ps_png=png" $(MAIN).asciidoc
+	  -a"eps_svg=svg" -a"ps_png=png" $(MAIN).asciidoc
 	mv $(MAIN).xml out/$(MAIN).web.xml
 
 generate_html_whole: $(MAIN).web.xml
-	mkdir -p out/web_whole/images/icons
-	cp out/images/*.svg out/web_whole/images/
+	mkdir -p out/web_whole/images/icons/callouts
+	cp  out/images/*.svg out/web_whole/images/
 	cp out/images/*.png out/web_whole/images/
 
 	cd out/web_whole ; \
@@ -59,13 +59,15 @@ generate_html_whole: $(MAIN).web.xml
 
 	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_whole/
 	cp /etc/asciidoc/images/icons/*.png out/web_whole/images/icons/
+	cp /etc/asciidoc/images/icons/callouts/*png out/web_whole/images/icons/callouts/
 	cp ../icons/*.png out/web_whole/images/icons/
 
 	convert -resize 50%  out/web_whole/images/icons/note.png \
 		out/web_whole/images/icons/note.png
 
 generate_html_chunked: $(MAIN).web.xml
-	mkdir -p out/web_chunked/images/icons
+	mkdir -p out/web_chunked/images/icons/callouts
+
 	cp out/images/*.svg out/web_chunked/images/
 	cp out/images/*.png out/web_chunked/images/
 
@@ -75,6 +77,7 @@ generate_html_chunked: $(MAIN).web.xml
 
 	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_chunked/
 	cp /etc/asciidoc/images/icons/*.png out/web_chunked/images/icons/
+	cp /etc/asciidoc/images/icons/callouts/*png out/web_chunked/images/icons/callouts/
 	cp ../icons/*.png out/web_chunked/images/icons/
 
 	convert -resize 50%  out/web_chunked/images/icons/note.png \
