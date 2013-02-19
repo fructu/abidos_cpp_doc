@@ -641,7 +641,7 @@ class A2X(AttrDict):
             if not os.path.isfile(docbook_file):
                 die('missing docbook file: %s' % docbook_file)
             return
-        shell('"%s" --backend docbook -a "a2x-format=%s" -a"eps_svg=svg" %s --out-file "%s" "%s"' %
+        shell('"%s" --backend docbook -a "a2x-format=%s" -a"eps_svg=svg" -a"ps_png=png" -a icons %s --out-file "%s" "%s"' %
              (self.asciidoc, self.format, self.asciidoc_opts, docbook_file, self.asciidoc_file))
         if not self.no_xmllint and XMLLINT:
             shell('"%s" --nonet --noout --valid "%s"' % (XMLLINT, docbook_file))
@@ -781,10 +781,19 @@ class A2X(AttrDict):
         cmd = 'mkdir -p '+build_dir+'/OEBPS/images'
         os.system(cmd)
 
-        cmd = 'cp out/images/*.svg '+build_dir+'/OEBPS/images'
+        cmd = 'mkdir -p '+build_dir+'/OEBPS/images/icons'
+        os.system(cmd)
+
+        cmd = 'cp images/*.svg '+build_dir+'/OEBPS/images'
+        os.system(cmd)
+
+        cmd = 'cp images/*.png '+build_dir+'/OEBPS/images'
         os.system(cmd)
 
         self.copy_resources(html_files, src_dir, dst_dir, opf_resources)
+
+        cmd = 'cp images/icons/*.png '+build_dir+'/OEBPS/images/icons'
+        os.system(cmd)
 
         # Register any unregistered resources.
         self.update_epub_manifest(opf_file)
