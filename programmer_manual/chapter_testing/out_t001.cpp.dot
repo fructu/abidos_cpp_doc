@@ -27,12 +27,12 @@ digraph G {
 */
 /* c_generator_class_diagram::classes() */
   A [
-    URL="A[/home/hevia/working/abidos/processor/test/t001.cpp:1];A[/home/hevia/working/abidos/processor/test/t001.cpp:1];",
+    URL="A[/home/hevia/working/abidos_cpp/processor/test/t001.cpp:1];A[/home/hevia/working/abidos_cpp/processor/test/t001.cpp:1];",
     label="{ A|}"
   ]
 /* c_generator_class_diagram::classes() */
   B [
-    URL="B[/home/hevia/working/abidos/processor/test/t001.cpp:5];B[/home/hevia/working/abidos/processor/test/t001.cpp:5];",
+    URL="B[/home/hevia/working/abidos_cpp/processor/test/t001.cpp:5];B[/home/hevia/working/abidos_cpp/processor/test/t001.cpp:5];",
     label="{ B|}"
   ]
 /* c_generator_class_diagram::inheritance() */

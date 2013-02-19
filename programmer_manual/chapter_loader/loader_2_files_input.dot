@@ -5,7 +5,7 @@ digraph R {
 
   file [
     shape=note,
-    label=".abidos/files_input"
+    label=".abidos_cpp/files_input"
   ]
 
   loader [

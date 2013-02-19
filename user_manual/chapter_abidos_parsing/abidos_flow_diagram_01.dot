@@ -4,16 +4,16 @@ digraph abidos_flow_diagram_01 {
   "abidos" [];
   "xdot_run.py (show UML)" [];
 
-  ".abidos/files_input" [shape = box];
-  ".abidos/files_output.dot" [shape = box];
+  ".abidos_cpp/files_input" [shape = box];
+  ".abidos_cpp/files_output.dot" [shape = box];
 
   "make_out.txt" -> "abidos_make_process.pl";
-  "abidos_make_process.pl" -> ".abidos/files_input" [label = "generate"];
+  "abidos_make_process.pl" -> ".abidos_cpp/files_input" [label = "generate"];
   "abidos_make_process.pl" -> "abidos" [label = "1 invoke", style=dotted];
-  ".abidos/files_input" -> "abidos";
-  "abidos" -> ".abidos/files_output.dot" [label = "generate"];
+  ".abidos_cpp/files_input" -> "abidos";
+  "abidos" -> ".abidos_cpp/files_output.dot" [label = "generate"];
 
   "abidos_make_process.pl"   -> "xdot_run.py (show UML)"
     [ label = "2 invoke", style=dotted];
-  ".abidos/files_output.dot" -> "xdot_run.py (show UML)";
+  ".abidos_cpp/files_output.dot" -> "xdot_run.py (show UML)";
 }

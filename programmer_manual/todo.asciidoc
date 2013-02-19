@@ -16,7 +16,7 @@ in this file.
 - [v] table with: functionality, file test, some important rules tested.
 
 - [v] put in test_run the need to execute before:
-abidos/processor$ abidos_make_process.pl
+abidos_cpp/processor$ abidos_make_process.pl
 
 - [v] list of key concept that must be explained before of use them:
 -- making chapter

@@ -47,7 +47,7 @@ white_list.txt -> .aspell.
 
 * first you need have executed:
 
-  abidos/processor$ abidos_make_process.pl
+  abidos_cpp/processor$ abidos_make_process.pl
 
 
 Directories *abidos* and *abidos_cpp_doc* must bee in the same level of

@@ -44,8 +44,8 @@ sub abidos
   my $file_output = shift;
 
   my $command = <<END;
-	abidos --out_dir ../../abidos/processor/.abidos/ \\
-		--loader ../../abidos/processor/.abidos/files_input \\
+	abidos --out_dir ../../abidos_cpp/processor/.abidos_cpp/ \\
+		--loader ../../abidos_cpp/processor/.abidos_cpp/files_input \\
 		--white_list $file \\
 		--no_url
 END
@@ -53,7 +53,7 @@ END
   print "command[$command]\n";
   system($command);
 
-  $command= "cp ../../abidos/processor/.abidos/files_output.dot out/dot/$file_output.dot";
+  $command= "cp ../../abidos_cpp/processor/.abidos_cpp/files_output.dot out/dot/$file_output.dot";
   system($command);
 
   special_process("out/dot/$file_output.dot");

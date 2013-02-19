@@ -9,9 +9,9 @@ Yo have seen in the user manual that abidos needs to be loaded with 2 options:
 .Loader one source file
 image::images/chapter_loader_loader_1_file.{eps_svg}[align="center"]
 
-* With .abidos/files_input has a list of C++ files and directories.
+* With .abidos_cpp/files_input has a list of C++ files and directories.
 
-.Loader filers from .abidos/files_input
+.Loader filers from .abidos_cpp/files_input
 image::images/chapter_loader_loader_2_files_input.{eps_svg}[align="center"]
 
 In order to parse all cpp files from a C++ project Abidos uses this module/class
@@ -26,15 +26,15 @@ the loader does not have work to do.
 
 .one file to parse
 ----
-.../abidos/processor/src/abidos \
-    --includes .../abidos/processor/test_includes/ \
-    --out_dir  .../abidos/processor/test_out/ \
+.../abidos_cpp/processor/src/abidos \
+    --includes .../abidos_cpp/processor/test_includes/ \
+    --out_dir  .../abidos_cpp/processor/test_out/ \
     --test_all_tokens_consumed_flag \
     --test_original \
     --ts_show \
     --verbose \
-    .../abidos/processor/test/book_01.cpp > \ <1>
-      .../abidos/processor/test_out/out_book_01.cpp.txt
+    .../abidos_cpp/processor/test/book_01.cpp > \ <1>
+      .../abidos_cpp/processor/test_out/out_book_01.cpp.txt
 ----
 <1> here is the file to will being parsed with Abidos.
 
@@ -50,7 +50,7 @@ If that file has *#include* directives them will be processed by the
 preprocessor rules of *src/parser_descent_preprocessor.cpp*, there are not
 work to loader here; are all business from lexical module and syntactic module.
 
-=== .abidos/files_input
+=== .abidos_cpp/files_input
 
 The most easy way to use this mode is call the script *abidos_make_process.pl*,
 you can see it in the user manual.
@@ -59,11 +59,11 @@ This script invokes Abidos like this:
 
 .loader file
 ----
-/opt/abidos/abidos \
+/opt/abidos_cpp/abidos \
     --test_all_tokens_consumed_flag \
     --no_std \
     --out_dir .abidos \
-    --loader .abidos/files_input <1>
+    --loader .abidos_cpp/files_input <1>
 ----
 <1> *--loader* is the option to use the *loader* module.
 
@@ -81,7 +81,7 @@ image::images/chapter_loader_c_loader_uml_01.{eps_svg}[align="center"]
 
 The loader module stores the files that the parser will need, when the parser
 asks for the next file; loader module tries to search this file in the
-directories extracted from the .abidos/files_input. If not found that file in
+directories extracted from the .abidos_cpp/files_input. If not found that file in
 the fist try loader will try do it again in a case insensitive mode (due are
 the _lowercase classes)
 

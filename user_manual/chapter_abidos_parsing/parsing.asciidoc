@@ -56,10 +56,10 @@ are in the output of a make process.
 === The hacker way Abidos toolchain explanation
 
 When you are going to parse a C++ project with Abidos, you need a special
-directory called *.abidos/* in the same directory you have the *Makefile*.
+directory called *.abidos_cpp/* in the same directory you have the *Makefile*.
 
 In order to work properly and parse successfully a C++ project abidos need be
-loaded with the file *.abidos/files_input*, in this file each line is like:
+loaded with the file *.abidos_cpp/files_input*, in this file each line is like:
 
 ----
 /home/.../src/main.cpp:/home/.../includes:/home/.../src
@@ -76,10 +76,10 @@ by *:* symbol in this directories is where abidos search for a includes files.
 
 Once abidos have parsed the whole project:
 
-* All the files in *.abidos/files_input*.
+* All the files in *.abidos_cpp/files_input*.
 * The files includes in those cpp files.
 
-It generates *.abidos/files_output.dot* which is a file in graphviz
+It generates *.abidos_cpp/files_output.dot* which is a file in graphviz
 indexterm:[graphviz] format.
   footnote:[graphviz http://www.graphviz.org/ a superb project to generate and
   visualize graphs]
@@ -87,7 +87,7 @@ indexterm:[graphviz] format.
 Now with *xdot_run.py* based in xdot.py project
   footnote:[xdot.py http://code.google.com/p/jrfonseca/wiki/XDot with a little
   hacking of my own http://code.google.com/p/xdot-multi-line] you can look
-  *.abidos/files_output.dot* graphviz indexterm:[graphviz] format.
+  *.abidos_cpp/files_output.dot* graphviz indexterm:[graphviz] format.
   indexterm:[xdot.py]
   indexterm:[xdot_run.py]
   indexterm:[file_output.dot]
@@ -97,7 +97,7 @@ you will see a navigable window with a UML diagram of the C++ project.
 *abidos_make_process.pl* would do all this things for you, but for now there is
 a lot of remaining work to do in this script:
 
-* Analyzes *make_out.txt* and generates *.abidos/files_input*, it works when the
+* Analyzes *make_out.txt* and generates *.abidos_cpp/files_input*, it works when the
   output of make process is like:
 
 ----
@@ -128,17 +128,17 @@ are:
 * make_out.txt, is the output of make process.
   indexterm:[make_out.txt]
 * abidos_make_process.pl parses the make_out.txt and generates
-  .abidos/files_input and executes abidos and xdot_run.py
-* abidos load the cpp files from *.abidos/files_input* then generates
-* .abidos/file_output.dot*, this file has dot format.
-* xdot_run.py load *.abidos/file_output.dot* and show you to browse through the
+  .abidos_cpp/files_input and executes abidos and xdot_run.py
+* abidos load the cpp files from *.abidos_cpp/files_input* then generates
+* .abidos_cpp/file_output.dot*, this file has dot format.
+* xdot_run.py load *.abidos_cpp/file_output.dot* and show you to browse through the
   UML diagram.
   indexterm:[xdot.py]
   indexterm:[xdot_run.py]
   indexterm:[file_output.dot]
   indexterm:[UML]
 
-When you have .abidos/file_output.dot generated you can launch the UML diagram
+When you have .abidos_cpp/file_output.dot generated you can launch the UML diagram
 whenever you want doing:
 
 ----
@@ -152,23 +152,23 @@ If you modified a C++ source file you would need to execute all the toolchain to
 ====
 
 Now you have a deep knowledge about the abidos toolchain you can generate some
-parts of the toolchain by hand o by a script. You can write .abidos/files_input
+parts of the toolchain by hand o by a script. You can write .abidos_cpp/files_input
 as you wish or you can comment some lines with *#* to drop some files from abidos
 parsing process.
 
-You can invoke abidos to process .abidos/files_input
+You can invoke abidos to process .abidos_cpp/files_input
 ----
-  abidos --out_dir .abidos --loader .abidos/files_input <1>
+  abidos --out_dir .abidos --loader .abidos_cpp/files_input <1>
 ----
 <1> you can check if abidos worked looking if files_output.dot has been
 generated
 ----
-    ls .abidos/
+    ls .abidos_cpp/
     files_input  files_output.dot
 ----
 
 You can visualize the output of abidos
 ----
-  xdot_run.py .abidos/files_output.dot
+  xdot_run.py .abidos_cpp/files_output.dot
 ----
 

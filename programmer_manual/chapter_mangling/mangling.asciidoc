@@ -26,7 +26,7 @@ c_symbols_table::print
   stack level[0]
   {
     first[A]\
-      /.../abidos/processor/test/book_03.cpp:4 \
+      /.../abidos_cpp/processor/test/book_03.cpp:4 \
       id[258]->[IDENTIFIER] text[A] type[265]->[CLASS_NAME] \
       class_key[300]->[CLASS]
     {
@@ -154,7 +154,7 @@ c_symbols_table::print
 {
   stack level[0]
   {
-    first[A]/.../abidos/processor/test/book_04.cpp:4 \
+    first[A]/.../abidos_cpp/processor/test/book_04.cpp:4 \
       id[258]->[IDENTIFIER] text[A] type[265]->[CLASS_NAME] \
       class_key[300]->[CLASS]
     {
@@ -169,7 +169,7 @@ c_symbols_table::print
       }
       ...
     }
-    first[A::B]/.../abidos/processor/test/book_04.cpp:6 \
+    first[A::B]/.../abidos_cpp/processor/test/book_04.cpp:6 \
       id[258]->[IDENTIFIER] text[A::B] type[265]->[CLASS_NAME] \ <1>
       class_key[300]->[CLASS]
     {
@@ -214,7 +214,7 @@ c_symbols_table::print
 {
   stack level[0]
   {
-    first[f1(int)]/.../abidos/processor/test/book_05.cpp:5 \ <1>
+    first[f1(int)]/.../abidos_cpp/processor/test/book_05.cpp:5 \ <1>
     id[258]->[IDENTIFIER] text[f1] type[0]->[0 UNDEFINED] \
     class_key[0]->[0 UNDEFINED]
     {
@@ -224,7 +224,7 @@ c_symbols_table::print
        [int] [f1]( [int] [a])
       }
     }
-    first[f1(void)]/.../abidos/processor/test/book_05.cpp:4 \ <2>
+    first[f1(void)]/.../abidos_cpp/processor/test/book_05.cpp:4 \ <2>
     id[258]->[IDENTIFIER] text[f1] type[0]->[0 UNDEFINED] \
     class_key[0]->[0 UNDEFINED]
     {

@@ -38,7 +38,7 @@ indexterm:[symbols]
 output:
 indexterm:[generators]
 
-** UML diagrams: The output are dot files *.abidos/files_output.dot*
+** UML diagrams: The output are dot files *.abidos_cpp/files_output.dot*
 
 ** original code: This generator tries to generate the same input cpp file
 for example *test/t001.cpp* -> *test_out/out_t001.cpp*
@@ -52,7 +52,7 @@ indexterm:[annotated parse trees]
 * dot viewer: used to see the dot output of Abidos examples:
 indexterm:[dot viewer]
 ----
-xdot_run.py .abidos/files_output.dot <1>
+xdot_run.py .abidos_cpp/files_output.dot <1>
 xdot_run.py test_out/trace_t031_01.cpp_urls_pruned.gv <2>
 ----
 

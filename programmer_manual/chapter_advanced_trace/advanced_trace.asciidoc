@@ -12,7 +12,7 @@ the classes in the symbol table, lets go to see the whole process with this
 example:
 
 
-.abidos/processor$ vi test/book_inner_class_01.cpp
+.abidos_cpp/processor$ vi test/book_inner_class_01.cpp
 [code, c]
 ----
 class A {
@@ -25,10 +25,10 @@ class A {
 The interesting point in this example is how Abidos do the mangling of *B*, we
 can see it in:
 
-.abidos/processor$ vi test_out/out_book_inner_class_01.cpp.txt
+.abidos_cpp/processor$ vi test_out/out_book_inner_class_01.cpp.txt
 ----
     ...
-    first[A::B]/.../abidos/processor/test/book_inner_class_01.cpp:2 \
+    first[A::B]/.../abidos_cpp/processor/test/book_inner_class_01.cpp:2 \
       id[258]->[IDENTIFIER] \
       text[A::B] type[265]->[CLASS_NAME] \
       class_key[300]->[CLASS]
@@ -56,6 +56,6 @@ We run gdb like this:
 
 .gdb execution
 ----
-abidos/processor$ gdb src/abidos -x X
+abidos_cpp/processor$ gdb src/abidos -x X
 ----
 

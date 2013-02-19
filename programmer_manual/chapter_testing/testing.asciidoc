@@ -36,7 +36,7 @@ abidos running suit tests [0.0.06]
  test_dir            [.../processor/test/]
  test_includes_dir   [.../processor/test_includes/]
  test_out dir        [.../processor/test_out/]
- abidos_working_dir  [.../processor/.abidos/]
+ abidos_working_dir  [.../processor/.abidos_cpp/]
  [t001.cpp]-> [OK] [t002.cpp]-> [OK] <1>
  ....
   -----------------------------------
@@ -199,7 +199,7 @@ functionality and what test files use it.
 
 [NOTE]
 ====
-test files are in abidos/processor/test directory
+test files are in abidos_cpp/processor/test directory
 ====
 
 .test files rules used part 1

@@ -1,5 +1,5 @@
 /*
- cat /home/hevia/working/abidos/processor/test_out//trace_book_01.cpp.gv | dot -Tpng > /home/hevia/working/abidos/processor/test_out//trace_book_01.cpp.gv.png
+ cat /home/hevia/working/abidos_cpp/processor/test_out//trace_book_01.cpp.gv | dot -Tpng > /home/hevia/working/abidos_cpp/processor/test_out//trace_book_01.cpp.gv.png
 */
 digraph G {
   size ="6, 7!";

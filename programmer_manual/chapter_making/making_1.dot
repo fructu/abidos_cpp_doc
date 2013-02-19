@@ -33,7 +33,7 @@ digraph R {
 
   abidos_folder[
     shape=folder,
-    label=".abidos/"
+    label=".abidos_cpp/"
   ]
 
   _3_generate_begin_graph [

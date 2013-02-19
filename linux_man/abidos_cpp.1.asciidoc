@@ -63,7 +63,7 @@ OPTIONS
 
 *-l, --loader* 'FILE'::
   loader process each '*.cpp' in 'FILE' and generates the UML diagrams of the
-  all files inside it. The default 'FILE' is '.abidos/files_input' and each line
+  all files inside it. The default 'FILE' is '.abidos_cpp/files_input' and each line
   has this format: file.cpp:dir_includes_1:dir_includes_2...
 
 *-i, --includes*  'DIR'::
@@ -92,7 +92,7 @@ Abidos was originally written by Fructu.
 
 RESOURCES
 ---------
-github: Abidos project <https://github.com/fructu/abidos/>
+github: Abidos project <https://github.com/fructu/abidos_cpp/>
 Abidos doc <https://github.com/fructu/abidos_cpp_doc>
 
 
