@@ -14,7 +14,7 @@ or you can
 
 * download a zip package:
 ------
-wget 'https://github.com/fructu/abidos_cpp/archive/master.zip'
+wget "https://github.com/fructu/abidos_cpp/archive/master.zip"
 unzip master.zip
 cd abidos_cpp-master/processor/
 ------
