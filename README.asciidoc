@@ -2,9 +2,6 @@
 
 Book, web and man documentation about my project abidos cpp.
 
-The documentation is a asciidoc sources
-http://powerman.name/doc/asciidoc
-
 with them i will generate:
 
 * book
@@ -15,7 +12,7 @@ with them i will generate:
 ** programmer_manual
 * web
 
-this documentation will be inserted in abidos protect
+this documentation will be inserted in abidos project
 https://github.com/fructu/abidos
 
 == useful commands:

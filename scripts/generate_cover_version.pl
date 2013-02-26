@@ -12,7 +12,7 @@ use File::Copy;
 sub special_process
 {
   my $file_name = shift;
-  my $version = shift;  
+  my $version = shift;
 
   open my $file, $file_name or die "Can't open $file_name for reading: $!";
 

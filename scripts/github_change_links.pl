@@ -21,7 +21,7 @@ sub svg_extract_content
   my @raw_data=<f_in>;
 
   $content  .= "\n<!-- extract of file[$svg_file] {\n";
-  
+
   foreach my $l (@raw_data)
   {
     chomp($l);
@@ -60,22 +60,22 @@ sub process_html_file
   {
     if( $line =~ /href="http:([^"]*.html)"/g )
 		{
-      
-		}  
+
+		}
     elsif( $line =~ /href="([^"]*.html[\S]*)"/g )
 		{
-      print "   prefixing[$1]\n";		
+      print "   prefixing[$1]\n";
 		  $line =~ s/href="([^"]*.html[\S]*)"/href="$hash_global{'prefix'}$1"/g;
 		}
 
     #<img src="images/chapter_abidos_parsing_abidos_flow_diagram_01.svg" align="middle" alt="images/chapter_abidos_parsing_abidos_flow_diagram_01.svg" />
     if( $line =~ /<img src="([\S]*svg)" align="[\S]*" alt="[\S]*" \/>/g )
-		{		  
+		{
 		  my $svg_lines = svg_extract_content("$web_dir/$1");
 
       $line =~ s/<img src="[\S]*svg" align="[\S]*" alt="[\S]*" \/>/$svg_lines/g;
-		}  
-    
+		}
+
     print $file_tmp $line;
   }
 
