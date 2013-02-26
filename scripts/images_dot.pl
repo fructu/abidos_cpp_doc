@@ -14,12 +14,15 @@ sub abidos
   my $command = "";
 
   print "  file_output[$file_output.svg]\n";
-
-  $command= "  cat $file | dot -Tsvg > out/images/$file_output.svg";
+  $command= "  cat $file | dot -Tsvg > out/dot_images/$file_output.svg";
   system($command);
 
   print "  file_output[$file_output.eps]\n";
-  $command= "  cat $file | dot -Teps > out/images/$file_output.eps";
+  $command= "  cat $file | dot -Teps > out/dot_images/$file_output.eps";
+  system($command);
+
+  print "  file_output[$file_output.png]\n";
+  $command= "  cat $file | dot -Tpng > out/dot_images/$file_output.png";
   system($command);
 }
 

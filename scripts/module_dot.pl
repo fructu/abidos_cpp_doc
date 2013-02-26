@@ -58,10 +58,13 @@ END
 
   special_process("out/dot/$file_output.dot");
 
-  $command= "cat out/dot/$file_output.dot | dot -Teps > out/images/$file_output.eps";
+  $command= "cat out/dot/$file_output.dot | dot -Teps > out/dot_images/$file_output.eps";
   system($command);
 
-  $command= "cat out/dot/$file_output.dot | dot -Tsvg > out/images/$file_output.svg";
+  $command= "cat out/dot/$file_output.dot | dot -Tsvg > out/dot_images/$file_output.svg";
+  system($command);
+
+  $command= "cat out/dot/$file_output.dot | dot -Tpng > out/dot_images/$file_output.png";
   system($command);
 }
 

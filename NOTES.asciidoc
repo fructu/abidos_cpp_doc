@@ -1,0 +1,110 @@
+== abidos_cpp_doc notes
+
+== Create a new repository on the command line
+
+. create repository in https://github.com
+  https://github.com/fructu/abidos_cpp_doc
+
+. clone it:
+  git clone git@github.com:fructu/abidos_cpp_doc.git
+
+. add files:
+  git add <files>
+
+. commit it
+  git commit -m "first commit"
+
+. push to origin
+  git push origin master
+
+. you will can do push and pull easily:
+  git pull
+  git push
+
+== git configuring
+
+.git/config
+ [core]
+ 	repositoryformatversion = 0
+ 	filemode = true
+ 	bare = false
+ 	logallrefupdates = true
+ [remote "origin"]
+ 	fetch = +refs/heads/*:refs/remotes/origin/*
+ 	url = git@github.com:fructu/abidos_cpp_doc.git
+ [branch "master"]
+ 	remote = origin
+ 	merge = refs/heads/master
+
+
+== Another way to create repository.
+
+ touch README.md
+ git init
+ git add README.md
+ git commit -m "first commit"
+ git remote add origin git@github.com:fructu/abidos_cpp_doc.git
+ git push -u origin master
+
+Push an existing repository from the command line:
+
+ git remote add origin git@github.com:fructu/abidos_cpp_doc.git
+ git push -u origin master
+
+== working with images:
+ images$ convert example_01.png -resize 30% example_01.png
+ identify -verbose example_01.png | egrep 'Geometry|Resolution'
+ convert -density 200% example_01.png example_01.jpg
+ convert -density 80%  example_02.png example_02.jpg
+
+== useful commands
+
+identify -format "%wx%h" sample.png
+
+../scripts/clean_txt.pl chapter_03_abidos_parsing/parsing.asciidoc
+
+for now this command is to drop spaces in the end of lines:
+  scripts/clean_txt.pl <file>
+
+== useful links
+
+* graphviz
+
+http://www.graphviz.org/doc/info/shapes.html#epsf
+
+* cover :-)
+
+ Title: Abidos
+ Sub-title: programmer manual
+ Top Title: C++ browser & refactor
+ Image: http://upload.wikimedia.org/wikipedia/commons/2/29/Beaver_%28PSF%29.jpg
+ Publisher: F. Hevia
+ Author: Fructu
+
+beaver:
+  http://pt.wikipedia.org/wiki/Ficheiro:Beaver_%28PSF%29.jpg
+
+* to convert HTML into PS
+
+  sudo apt-get install html2ps
+  html2ps cover.html > cover.eps
+
+[NOTE]
+The result is not very good, css style is not processed
+
+* http://code.google.com/p/wkhtmltopdf/
+
+ wget "http://wkhtmltopdf.googlecode.com/files/wkhtmltopdf-0.9.9-static-amd64.tar.bz2"
+ tar -jxvf detail\?name\=wkhtmltopdf-0.11.0_rc1-static-amd64.tar.bz2
+ sudo mv wkhtmltopdf-amd64 /bin/
+ #ln -s ~/bin/wkhtmltopdf-amd64 ~/bin/html2pdf
+
+ wkhtmltopdf-amd64 cover.html cover.pdf
+
+* you can generate cover with:
+
+ make generate_cover
+
+* pdftk to join pdf documents:
+ sudo apt-get install pdftk
+

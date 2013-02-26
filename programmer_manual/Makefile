@@ -16,6 +16,7 @@
 #              /usr/share/texmf/tex/latex/dblatex/style/docbook.sty
 #
 #-------------------------------------------------------------------------------
+DOC=programmer
 MAIN=abidos_cpp_programmer_manual
 #-------------------------------------------------------------------------------
 all:	check_grammar\
@@ -23,6 +24,8 @@ all:	check_grammar\
 			generate_cpp_dot\
 			generate_html_whole\
 			generate_html_chunked\
+			generate_html_github_chunked_png \
+			generate_html_github_chunked_svg \
 			generate_pdf\
 			generate_cover\
 			generate_epub_2
@@ -38,19 +41,23 @@ check_grammar:
 	find . -name "*.asciidoc" -exec echo "  aspell processed:" {} \;
 
 generate_cpp_dot:
-	mkdir -p out/images
+	mkdir -p out/dot_images
 	mkdir -p out/dot
 	find . -name "*_white_list.txt" -exec ../scripts/module_dot.pl {} \;
-
 
 $(MAIN).web.xml: $(MAIN).asciidoc
 	asciidoc --doctype=book --backend=docbook \
 	  -a"eps_svg=svg" -a"ps_png=png" $(MAIN).asciidoc
 	mv $(MAIN).xml out/$(MAIN).web.xml
 
+$(MAIN).web_png.xml: $(MAIN).asciidoc
+	asciidoc --doctype=book --backend=docbook \
+	  -a"eps_svg=png" -a"ps_png=png" $(MAIN).asciidoc
+	mv $(MAIN).xml out/$(MAIN).web_png.xml
+
 generate_html_whole: $(MAIN).web.xml
 	mkdir -p out/web_whole/images/icons/callouts
-	cp  out/images/*.svg out/web_whole/images/
+	cp  out/dot_images/*.svg out/web_whole/images/
 #	cp  out/images/*.png out/web_whole/images/
 
 	cd out/web_whole ; \
@@ -68,8 +75,8 @@ generate_html_whole: $(MAIN).web.xml
 generate_html_chunked: $(MAIN).web.xml
 	mkdir -p out/web_chunked/images/icons/callouts
 
-	cp out/images/*.svg out/web_chunked/images/
-#	cp out/images/*.png out/web_chunked/images/
+	cp out/dot_images/*.svg out/web_chunked/images/
+#	cp out/images/*.png     out/web_chunked/images/
 
 	cd out/web_chunked ; \
 	xsltproc --nonet /etc/asciidoc/docbook-xsl/chunked.xsl \
@@ -83,12 +90,56 @@ generate_html_chunked: $(MAIN).web.xml
 	convert -resize 50%  out/web_chunked/images/icons/note.png \
 		out/web_chunked/images/icons/note.png
 
+generate_html_github_chunked_png: $(MAIN).web_png.xml
+	mkdir -p out/web_github_chunked_png/images/icons/callouts
+
+	cp out/dot_images/*.png out/web_github_chunked_png/images/
+#	cp out/images/*.png     out/web_github_chunked_png/images/
+
+	cd out/web_github_chunked_png ; \
+	xsltproc --nonet /etc/asciidoc/docbook-xsl/chunked.xsl \
+	  ../$(MAIN).web_png.xml
+
+	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_github_chunked_png/
+	cp /etc/asciidoc/images/icons/*.png out/web_github_chunked_png/images/icons/
+	cp /etc/asciidoc/images/icons/callouts/*png out/web_github_chunked_png/images/icons/callouts/
+	cp ../icons/*.png out/web_github_chunked_png/images/icons/
+
+	convert -resize 50%  out/web_github_chunked_png/images/icons/note.png \
+		out/web_github_chunked_png/images/icons/note.png
+
+	cd out/ ;\
+		perl ../../scripts/github_change_links.pl abidos_cpp_doc/$(DOC)_manual/web_github_chunked_png web_github_chunked_png
+
+generate_html_github_chunked_svg: $(MAIN).web.xml
+	mkdir -p out/web_github_chunked_svg/images/icons/callouts
+
+	cp out/dot_images/*.svg out/web_github_chunked_svg/images/
+#	cp out/images/*.png     out/web_github_chunked_svg/images/
+
+	cd out/web_github_chunked_svg ; \
+	xsltproc --nonet /etc/asciidoc/docbook-xsl/chunked.xsl \
+	  ../$(MAIN).web.xml
+
+	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_github_chunked_svg/
+	cp /etc/asciidoc/images/icons/*.png out/web_github_chunked_svg/images/icons/
+	cp /etc/asciidoc/images/icons/callouts/*png out/web_github_chunked_svg/images/icons/callouts/
+	cp ../icons/*.png out/web_github_chunked_svg/images/icons/
+
+	convert -resize 50%  out/web_github_chunked_svg/images/icons/note.png \
+		out/web_github_chunked_svg/images/icons/note.png
+
+	cd out/ ;\
+		perl ../../scripts/github_change_links.pl abidos_cpp_doc/$(DOC)_manual/web_github_chunked_svg web_github_chunked_svg
+
+	rm  out/web_github_chunked_svg/images/*.svg
+
 generate_pdf:
 	asciidoc --doctype=book --backend=docbook \
 	  -a"eps_svg=eps" -a"ps_png=ps" -a icons $(MAIN).asciidoc
 
 	mkdir -p out/pdf/images/icons/
-	cp out/images/*.eps out/pdf/images/
+	cp out/dot_images/*.eps out/pdf/images/
 #	cp out/images/*.ps out/pdf/images/
 #	cp out/images/*.png out/pdf/images/
 
@@ -109,7 +160,7 @@ generate_pdf:
 
 generate_epub_2:
 	mkdir -p out/epub/images/icons
-	cp out/images/*.svg out/epub/images/
+	cp out/dot_images/*.svg out/epub/images/
 #	cp out/images/*.png out/epub/images/
 
 	cp ../icons/*.png   out/epub/images/icons/
@@ -124,7 +175,7 @@ generate_epub_2:
 #unfinished
 generate_epub:
 	mkdir -p out/epub/images/icons
-	cp out/images/*.svg out/epub/images/
+	cp out/dot_images/*.svg out/epub/images/
 #	cp out/images/*.png out/epub/images/
 
 	cp ../icons/*.png   out/epub/images/icons/
@@ -144,12 +195,21 @@ generate_epub:
     "$(MAIN).xml"
 
 generate_images:
-	mkdir -p out/images
+	mkdir -p out/dot_images
 	find . -name "*.gv"  -exec perl ../scripts/images_dot.pl {} \;
 	find . -name "*.dot" -exec perl ../scripts/images_dot.pl {} \;
 
 generate_cover:
-	wkhtmltopdf-amd64 cover/cover.html out/pdf/cover.pdf
+	mkdir -p out/cover/images
+	cp ../images/Abidos_cpp_cover.jpg	out/cover/images
+	cp cover/cover.html out/cover/cover.html
+	../scripts/generate_cover_version.pl $(MAIN).asciidoc
+	wkhtmltopdf-amd64 out/cover/cover.html out/pdf/cover.pdf
+	pdftk out/pdf/cover.pdf out/pdf/$(MAIN).pdf \
+				cat output out/pdf/$(MAIN)_cover.pdf
+	VERSION=`cat out/version.tmp`; \
+		mv out/pdf/$(MAIN)_cover.pdf out/pdf/$(MAIN)_$$VERSION.pdf
+
 #
 # when the cover is join with gs
 # the links in Toc and Index are bad they refers to the previous pages
@@ -160,9 +220,6 @@ generate_cover:
 #	  out/pdf/cover.pdf \
 #	  out/pdf/$(MAIN).pdf
 #
-	pdftk out/pdf/cover.pdf out/pdf/$(MAIN).pdf \
-				cat output out/pdf/$(MAIN)_cover.pdf
-
 #-------------------------------------------------------------------------------
 
 

@@ -94,6 +94,8 @@
 				width: 2.98in;
 
 				background-color: #000000;
+//				background-color: #000000;
+				background-color: #FF3300;
 
 				/* Safari */
 				-webkit-transform: rotate(45deg);
@@ -111,12 +113,14 @@
 				filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 			}
 			#sash_text {
+				text-transform: capitalize;
 				float: center;
 				margin-left: 1.4in;
 				margin-right: 0.2in;
 				padding: 0.08in 0.01in 0.01in 0.08in;
-				background-color: #000000;
-				font-size: 0.3in;
+//				background-color: #000000;
+				background-color: #FF3300;
+				font-size: 0.2in;
 				font-family: "Times New Roman", Times, serif;
 				color: white;
 			}
@@ -125,7 +129,7 @@
 <body>
 	<div id="book">
 		<div id="sash_version">
-			<div id="sash_text">Draft v1</div>
+			<div id="sash_text">$VERSION</div>
 		</div>
 		<div id="top">
 			<div id="tbar"></div>
@@ -133,7 +137,7 @@
 		</div>
 		<div id="middle">
 			<div id="imagebox">
-				<img src="../../images/Abidos_cpp_cover.jpg" alt="" id="mimage">
+				<img src="images/Abidos_cpp_cover.jpg" alt="" id="mimage">
 			</div>
 			<div id="mtitle">Abidos C++</div>
 			<div id="msubtitle">programmer manual</div>
