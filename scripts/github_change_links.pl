@@ -82,8 +82,6 @@ sub process_html_file
       #<th width="60%" align="center"> </th>
       if( $line =~ m/<th width="60%" align="center"> <\/th>/ )
 		  {
-		    my $svg_lines = svg_extract_content("$web_dir/$1");
-
         $line =~ s/<th width="60%" align="center"> <\/th>/<th width="60%" align="center"><a accesskey="r" href="https:\/\/github.com\/fructu\/abidos">github<\/a> <\/th>/;
         $root_put = 1
 		  }

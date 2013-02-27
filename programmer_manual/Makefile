@@ -22,12 +22,12 @@ MAIN=abidos_cpp_programmer_manual
 all:	check_grammar\
 			generate_images\
 			generate_cpp_dot\
+			generate_pdf\
+			generate_cover\
 			generate_html_whole\
 			generate_html_chunked\
 			generate_html_github_chunked_png \
 			generate_html_github_chunked_svg \
-			generate_pdf\
-			generate_cover\
 			generate_epub_2
 
 clean:
@@ -111,6 +111,11 @@ generate_html_github_chunked_png: $(MAIN).web_png.xml
 	cd out/ ;\
 		perl ../../scripts/github_change_links.pl abidos_cpp_doc/$(DOC)_manual/web_github_chunked_png web_github_chunked_png
 
+	convert -resize 50% out/cover/cover.pdf \
+		out/web_github_chunked_png/images/cover.jpg
+
+	../scripts/add_cover.pl out/web_github_chunked_png/index.html images/cover.jpg
+
 generate_html_github_chunked_svg: $(MAIN).web.xml
 	mkdir -p out/web_github_chunked_svg/images/icons/callouts
 
@@ -131,6 +136,10 @@ generate_html_github_chunked_svg: $(MAIN).web.xml
 
 	cd out/ ;\
 		perl ../../scripts/github_change_links.pl abidos_cpp_doc/$(DOC)_manual/web_github_chunked_svg web_github_chunked_svg
+
+	convert -resize 50% out/cover/cover.pdf \
+		out/web_github_chunked_svg/images/cover.jpg
+	../scripts/add_cover.pl out/web_github_chunked_svg/index.html images/cover.jpg
 
 	rm  out/web_github_chunked_svg/images/*.svg
 
@@ -204,8 +213,8 @@ generate_cover:
 	cp ../images/Abidos_cpp_cover.jpg	out/cover/images
 	cp cover/cover.html out/cover/cover.html
 	../scripts/generate_cover_version.pl $(MAIN).asciidoc
-	wkhtmltopdf-amd64 out/cover/cover.html out/pdf/cover.pdf
-	pdftk out/pdf/cover.pdf out/pdf/$(MAIN).pdf \
+	wkhtmltopdf-amd64 out/cover/cover.html out/cover/cover.pdf
+	pdftk out/cover/cover.pdf out/pdf/$(MAIN).pdf \
 				cat output out/pdf/$(MAIN)_cover.pdf
 	VERSION=`cat out/version.tmp`; \
 		mv out/pdf/$(MAIN)_cover.pdf out/pdf/$(MAIN)_$$VERSION.pdf
