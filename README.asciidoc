@@ -39,7 +39,6 @@ white_list.txt -> .aspell.
  find . -name "*.bak" -exec rm {} \;
  find . -name "*.new" -exec rm {} \;
 
-
 == working with abidos
 
 * first you need have executed:
@@ -56,12 +55,12 @@ directories.
 
 make will scan this _white_list.txt files and generates:
 
- out/images/chapter_architecture_c_loader_uml_01.eps
- out/images/chapter_architecture_c_loader_uml_01.svg
+ out/dot_images/chapter_architecture_c_loader_uml_01.eps
+ out/dot_images/chapter_architecture_c_loader_uml_01.svg
 
-
-therefore you can insert the image with:
- image::out/images/chapter_architecture_c_loader_uml_01.{eps_svg}[align="center"]
+before this images are moved to web../images therefore you can insert the image
+with:
+ image::images/chapter_architecture_c_loader_uml_01.{eps_svg}[align="center"]
 
 [NOTE]
 In the image tag change before chapter */* to *_*

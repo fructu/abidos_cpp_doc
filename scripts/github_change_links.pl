@@ -47,6 +47,7 @@ sub process_html_file
 {
   my $web_dir   = shift;
   my $file_name = shift;
+  my $root_put  = 0;
 
   print "  file[$file_name]\n";
 
@@ -75,6 +76,18 @@ sub process_html_file
 
       $line =~ s/<img src="[\S]*svg" align="[\S]*" alt="[\S]*" \/>/$svg_lines/g;
 		}
+
+    if(0 == $root_put)
+    {
+      #<th width="60%" align="center"> </th>
+      if( $line =~ m/<th width="60%" align="center"> <\/th>/ )
+		  {
+		    my $svg_lines = svg_extract_content("$web_dir/$1");
+
+        $line =~ s/<th width="60%" align="center"> <\/th>/<th width="60%" align="center"><a accesskey="r" href="https:\/\/github.com\/fructu\/abidos">github<\/a> <\/th>/;
+        $root_put = 1
+		  }
+    }
 
     print $file_tmp $line;
   }

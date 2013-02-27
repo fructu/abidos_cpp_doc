@@ -18,9 +18,6 @@ use File::Copy;
 
 my %hash_global = {};
 
-#
-# here i cut some method or atribues in order to do more compact diagrams.
-#
 sub rename_change
 {
   my $file_name = shift;
@@ -74,8 +71,6 @@ sub upload_code_google
   my $command = "curl https://code.google.com/p/abidos-cpp/downloads/delete.do?name=abidos_cpp_${manual_type}_manual_${version}.pdf";
   print "    command[$command]\n";
 #  system($command) == 0 or die "failed uploading";
-
-
 
   $command = <<END;
 python scripts/googlecode_upload.py \\
@@ -160,7 +155,7 @@ sub get_user_pass
   {
     chomp($line);
 
-    if($line =~ /login ([\w\d]*@)/)
+    if($line =~ /login ([\w\d]*)@/)
     {
       $hash_global{'user'} = $1;
     }
