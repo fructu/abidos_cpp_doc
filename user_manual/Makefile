@@ -50,11 +50,6 @@ $(MAIN).web.xml: $(MAIN).asciidoc
 	  -a"eps_svg=svg" -a"ps_png=png" $(MAIN).asciidoc
 	mv $(MAIN).xml out/$(MAIN).web.xml
 
-$(MAIN).web_png_bootstrap.html: $(MAIN).asciidoc
-	asciidoc --doctype=book --backend=bootstrap \
-	  -a"eps_svg=png" -a"ps_png=png" $(MAIN).asciidoc
-	mv $(MAIN).html out/$(MAIN).web_png_bootstrap.html
-
 $(MAIN).web_png.xml: $(MAIN).asciidoc
 	asciidoc --doctype=book --backend=docbook \
 	  -a"eps_svg=png" -a"ps_png=png" $(MAIN).asciidoc
@@ -120,35 +115,6 @@ generate_html_github_chunked_png: $(MAIN).web_png.xml
 		out/web_github_chunked_png/images/cover.jpg
 
 	../scripts/add_cover.pl out/web_github_chunked_png/index.html images/cover.jpg
-
-
-generate_html_github_chunked_png_bootstrap: $(MAIN).web_png_bootstrap.html
-	mkdir -p out/web_github_chunked_png_bootstrap/images/icons/callouts
-
-	cp out/$(MAIN).web_png_bootstrap.html out/web_github_chunked_png_bootstrap/
-
-	cp out/dot_images/*.png out/web_github_chunked_png_bootstrap/images/
-	cp out/images/*.png     out/web_github_chunked_png_bootstrap/images/
-
-#	cd out/web_github_chunked_png_bootstrap ; \
-#	xsltproc --nonet /etc/asciidoc/docbook-xsl/chunked.xsl \
-#	  ../$(MAIN).web_png.xml
-
-	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_github_chunked_png_bootstrap/
-	cp /etc/asciidoc/images/icons/*.png out/web_github_chunked_png_bootstrap/images/icons/
-	cp /etc/asciidoc/images/icons/callouts/*png out/web_github_chunked_png_bootstrap/images/icons/callouts/
-	cp ../icons/*.png out/web_github_chunked_png_bootstrap/images/icons/
-
-	convert -resize 50%  out/web_github_chunked_png_bootstrap/images/icons/note.png \
-		out/web_github_chunked_png_bootstrap/images/icons/note.png
-
-	cd out/ ;\
-		perl ../../scripts/github_change_links.pl abidos_cpp_doc/$(DOC)_manual/web_github_chunked_png_bootstrap web_github_chunked_png_bootstrap
-
-	convert -resize 50% out/cover/cover.pdf \
-		out/web_github_chunked_png_bootstrap/images/cover.jpg
-
-#	../scripts/add_cover.pl out/web_github_chunked_png_bootstrap/index.html images/cover.jpg
 
 generate_html_github_chunked_svg: $(MAIN).web.xml
 	mkdir -p out/web_github_chunked_svg/images/icons/callouts
@@ -268,5 +234,44 @@ generate_cover:
 #	  out/pdf/$(MAIN).pdf
 #
 #-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#
+#
+# bootstrap
+# http://laurent-laville.org/asciidoc/bootstrap/index.html#download
+#
+#
+$(MAIN).web_png_bootstrap.html: $(MAIN).asciidoc
+	asciidoc --doctype=book --backend=bootstrap \
+	  -a"eps_svg=png" -a"ps_png=png" $(MAIN).asciidoc
+	mv $(MAIN).html out/$(MAIN).web_png_bootstrap.html
 
+generate_html_github_chunked_png_bootstrap: $(MAIN).web_png_bootstrap.html
+	mkdir -p out/web_github_chunked_png_bootstrap/images/icons/callouts
+
+	cp out/$(MAIN).web_png_bootstrap.html out/web_github_chunked_png_bootstrap/
+
+	cp out/dot_images/*.png out/web_github_chunked_png_bootstrap/images/
+	cp out/images/*.png     out/web_github_chunked_png_bootstrap/images/
+
+#	cd out/web_github_chunked_png_bootstrap ; \
+#	xsltproc --nonet /etc/asciidoc/docbook-xsl/chunked.xsl \
+#	  ../$(MAIN).web_png.xml
+
+	cp /etc/asciidoc/stylesheets/docbook-xsl.css out/web_github_chunked_png_bootstrap/
+	cp /etc/asciidoc/images/icons/*.png out/web_github_chunked_png_bootstrap/images/icons/
+	cp /etc/asciidoc/images/icons/callouts/*png out/web_github_chunked_png_bootstrap/images/icons/callouts/
+	cp ../icons/*.png out/web_github_chunked_png_bootstrap/images/icons/
+
+	convert -resize 50%  out/web_github_chunked_png_bootstrap/images/icons/note.png \
+		out/web_github_chunked_png_bootstrap/images/icons/note.png
+
+	cd out/ ;\
+		perl ../../scripts/github_change_links.pl abidos_cpp_doc/$(DOC)_manual/web_github_chunked_png_bootstrap web_github_chunked_png_bootstrap
+
+	convert -resize 50% out/cover/cover.pdf \
+		out/web_github_chunked_png_bootstrap/images/cover.jpg
+
+#	../scripts/add_cover.pl out/web_github_chunked_png_bootstrap/index.html images/cover.jpg
 
