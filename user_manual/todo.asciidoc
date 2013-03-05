@@ -3,4 +3,6 @@
 - .aspell.en.pws is generated from white_list.txt to avoid undesired changes in
 this file.
 
-- explain how use white_lists.
+- [v] explain how use white_lists.
+
+-

@@ -26,14 +26,14 @@ image::images/chapter_introduction_example_01.{ps_png}[align="center"]
 
 ==========================
 
-Browse code is sometimes a boring task, you can see a UML diagram and click to 
-the attribute of method you want to see or edit and Abidos will open an editor
-with that piece of code.
+Browse code is sometimes a boring task, with abidos you can do it easily; Abidos
+ generates UML diagrams, you can click into an attribute or method that
+you want to see or edit, and Abidos will open an editor with that piece of code.
 
 .Cpp Browsing code
 ==========================
 You can click in the a1 method of A class node and Abidos will open an editor
-and put the cursor in that exactly line:
+and put the cursor in that line:
 
 image::images/chapter_introduction_example_02.{ps_png}[align="center"]
 

@@ -53,3 +53,7 @@ browsable
 eps
 svg
 ps
+Makefiles
+Whitelist
+argc
+argv

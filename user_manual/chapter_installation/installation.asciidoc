@@ -45,3 +45,4 @@ abidos_make_process.pl <1>
 This command encapsulates the toolchain of Abidos (it will be explained in next
 chapters).
 
+abidos_cpp is installed in /opt/abidos_cpp directory.

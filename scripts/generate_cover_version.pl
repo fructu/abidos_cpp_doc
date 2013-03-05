@@ -62,14 +62,14 @@ sub main
   my $output_name = "";
   my $version = "";  
 
-  print "module_dot.pl\n";
+  print "generate_cover_version.pl\n";
   print "{\n";
   print "  file[$file_name]\n";
   $version = version_extract($file_name);
   special_process("out/cover/cover.html", $version);
 
   my $command = "echo '$version' > out/version.tmp";
-  print "command[$command]\n";
+  print "  command[$command]\n";
   system($command);
 
   print "}\n";

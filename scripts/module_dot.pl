@@ -22,7 +22,7 @@ sub special_process
   while( my $line = <$file> )
   {
     if( $line =~ /label\=\"\{ c_parser_descent\|/ ) {
-      printf "  cuting class [c_parser_descent] \n";
+      print "  cuting class [c_parser_descent] \n";
       $line =~ s/\\l\+ c_parser_descent\(\)/\$\\l\+ c_parser_descent\(\)/g;
       $line =~ s/\\l\- int preprocessor_include([^\$]+)\$\\l\+ c_parser_descent\(\)/\\l\/*A LOT OF SYNTACTIC RULES ARE HERE ...*\/\\l\+ c_parser_descent\(\)/g;
     }
@@ -50,21 +50,25 @@ sub abidos_cpp
 		--no_url
 END
 
-  print "command[$command]\n";
+  print "  command[$command]\n";
   system($command);
 
   $command= "cp ../../abidos_cpp/processor/.abidos_cpp/files_output.dot out/dot/$file_output.dot";
+  print "  command[$command]\n";
   system($command);
 
   special_process("out/dot/$file_output.dot");
 
   $command= "cat out/dot/$file_output.dot | dot -Teps > out/dot_images/$file_output.eps";
+  print "  command[$command]\n";
   system($command);
 
   $command= "cat out/dot/$file_output.dot | dot -Tsvg > out/dot_images/$file_output.svg";
+  print "  command[$command]\n";
   system($command);
 
   $command= "cat out/dot/$file_output.dot | dot -Tpng > out/dot_images/$file_output.png";
+  print "  command[$command]\n";
   system($command);
 }
 
