@@ -220,6 +220,8 @@ A
 B
 ----
 
+indexterm:[Whitelist]
+
 Now you can invoke *abidos_cpp* in this way:
 ----
 abidos_cpp --out_dir . --white_list white_list_example.txt main.cpp

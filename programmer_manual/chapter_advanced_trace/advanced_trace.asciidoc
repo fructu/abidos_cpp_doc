@@ -3,23 +3,26 @@
 Now you have an idea about how Abidos works, we can start the explanation of
 the advanced issues. In this chapter we will see examples of C++ code and how
 Abidos deal with them using all the previous explained topics (trace trees,
-mangling, symbols table listed, ...)
+mangling, symbols table, ...)
 
 === Inner classes
 
-When we have a class inside other class Abidos uses a mangling method to put
+When we have a class inside another class Abidos uses a mangling method to put
 the classes in the symbol table, lets go to see the whole process with this
 example:
-
 
 .abidos_cpp/processor$ vi test/book_inner_class_01.cpp
 [code, c]
 ----
 class A {
   class B {
-    void f_b();
+    void f_b(void);
   };
 };
+
+void A::B::f_b(void)
+{
+}
 ----
 
 The interesting point in this example is how Abidos do the mangling of *B*, we
@@ -52,7 +55,456 @@ run --includes test_includes/ \
       > test_out/out_book_inner_class_01.cpp.txt
 ----
 
-We run gdb like this:
+Run gdb like this:
+
+.gdb execution
+----
+abidos_cpp/processor$ gdb src/abidos_cpp -x X
+----
+
+abidos uses the next rules to reach *A*:
+
+.inner classes rules until A
+image::images/chapter_advanced_trace_inner_classes_01.{eps_svg}[align="center"]
+
+* in *class_key* abidos set context:
+
+[code, c]
+----
+        context.class_key = CLASS;
+----
+
+* in *class_head* abidos set context:
+
+----
+    context.class_specifier_status = CLASS_SPECIFIER_STATUS_IDENTIFIER;
+
+    identifier_opt(trace_node);
+
+    context.class_specifier_status =
+        CLASS_SPECIFIER_STATUS_BASE_DECLARATION;
+----
+
+* when abidos are in identifier rule semantic is
+called *c_semantic::identifier()* and this code is executed:
+
+[code, c]
+----
+    if (CLASS_SPECIFIER_STATUS_IDENTIFIER ==
+            context.class_specifier_status) {
+        class_specifier_identifier(context, token);
+    }
+----
+
+//
+
+* semantic invokes his method *class_specifier_identifier()* where the next
+code is executed:
+
+[code, c]
+----
+    if (CLASS == context.class_key) {
+        symbol.type = CLASS_NAME;
+        symbol.class_key = context.class_key;
+    }
+----
+
+and the code in the end of the method
+
+[code, c]
+----
+    symbol.is_abstract = context.is_abstract;
+
+    context.class_name_declaration = symbol.token.text;
+
+    ts.insert(symbol);
+----
+
+//
+
+The important thing at this moment this method receives *A* identifier and
+stores *A* symbol and *context.class_name_declaration* stores *A* value too
+with that abidos_cpp knows he is in the scope of *A* class.
+
+* now abidos begin to use *member_specification_opt* rule to parse inside of
+class *A* while expand this subtree (i cut some rules in order to get an
+easy graph):
+
+.inner classes rules until B
+image::images/chapter_advanced_trace_inner_classes_02.{eps_svg}[align="center"]
+
+//
+
+* abidos uses again *c_semantic::class_specifier_identifier* this time
+with *B* token, now context.class_name_declaration has "A" value therefore this
+code is executed:
+
+[code, c]
+----
+    if ( 0 != context.class_name_declaration.size() ) {
+        string s = symbol.token.text;
+        symbol.token.text = context.class_name_declaration + "::" + s;
+        symbol.text = symbol.token.text;
+    } else {
+      ...
+    }
+----
+
+symbol.text now has "A::B" value and is saved in symbols_table, and is saves
+in *context.class_name_declaration* too then abidos knows that he is inside
+of *A::B* scope now.
+
+* here we continue with the last part parsing *f_b* this is his subtree:
+
+.inner classes rules declaration of f_b
+image::images/chapter_advanced_trace_inner_classes_03.{eps_svg}[align="center"]
+
+* abidos use *identifier* rule again and call calls *c_semantic::identifier()*
+in this method, due to the *context* abidos enters in this *if*:
+
+[code, c]
+----
+    if (CLASS_SPECIFIER_STATUS_MEMBER_DECLARATOR ==
+            context.class_specifier_status) {
+        ....
+
+        if (1 == context.i_am_in_member) {
+            class_member_declarator(context, token);
+            context.member_declaration = token.text;
+        }
+
+        return;
+    }
+----
+
+* in *c_semantic::class_member_declarator()* semantic do:
+
+** check context status is CLASS_SPECIFIER_STATUS_MEMBER_DECLARATOR.
+
+** check *context.class_name_declaration* is in the symbols table and get
+a pointer to the *"A::B"* symbol.
+
+** check if that symbol is a class.
+
+** put the type of access (PUBLIC, PRIVATE, PROTECTED) looking if the symbol
+is an struct or a class or a namespace.
+
+** stores that information in *context.class_member*:
+
+[code ,c]
+----
+    class_member.access_specifier = context.access_specifier;
+    context.class_member = class_member;
+----
+
+* c_parser_descent::member_declaration()
+
+[code ,c]
+----
+int c_parser_descent::member_declaration(c_trace_node trace_node)
+{
+    ...
+
+    if ( 1 == function_definition(trace_node) ) {
+        //SEMICOLON_opt(trace_node);
+        semantic.declarator_insert(trace_node.get_tab(), context);
+    ...
+}
+----
+
+* c_semantic::declarator_insert()
+
+* c_semantic::member_insert(): in this method semantic stores the function
+member *f_b*:
+
+[code, c]
+----
+void c_semantic::member_insert(string & tab, c_context & context)
+    ...
+
+    c_symbol *p_symbol = ts.search_symbol(context.class_name_declaration);
+    if (p_symbol) {
+        if (0 == p_symbol->class_key) {
+          ...
+        }
+
+        ...
+
+        p_symbol->members.insert(context.class_member);
+    }
+
+    ...
+----
+
+Abidos can not stores the function when *f_b* is reached because due to the
+polymorphic nature of C++ abidos must parses inside *"("* *")"* in order to
+compose a name to store *f_b* and have not problems if other *f_b* with other
+parameters appears in the same class.
+
+symbols table has this information:
+
+----
+c_symbols_table::print
+{
+  stack level[0]
+  {
+    first[A]/.../book_inner_class_01.cpp:1 id[258]->[IDENTIFIER] \
+      text[A] type[265]->[CLASS_NAME] class_key[300]->[CLASS]
+    {
+      ...
+    }
+    first[A::B]/.../book_inner_class_01.cpp:2 id[258]->[IDENTIFIER] \
+      text[A::B] type[265]->[CLASS_NAME] class_key[300]->[CLASS]
+    {
+      ...
+
+      vector_class_member [1]
+      {
+       [void] [f_b]( [void] [void])
+      }
+      map_class_member [1]
+      {
+       [PRIVATE]: [void] first[f_b(void)]->[f_b]
+      }
+
+      ...
+    }
+  }
+----
+
+[NOTE]
+====
+You can see how *A* and *A::B* are stored in the same real level there is not
+a real composition here but there is convection composition because *A::B* is
+part of *A*, when abidos will need search *f_b* he will need search *A::B*
+and then inside of that class search *f_b(void)*
+====
+
+//
+
+* before of reach *function_definition* abidos
+executes *block_declaration* that is because
+in *declaration* block_declaration is called before, as
+abidos has backtracking the environment is restored before parser descent
+through function_definition.
+
+Now we will see how the definition of *A::B::f_b* is parsed:
+
+[code, c]
+----
+void A::B::f_b(void)
+{
+}
+----
+
+.inner classes rules definition of f_b
+image::images/chapter_advanced_trace_inner_classes_04.{eps_svg}[align="center"]
+
+* when abidos enters in the *function_definition* sub tree
+uses *nested_name_specifier* to concatenate *"A::B"* and stores this
+in *context.class_name_declaration* in parallel abidos stores the same
+with *colon_colon_chain_process()*.
+
+[WARNING]
+====
+MAYBE THE CODE IN colon_colon_chain_process() IS REDUNDANT AND
+context.class_name_declaration CAN BE USED INSTEAD OF IT.
+====
+
+* from *c_parser_descent::identifier parser*
+calls *c_semantic::check_coloncolon_member_function* in this function abidos
+enters in this *if*:
+
+[code, c]
+----
+void c_semantic::check_coloncolon_member_function(c_context & context, c_token token)
+{
+    ...
+
+    if ( 1 == vector_decl_specifier[last].has_colon_colon_after ) {
+
+        context.i_am_in_member = 1;
+        context.member_definition_outside = 1;
+        context.class_specifier_status = CLASS_SPECIFIER_STATUS_MEMBER_DECLARATOR;
+
+        ...
+
+        return;
+    }
+
+    ...
+}
+----
+
+* then *c_semantic::class_member_declarator* is called
+from *c_parser_descent::identifier*, the next code is executed:
+
+[code, c]
+----
+void
+c_semantic::class_member_declarator(c_context & context, c_token token)
+{
+  ...
+    c_symbol *p_symbol =
+        ts.search_symbol(context.class_name_declaration);
+  ...
+    c_class_member class_member(token,
+                                vector_decl_specifier);
+  ...
+    class_member.access_specifier = context.access_specifier; 
+    context.class_member = class_member; <1>
+  ...
+}
+----
+
+<1> Now abidos have in context the begin of *a* class_member and can add more
+symbols inside it and have established the scope in *"A::B"*
+with *context.class_name_declaration* while abidos is inside of *f_b*.
+
+[NOTE]
+====
+So far abidos can not know he is inside of *"A::B::f_b(void)"* because he does
+not parse *"(void)"* yet to can mangling the full name but knows is inside
+of *a* method with incomplete mangling name beginning with *"f_b"* and
+in *"A::B"* scope.
+====
+
+//
+
+* abidos needs to mangling the name of the method for now abidos only knows that
+it is in the scope of *"A::B"* and abidos is in the definition of a method with
+a mangling name starting with *f_b*
+therefore *c_parser_descent::parameter_declaration*  calls:
+
+[code, c]
+----
+void c_semantic::declarator_insert(string tab, c_context & context)
+{
+      ...
+	    if (CLASS_SPECIFIER_STATUS_MEMBER_DECLARATOR ==
+	        if (1 == context.i_am_in_parameter_declaration) {
+	            member_param_declarator(context, token);
+      ...
+}
+----
+
+* in *member_param_declarator* the next line is executed:
+
+[code, c]
+----
+void
+c_semantic::member_param_declarator(c_context & context, c_token token)
+{
+    ...
+            context.class_member.parameter_insert(parameter); <1>
+    ...
+}
+----
+
+<1> this is how context get knowledge about the name and the parameters of the
+actual method.
+
+* in *c_parser_descent::declaration* is executed the next code:
+
+[code, c]
+----
+int c_parser_descent::declaration(c_trace_node trace_node)
+{
+    string class_name_bk = context.class_name_declaration;
+
+    if (1 == function_definition(trace_node)) {
+        semantic.declarator_insert(trace_node.get_tab(), context);
+        context.class_name_declaration = class_name_bk;
+        return 1;
+    }
+}
+----
+
+* semantic.declarator_insert
+
+* member_insert here the next code is executed:
+
+[code, c]
+----
+void c_semantic::member_insert(string & tab, c_context & context)
+    ...
+    c_symbol *p_symbol = ts.search_symbol(context.class_name_declaration); <1>
+    if (p_symbol) {
+        ...
+        if ( 1 == context.member_definition_outside ) {
+            c_class_member * p_member = 0;
+
+            p_member = p_symbol->members.get(
+              context.class_member.get_full_name()); <2>
+
+            if ( 0 == p_member ) {
+                return;
+            }
+
+            p_member->token_definition = context.class_member.token;
+            return;
+        }
+
+        p_symbol->members.insert(context.class_member); <3>
+   }
+   ...
+----
+
+<1> abidos get a pointer to the class *"A::B"*.
+
+<2> abidos get a pointer to the method with the name mangled *"f_b(void)"*
+the mangling is accomplished
+by string c_declarator::get_full_name(void).
+
+<3> the new information like the line where the method is defined is store
+in symbols table.
+
+=== Templates
+
+When abidos_cpp parses templates there are a set of states each of them are
+stored in *context.i_am_in_template_declaration*.
+
+.state machine
+image::images/chapter_advanced_trace_template_declaration_status.{eps_svg}[align="center"]
+
+In the state diagram we can see the states and how the calls inside the
+rule *template_declaration* change this state, lets see this with this example:
+
+[code, c]
+----
+#                     <1>
+template < class T1>  <2>
+void f(T1 t1)         <3>
+{
+}
+----
+
+<1> here abidos_cpp has the state *NO_TEMPLATE_STATUS*.
+
+<2> while abidos_cpp are parsing inside *<* and *>* has *TEMPLATE_PARAMETER_LIST*
+    state.
+
+<3> while abidos_cpp are parsing the body of the template has *TEMPLATE_DECLARATION*
+    state.
+
+Lets see how abidos parses the previous example executing it with gdb
+
+.X file for gdb
+----
+# gdb src/abidos_cpp -x X
+dir .
+set print address off
+b c_parser_descent::colon_colon_chain_process
+run --includes test_includes/ \
+    --out_dir test_out/ \
+    --test_all_tokens_consumed_flag \
+    --test_original \
+    --ts_show \
+    --verbose test/book_template_01.cpp \
+      > test_out/out_book_template_01.cpp.txt
+----
+
+Run gdb like this:
 
 .gdb execution
 ----

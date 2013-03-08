@@ -1,0 +1,30 @@
+digraph inner_classes_02 {
+//	rankdir=LR;
+	size="5,8!";
+
+  _CONTINUE_1 [label="..."]
+  _CONTINUE_2 [label="..."]
+
+  _56_class_specifier[label="{_56_class_specifier| \{  is  OPEN_BRACKET  \}  is  CLOSE_BRACKET \l}", shape="record", color=green]
+  _57_class_head[label="_57_class_head"]
+  _58_class_key[label="{_58_class_key|class is CLASS\l}", shape="record", color=green]
+  _59_identifier_opt[label="_59_identifier_opt"]
+  _60_identifier[label="{_60_identifier|B is IDENTIFIER\l}", shape="record", color=green]
+//  _61_base_clause_opt[label="_61_base_clause_opt"]
+//  _62_base_clause[label="{_62_base_clause| \{ \ is_not \:}", shape="record", color=black, style=dotted]
+  _63_member_specification_opt[label="_63_member_specification_opt"]
+  _64_member_specification[label="_64_member_specification"]
+
+  _CONTINUE_1 -> _56_class_specifier;
+
+  _56_class_specifier->_57_class_head;
+  _57_class_head->_58_class_key;
+  _57_class_head->_59_identifier_opt;
+  _59_identifier_opt->_60_identifier;
+//  _57_class_head->_61_base_clause_opt;
+//  _61_base_clause_opt->_62_base_clause;
+  _56_class_specifier->_63_member_specification_opt;
+  _63_member_specification_opt->_64_member_specification;
+
+  _64_member_specification -> _CONTINUE_2;
+}
