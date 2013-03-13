@@ -1,10 +1,11 @@
 digraph inner_classes_03 {
 //	rankdir=LR;
-	size="7,8!";
+//	size="7,8!";
 
-//  _CONTINUE_1 [label="..."]
+  _CONTINUE_1 [label="..."]
 //  _CONTINUE_2 [label="..."]
 
+  _63_member_specification_opt[label="_63_member_specification_opt"]
   _64_member_specification[label="_64_member_specification"]
 //  _65_preanalisys[label="{_65_preanalisys|void\ is_not \_}", shape="record", color=black, style=dotted]
 //  _66_access_specifier[label="{_66_access_specifier|void\ is_not PRIVATE\ PROTECTED\ PUBLIC}", shape="record", color=black, style=dotted]
@@ -36,10 +37,39 @@ digraph inner_classes_03 {
   _92_id_expression[label="_92_id_expression"]
   _93_unqualified_id[label="_93_unqualified_id"]
   _94_identifier[label="{_94_identifier|f_b is IDENTIFIER\l}", shape="record", color=green]
-  _95_parameter_declaration_clause[label="_95_parameter_declaration_clause"]
-  _96_preanalisys[label="{_96_preanalisys|) is  ) \l}", shape="record", color=green]
+  _95_parameter_declaration_clause[label="{_95_parameter_declaration_clause|) is  ) \l}", shape="record", color=green]
+//  _96_preanalisys[label="{_96_preanalisys|void\ is_not )}", shape="record", color=black, style=dotted]
+  _97_parameter_declaration_list_opt[label="_97_parameter_declaration_list_opt"]
+  _98_parameter_declaration_list[label="{_98_parameter_declaration_list|) is  ) \l}", shape="record", color=green]
+  _99_parameter_declaration[label="{_99_parameter_declaration|void is VOID\l}", shape="record", color=green]
+  _100_decl_specifier_seq[label="_100_decl_specifier_seq"]
+  _101_decl_specifier[label="_101_decl_specifier"]
+//  _102_preanalisys[label="{_102_preanalisys|void\ is_not ;\ )\ COLONCOLON\ IDENTIFIER\ ~\ #}", shape="record", color=black, style=dotted]
+//  _103_storage_class_specifier[label="{_103_storage_class_specifier|void\ is_not AUTO\ REGISTER\ STATIC\ EXTERN\ MUTABLE}", shape="record", color=black, style=dotted]
+  _104_type_specifier[label="_104_type_specifier"]
+  _105_simple_type_specifier[label="{_105_simple_type_specifier|void is VOID\l|void\ is_not CHAR\ WCHAR_T\ BOOL\ SHORT\ INT\ LONG\ SIGNED\ UNSIGNED\ FLOAT\ DOUBLE}", shape="record", color=green]
+//  _106_type_name[label="_106_type_name"]
+//  _107_class_name[label="{_107_class_name|void\ is_not CLASS_NAME}", shape="record", color=black, style=dotted]
+//  _108_enum_name[label="{_108_enum_name|void\ is_not ENUM\ ENUM_NAME}", shape="record", color=black, style=dotted]
+//  _109_typedef_name[label="{_109_typedef_name|void\ is_not TYPEDEF_NAME}", shape="record", color=black, style=dotted]
+//  _110_nested_name_specifier[label="{_110_nested_name_specifier|void\ is_not CLASS_NAME\ NAMESPACE_NAME\ TEMPLATE_NAME}", shape="record", color=black, style=dotted]
+//  _111_template_id[label="_111_template_id"]
+//  _112_template_name[label="{_112_template_name|void\ is_not TEMPLATE_NAME}", shape="record", color=black, style=dotted]
+  _113_decl_specifier[label="_113_decl_specifier"]
+  _114_preanalisys[label="{_114_preanalisys|) is  ) \l|)\ is_not ;}", shape="record", color=green]
+  _115_declarator[label="_115_declarator"]
+  _116_preanalisys[label="{_116_preanalisys|) is  ) \l}", shape="record", color=green]
+//  _117_ELLIPSIS_opt[label="{_117_ELLIPSIS_opt|)\ is_not ELLIPSIS}", shape="record", color=black, style=dotted]
+  _118_member_specification[label="_118_member_specification"]
+  _119_preanalisys[label="{_119_preanalisys| \}  is  CLOSE_BRACKET \l}", shape="record", color=green]
 
 
+
+
+  _CONTINUE_1 -> _63_member_specification_opt;
+  _63_member_specification_opt->_64_member_specification;
+//  _64_member_specification->_65_preanalisys;
+//  _64_member_specification->_66_access_specifier;
   _64_member_specification->_67_member_declaration;
   _67_member_declaration->_68_decl_specifier_seq_opt;
   _68_decl_specifier_seq_opt->_69_decl_specifier_seq;
@@ -69,5 +99,28 @@ digraph inner_classes_03 {
   _92_id_expression->_93_unqualified_id;
   _93_unqualified_id->_94_identifier;
   _89_direct_declarator->_95_parameter_declaration_clause;
-  _95_parameter_declaration_clause->_96_preanalisys;
+//  _95_parameter_declaration_clause->_96_preanalisys;
+  _95_parameter_declaration_clause->_97_parameter_declaration_list_opt;
+  _97_parameter_declaration_list_opt->_98_parameter_declaration_list;
+  _98_parameter_declaration_list->_99_parameter_declaration;
+  _99_parameter_declaration->_100_decl_specifier_seq;
+  _100_decl_specifier_seq->_101_decl_specifier;
+//  _101_decl_specifier->_102_preanalisys;
+//  _101_decl_specifier->_103_storage_class_specifier;
+  _101_decl_specifier->_104_type_specifier;
+  _104_type_specifier->_105_simple_type_specifier;
+//  _105_simple_type_specifier->_106_type_name;
+//  _106_type_name->_107_class_name;
+//  _106_type_name->_108_enum_name;
+//  _106_type_name->_109_typedef_name;
+//  _105_simple_type_specifier->_110_nested_name_specifier;
+//  _105_simple_type_specifier->_111_template_id;
+//  _111_template_id->_112_template_name;
+  _100_decl_specifier_seq->_113_decl_specifier;
+  _113_decl_specifier->_114_preanalisys;
+  _99_parameter_declaration->_115_declarator;
+  _115_declarator->_116_preanalisys;
+//  _95_parameter_declaration_clause->_117_ELLIPSIS_opt;
+  _63_member_specification_opt->_118_member_specification;
+  _118_member_specification->_119_preanalisys;
 }

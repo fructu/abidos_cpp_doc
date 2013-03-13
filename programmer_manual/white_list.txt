@@ -113,3 +113,5 @@ astyle
 yytext
 param
 subtree
+decls
+decl
