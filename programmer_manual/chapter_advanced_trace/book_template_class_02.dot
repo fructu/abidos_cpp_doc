@@ -1,0 +1,100 @@
+digraph G {
+//	size="5,8!";
+//	size="4,6!";
+
+  _CONTINUE_1 [label="..."]
+//  _CONTINUE_2 [label="..."]
+
+  _101_decl_specifier_seq_opt[URL="decl_specifier_seq_opt[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2469]", label="_101_decl_specifier_seq_opt"]
+  _102_decl_specifier_seq[URL="decl_specifier_seq[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:689]", label="_102_decl_specifier_seq"]
+  _103_decl_specifier[URL="decl_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:717]", label="_103_decl_specifier"]
+//  _104_preanalisys[URL="preanalisys[/home/hevia/working/abidos_cpp/processor/src/parser_descent.cpp:408]", label="{_104_preanalisys|A\ is_not ;\ )\ COLONCOLON\ IDENTIFIER\ ~\ #}", shape="record", color=black, style=dotted]
+//  _105_storage_class_specifier[URL="storage_class_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:861]", label="{_105_storage_class_specifier|A\ is_not AUTO\ REGISTER\ STATIC\ EXTERN\ MUTABLE}", shape="record", color=black, style=dotted]
+  _106_type_specifier[URL="type_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:883]", label="_106_type_specifier"]
+  _107_simple_type_specifier[URL="simple_type_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:940]", label="{_107_simple_type_specifier| \> is  GT \l| \>\ is_not CHAR\ WCHAR_T\ BOOL\ SHORT\ INT\ LONG\ SIGNED\ UNSIGNED\ FLOAT\ DOUBLE\ VOID}", shape="record", color=green]
+//  _108_type_name[URL="type_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1158]", label="_108_type_name"]
+//  _109_class_name[URL="class_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:310]", label="{_109_class_name|A\ is_not CLASS_NAME}", shape="record", color=black, style=dotted]
+//  _110_enum_name[URL="enum_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:349]", label="{_110_enum_name|A\ is_not ENUM\ ENUM_NAME}", shape="record", color=black, style=dotted]
+//  _111_typedef_name[URL="typedef_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:289]", label="{_111_typedef_name|A\ is_not TYPEDEF_NAME}", shape="record", color=black, style=dotted]
+  _112_nested_name_specifier[URL="nested_name_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:226]", label="{_112_nested_name_specifier|A is TEMPLATE_NAME\l|A\ is_not CLASS_NAME\ NAMESPACE_NAME\ COLONCOLON}", shape="record", color=green]
+  _113_template_id[URL="template_id[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2291]", label="{_113_template_id| \< is  LT  \> is  GT \l}", shape="record", color=green]
+  _114_template_name[URL="template_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:376]", label="{_114_template_name|A is TEMPLATE_NAME\l}", shape="record", color=green]
+  _115_template_argument_list[URL="template_argument_list[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2355]", label="{_115_template_argument_list| \> is  GT \l}", shape="record", color=green]
+  _116_template_argument[URL="template_argument[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2397]", label="_116_template_argument"]
+  _117_type_id[URL="type_id[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:3045]", label="_117_type_id"]
+  _118_type_specifier_seq[URL="type_specifier_seq[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:3064]", label="_118_type_specifier_seq"]
+  _119_type_specifier[URL="type_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:883]", label="_119_type_specifier"]
+  _120_simple_type_specifier[URL="simple_type_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:940]", label="{_120_simple_type_specifier|int is INT\l|int\ is_not CHAR\ WCHAR_T\ BOOL\ SHORT\ \>}", shape="record", color=green]
+//  _121_type_name[URL="type_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1158]", label="_121_type_name"]
+//  _122_class_name[URL="class_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:310]", label="{_122_class_name|int\ is_not CLASS_NAME}", shape="record", color=black, style=dotted]
+//  _123_enum_name[URL="enum_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:349]", label="{_123_enum_name|int\ is_not ENUM\ ENUM_NAME}", shape="record", color=black, style=dotted]
+//  _124_typedef_name[URL="typedef_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:289]", label="{_124_typedef_name|int\ is_not TYPEDEF_NAME}", shape="record", color=black, style=dotted]
+//  _125_nested_name_specifier[URL="nested_name_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:226]", label="{_125_nested_name_specifier|int\ is_not CLASS_NAME\ NAMESPACE_NAME\ TEMPLATE_NAME}", shape="record", color=black, style=dotted]
+//  _126_template_id[URL="template_id[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2291]", label="_126_template_id"]
+//  _127_template_name[URL="template_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:376]", label="{_127_template_name|int\ is_not TEMPLATE_NAME}", shape="record", color=black, style=dotted]
+//  _128_type_specifier[URL="type_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:883]", label="_128_type_specifier"]
+//  _129_simple_type_specifier[URL="simple_type_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:940]", label="{_129_simple_type_specifier| \>\ is_not CHAR\ WCHAR_T\ BOOL\ SHORT\ INT\ LONG\ SIGNED\ UNSIGNED\ FLOAT\ DOUBLE\ VOID\ INTEGER}", shape="record", color=black, style=dotted]
+//  _130_type_name[URL="type_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1158]", label="_130_type_name"]
+//  _131_class_name[URL="class_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:310]", label="{_131_class_name| \>\ is_not CLASS_NAME}", shape="record", color=black, style=dotted]
+//  _132_enum_name[URL="enum_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:349]", label="{_132_enum_name| \>\ is_not ENUM\ ENUM_NAME}", shape="record", color=black, style=dotted]
+//  _133_typedef_name[URL="typedef_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:289]", label="{_133_typedef_name| \>\ is_not TYPEDEF_NAME}", shape="record", color=black, style=dotted]
+//  _134_nested_name_specifier[URL="nested_name_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:226]", label="{_134_nested_name_specifier| \>\ is_not CLASS_NAME\ NAMESPACE_NAME\ TEMPLATE_NAME}", shape="record", color=black, style=dotted]
+//  _135_template_id[URL="template_id[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2291]", label="_135_template_id"]
+//  _136_template_name[URL="template_name[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:376]", label="{_136_template_name| \>\ is_not TEMPLATE_NAME}", shape="record", color=black, style=dotted]
+//  _137_class_specifier[URL="class_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1375]", label="_137_class_specifier"]
+//  _138_class_head[URL="class_head[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1541]", label="_138_class_head"]
+//  _139_class_key[URL="class_key[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1567]", label="{_139_class_key| \>\ is_not CLASS\ STRUCT\ UNION}", shape="record", color=black, style=dotted]
+//  _140_cv_qualifier[URL="cv_qualifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2990]", label="{_140_cv_qualifier| \>\ is_not CONST\ VOLATILE}", shape="record", color=black, style=dotted]
+//  _141_enum_specifier[URL="enum_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1182]", label="{_141_enum_specifier| \>\ is_not ENUM}", shape="record", color=black, style=dotted]
+//  _142_abstract_declarator[URL="abstract_declarator[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:3087]", label="_142_abstract_declarator"]
+//  _143_ptr_specifier[URL="ptr_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1107]", label="{_143_ptr_specifier| \>\ is_not *\ &}", shape="record", color=black, style=dotted]
+  _144_decl_specifier[URL="decl_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:717]", label="_144_decl_specifier"]
+  _145_preanalisys[URL="preanalisys[/home/hevia/working/abidos_cpp/processor/src/parser_descent.cpp:408]", label="{_145_preanalisys|a1 is IDENTIFIER\l|a1\ is_not ;\ )\ COLONCOLON}", shape="record", color=green]
+
+
+  _CONTINUE_1 ->_101_decl_specifier_seq_opt;
+  _101_decl_specifier_seq_opt->_102_decl_specifier_seq;
+  _102_decl_specifier_seq->_103_decl_specifier;
+//  _103_decl_specifier->_104_preanalisys;
+//  _103_decl_specifier->_105_storage_class_specifier;
+  _103_decl_specifier->_106_type_specifier;
+  _106_type_specifier->_107_simple_type_specifier;
+//  _107_simple_type_specifier->_108_type_name;
+//  _108_type_name->_109_class_name;
+//  _108_type_name->_110_enum_name;
+//  _108_type_name->_111_typedef_name;
+  _107_simple_type_specifier->_112_nested_name_specifier;
+  _107_simple_type_specifier->_113_template_id;
+  _113_template_id->_114_template_name;
+  _113_template_id->_115_template_argument_list;
+  _115_template_argument_list->_116_template_argument;
+  _116_template_argument->_117_type_id;
+  _117_type_id->_118_type_specifier_seq;
+  _118_type_specifier_seq->_119_type_specifier;
+  _119_type_specifier->_120_simple_type_specifier;
+//  _120_simple_type_specifier->_121_type_name;
+//  _121_type_name->_122_class_name;
+//  _121_type_name->_123_enum_name;
+//  _121_type_name->_124_typedef_name;
+//  _120_simple_type_specifier->_125_nested_name_specifier;
+//  _120_simple_type_specifier->_126_template_id;
+//  _126_template_id->_127_template_name;
+//  _118_type_specifier_seq->_128_type_specifier;
+//  _128_type_specifier->_129_simple_type_specifier;
+//  _129_simple_type_specifier->_130_type_name;
+//  _130_type_name->_131_class_name;
+//  _130_type_name->_132_enum_name;
+//  _130_type_name->_133_typedef_name;
+//  _129_simple_type_specifier->_134_nested_name_specifier;
+//  _129_simple_type_specifier->_135_template_id;
+//  _135_template_id->_136_template_name;
+//  _128_type_specifier->_137_class_specifier;
+//  _137_class_specifier->_138_class_head;
+//  _138_class_head->_139_class_key;
+//  _128_type_specifier->_140_cv_qualifier;
+//  _128_type_specifier->_141_enum_specifier;
+//  _117_type_id->_142_abstract_declarator;
+//  _142_abstract_declarator->_143_ptr_specifier;
+  _102_decl_specifier_seq->_144_decl_specifier;
+  _144_decl_specifier->_145_preanalisys;
+}

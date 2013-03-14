@@ -532,6 +532,8 @@ void c_class_members::insert(c_class_member member)
 }
 ----
 
+indexterm:[get_full_name()]
+
 [NOTE]
 ====
 Abidos can not stores the function when *f_b* is reached because due to the
@@ -625,7 +627,7 @@ void c_semantic::check_coloncolon_member_function(c_context & context, c_token t
     if ( 1 == vector_decl_specifier[last].has_colon_colon_after ) {
 
         context.i_am_in_member = 1;
-        context.member_definition_outside = 1;
+        context.member_definition_outside = 1; <1>
         context.class_specifier_status = CLASS_SPECIFIER_STATUS_MEMBER_DECLARATOR;
 
         ...
@@ -636,6 +638,17 @@ void c_semantic::check_coloncolon_member_function(c_context & context, c_token t
     ...
 }
 ----
+
+<1> abidos knows that this is outside of the class declaration block because
+abidos entered in this if.
+
+[WARNING]
+====
+maybe would be better create context.outside and put to 0 when class is
+matched and put to 1 when the context is restored.
+====
+
+//
 
 * then *c_semantic::class_member_declarator* is called
 from *c_parser_descent::identifier*, the next code is executed:
@@ -739,6 +752,8 @@ indexterm:[c_parser_descent::member_insert()]
 
 [[full_name_definition]]
 
+indexterm:[get_full_name()]
+
 * member_insert here the next code is executed:
 
 [code, c]
@@ -782,7 +797,7 @@ In declaration *get_full_name* is called inside of *c_class_members::insert*
 === Templates
 
 When abidos_cpp parses templates there are a set of states each of them are
-stored in *context.i_am_in_template_declaration*.
+stored in *context.template_status*.
 
 .state machine
 image::images/chapter_advanced_trace_template_declaration_status.{eps_svg}[align="center"]
@@ -831,3 +846,180 @@ Run gdb like this:
 abidos_cpp/processor$ gdb src/abidos_cpp -x X
 ----
 
+This is the subtree to parse the first part:
+
+[code, c]
+----
+template < class T1>
+----
+
+.book_template template_parameter_list subtree
+image::images/chapter_advanced_trace_book_template_01.{eps_svg}[align="center"]
+
+* template_declaration(): here the token *template* is matched and
+the *TEMPLATE_PARAMETER_LIST* state is set in *context.template_status* before
+the next rule is called.
+
+* template_parameter_list(): here parameters are matched until *'>'* is reached
+this token is restores because is matched in *template_declaration()* too.
+
+* template_parameter()
+
+* type_parameter(): *context.template_parameter.vector_decl_specifier* is set
+with the actual meta-type.
+
+[code, c]
+----
+int c_parser_descent::type_parameter(c_trace_node trace_node)
+{
+    trace_graph.add(trace_node, "type_parameter");
+    c_context_tokens context_tokens(context);
+
+    //## to do rest
+    token_next(trace_node.get_tab());
+    const int vector_id[]={CLASS, TYPENAME, INT, -1}; <1>
+    if (token_is_one(  vector_id,trace_node) != 0) {
+        c_decl_specifier decl(c_token_get());
+        context.template_parameter.vector_decl_specifier.push_back(decl);
+
+        context.declaring_template_type = 1;
+
+        identifier_opt(trace_node);
+        context.declaring_template_type = 0;
+        return 1;
+    }
+
+    context = context_tokens.restore();
+    return 0;
+}
+----
+
+<1> In order to declare the parameters CLASS and TYPENAME has the same meaning.
+
+//
+
+* identifier_opt()
+
+* identifier(): calls *semantic.identifier()*
+
+* semantic.identifier():
+
+[code, c]
+----
+void c_semantic::identifier(c_context & context, c_token token)
+{
+    ...
+    if ( TEMPLATE_PARAMETER_LIST == context.template_status ) {
+        if ( 1 == context.declaring_template_type ) {
+            context.template_parameter.token = token; <1>
+
+            context.vector_template_parameter.push_back(context.template_parameter); <2>
+            context.map_template_parameter[token.text] = context.template_parameter;
+            //parameter has been processed
+            context.template_parameter.clear();
+
+            return;
+        }
+    }
+    ...
+}
+----
+
+<1> here is processed *T1*.
+
+<2> decls are stored in this case *class* is the type parameter.
+
+//
+
+Now abidos returns to *template_declaration()* and set the status:
+
+[code, c]
+----
+  ...
+  context.template_status = TEMPLATE_DECLARATION;
+  ...
+----
+
+and *declaration()* is run:
+
+_29_block_declaration is restored with backtracking we continue
+in _90_function_definition:
+
+.book_template function_definition subtree
+image::images/chapter_advanced_trace_book_template_02.{eps_svg}[align="center"]
+
+we will see the rule *_126_simple_type_specifier*, the others rules of this
+subtree are pretty similar to other examples of this book.
+
+* _126_simple_type_specifier(): here the next code runs:
+
+[code, c]
+----
+int c_parser_descent::simple_type_specifier(c_trace_node trace_node)
+{
+    ...
+    if ( TEMPLATE_DECLARATION == context.template_status ) {
+        if ( token_is(TEMPLATE_TYPE, trace_node) ) {
+            result = 1;
+        }
+    }
+    ...
+    if (1 == result) {
+        c_decl_specifier decl(c_token_get());
+        decl.type_specifier = 1;
+        decl.has_colon_colon_after = has_colon_colon_after;
+
+        if (1 == context.i_am_in_parameter_declaration) {
+            context.param_vector_decl_specifier.push_back(decl); <1>
+        } else if (1 == context.is_template_instantiation) {
+            ...
+        }
+        ...
+        return 1;
+    }
+}
+----
+
+<1> here abidos stores in context the decl *T1*
+
+//
+
+=== Templates instantiation
+
+Now lets see another example of template, this time we will see a class template
+instead of a function template and how it is instantiated in another class.
+
+[code, c]
+----
+template <class T1>
+class A {
+};
+
+class B{
+  A<int> a1; <1>
+};
+----
+
+<1> here is the instantiation of template class *A*.
+
+
+This is the subtree of *B* parsing:
+
+.classes rules to parse B:
+image::images/chapter_advanced_trace_book_template_class_01.{eps_svg}[align="center"]
+
+In this sub tree we will see the part when *a1* is parsed:
+
+.classes rules to parse B::a1:
+image::images/chapter_advanced_trace_book_template_class_02.{eps_svg}[align="center"]
+
+Lets see the most meaningful rules of this subtree:
+
+* simple_type_specifier():
+
+[code, c]
+----
+int c_parser_descent::simple_type_specifier(c_trace_node trace_node)
+{
+}
+----

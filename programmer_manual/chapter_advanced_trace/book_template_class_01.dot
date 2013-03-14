@@ -1,0 +1,64 @@
+digraph G {
+//	size="5,8!";
+//	size="4,6!";
+
+  _CONTINUE_1 [label="..."]
+  _CONTINUE_2 [label="SUBTREE a1"]
+
+  _89_class_specifier[URL="class_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1375]", label="{_89_class_specifier| \{  is  OPEN_BRACKET  \}  is  CLOSE_BRACKET \l}", shape="record", color=green]
+  _90_class_head[URL="class_head[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1541]", label="_90_class_head"]
+  _91_class_key[URL="class_key[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1567]", label="{_91_class_key|class is CLASS\l}", shape="record", color=green]
+  _92_identifier_opt[URL="identifier_opt[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2503]", label="_92_identifier_opt"]
+  _93_identifier[URL="identifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:398]", label="{_93_identifier|B is IDENTIFIER\l}", shape="record", color=green]
+//  _94_base_clause_opt[URL="base_clause_opt[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2620]", label="_94_base_clause_opt"]
+//  _95_base_clause[URL="base_clause[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1782]", label="{_95_base_clause| \{ \ is_not \:}", shape="record", color=black, style=dotted]
+  _96_member_specification_opt[URL="member_specification_opt[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2603]", label="_96_member_specification_opt"]
+  _97_member_specification[URL="member_specification[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1606]", label="_97_member_specification"]
+//  _98_preanalisys[URL="preanalisys[/home/hevia/working/abidos_cpp/processor/src/parser_descent.cpp:408]", label="{_98_preanalisys|A\ is_not \_}", shape="record", color=black, style=dotted]
+//  _99_access_specifier[URL="access_specifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1879]", label="{_99_access_specifier|A\ is_not PRIVATE\ PROTECTED\ PUBLIC}", shape="record", color=black, style=dotted]
+  _100_member_declaration[URL="member_declaration[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1642]", label="{_100_member_declaration|; is  ; \l}", shape="record", color=green]
+  _101_decl_specifier_seq_opt[URL="decl_specifier_seq_opt[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2469]", label="_101_decl_specifier_seq_opt"]
+  _146_member_declarator_list_opt[URL="member_declarator_list_opt[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2631]", label="_146_member_declarator_list_opt"]
+  _147_member_declarator_list[URL="member_declarator_list[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1710]", label="{_147_member_declarator_list|; is  ; \l}", shape="record", color=green]
+  _148_member_declarator[URL="member_declarator[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1750]", label="_148_member_declarator"]
+  _149_declarator[URL="declarator[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2729]", label="_149_declarator"]
+//  _150_preanalisys[URL="preanalisys[/home/hevia/working/abidos_cpp/processor/src/parser_descent.cpp:408]", label="{_150_preanalisys|a1\ is_not )\ ;}", shape="record", color=black, style=dotted]
+  _151_direct_declarator[URL="direct_declarator[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2778]", label="{_151_direct_declarator|;\ is_not (\ \:\ \_}", shape="record", color=black, style=dotted]
+  _152_declarator_id[URL="declarator_id[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:3018]", label="_152_declarator_id"]
+//  _153_COLONCOLON_opt[URL="COLONCOLON_opt[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:2450]", label="{_153_COLONCOLON_opt|a1\ is_not COLONCOLON}", shape="record", color=black, style=dotted]
+  _154_id_expression[URL="id_expression[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:129]", label="_154_id_expression"]
+  _155_unqualified_id[URL="unqualified_id[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:148]", label="_155_unqualified_id"]
+  _156_identifier[URL="identifier[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:398]", label="{_156_identifier|a1 is IDENTIFIER\l}", shape="record", color=green]
+  _157_member_specification[URL="member_specification[/home/hevia/working/abidos_cpp/processor/src/parser_descent_rules.cpp:1606]", label="_157_member_specification"]
+  _158_preanalisys[URL="preanalisys[/home/hevia/working/abidos_cpp/processor/src/parser_descent.cpp:408]", label="{_158_preanalisys| \}  is  CLOSE_BRACKET \l}", shape="record", color=green]
+
+
+  _CONTINUE_1 -> _89_class_specifier;
+  _89_class_specifier->_90_class_head;
+  _90_class_head->_91_class_key;
+  _90_class_head->_92_identifier_opt;
+  _92_identifier_opt->_93_identifier;
+//  _90_class_head->_94_base_clause_opt;
+//  _94_base_clause_opt->_95_base_clause;
+  _89_class_specifier->_96_member_specification_opt;
+  _96_member_specification_opt->_97_member_specification;
+//  _97_member_specification->_98_preanalisys;
+//  _97_member_specification->_99_access_specifier;
+  _97_member_specification->_100_member_declaration;
+  _100_member_declaration->_101_decl_specifier_seq_opt;
+  _101_decl_specifier_seq_opt->_CONTINUE_2;
+
+  _100_member_declaration->_146_member_declarator_list_opt;
+  _146_member_declarator_list_opt->_147_member_declarator_list;
+  _147_member_declarator_list->_148_member_declarator;
+  _148_member_declarator->_149_declarator;
+//  _149_declarator->_150_preanalisys;
+  _149_declarator->_151_direct_declarator;
+  _151_direct_declarator->_152_declarator_id;
+//  _152_declarator_id->_153_COLONCOLON_opt;
+  _152_declarator_id->_154_id_expression;
+  _154_id_expression->_155_unqualified_id;
+  _155_unqualified_id->_156_identifier;
+  _96_member_specification_opt->_157_member_specification;
+  _157_member_specification->_158_preanalisys;
+}

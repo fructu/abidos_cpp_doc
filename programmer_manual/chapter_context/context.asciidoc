@@ -212,7 +212,7 @@ used.
 * int is_typedef : used in typedef_specifier rule and in class_specifier
 some people use typedef class ...
 
-* int i_am_in_template_declaration : used in simple_type_specifier,
+* int template_status : used in simple_type_specifier,
 template_declaration.
 
 * int declaring_template_type : used in type_parameter.
