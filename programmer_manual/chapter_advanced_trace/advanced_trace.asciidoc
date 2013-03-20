@@ -424,8 +424,6 @@ void c_semantic::identifier(c_context & context, c_token token)
 }
 ----
 
-
-
 indexterm:[c_semantic::member_param_declarator()]
 
 in c_semantic::member_param_declarator, by the context
@@ -796,6 +794,8 @@ In declaration *get_full_name* is called inside of *c_class_members::insert*
 
 === Templates
 
+indexterm:[template]
+
 When abidos_cpp parses templates there are a set of states each of them are
 stored in *context.template_status*.
 
@@ -804,6 +804,8 @@ image::images/chapter_advanced_trace_template_declaration_status.{eps_svg}[align
 
 In the state diagram we can see the states and how the calls inside the
 rule *template_declaration* change this state, lets see this with this example:
+
+indexterm:[template declaration]
 
 [code, c]
 ----
@@ -847,6 +849,8 @@ abidos_cpp/processor$ gdb src/abidos_cpp -x X
 ----
 
 This is the subtree to parse the first part:
+
+indexterm:[template parameter list]
 
 [code, c]
 ----
@@ -898,6 +902,8 @@ int c_parser_descent::type_parameter(c_trace_node trace_node)
 
 //
 
+indexterm:[typename]
+
 * identifier_opt()
 
 * identifier(): calls *semantic.identifier()*
@@ -930,6 +936,8 @@ void c_semantic::identifier(c_context & context, c_token token)
 <2> decls are stored in this case *class* is the type parameter.
 
 //
+
+indexterm:[template_declaration()]
 
 Now abidos returns to *template_declaration()* and set the status:
 
@@ -986,6 +994,8 @@ int c_parser_descent::simple_type_specifier(c_trace_node trace_node)
 
 === Templates instantiation
 
+indexterm:[template instantiation]
+
 Now lets see another example of template, this time we will see a class template
 instead of a function template and how it is instantiated in another class.
 
@@ -1021,5 +1031,157 @@ Lets see the most meaningful rules of this subtree:
 ----
 int c_parser_descent::simple_type_specifier(c_trace_node trace_node)
 {
+    ...
+    const int vector_id[]={
+        CHAR, WCHAR_T, BOOL, SHORT, INT, LONG
+        , SIGNED, UNSIGNED, FLOAT, DOUBLE, VOID, -1
+    };
+
+    if (token_is_one(vector_id,trace_node) != 0) {
+        result = 1;
+    }
+    ...
+    if (1 == result) {
+        c_decl_specifier decl(c_token_get());
+        decl.type_specifier = 1;
+        decl.has_colon_colon_after = has_colon_colon_after;
+
+        if (1 == context.i_am_in_parameter_declaration) {
+            ...
+        } else if (1 == context.is_template_instantiation) {
+            //### to do this if is weird
+            if ( token_is_not('>', trace_node) ) {
+                semantic.template_instantiation_argument(context, decl);
+            }
+        } else {
+            ...
+        }
+
+        return 1;
+    }
 }
 ----
+
+* semantic.simple_type_specifier()
+
+//
+
+* template_instantiation_argument():
+
+indexterm:[template_instantiation_argument()]
+indexterm:[vector_template_argument]
+
+[code, c]
+----
+void
+c_semantic::template_instantiation_argument(c_context & context, c_decl_specifier & decl) <1>
+{
+    ...
+    c_template_argument argument;
+
+    // yes we need the next parameter to fill vector_argument
+    size_t i = context.vector_template_argument.size();
+
+    if ( 0 < i ) {
+        argument = context.vector_template_argument[i - 1]; <2>
+        context.vector_template_argument.pop_back();
+
+        argument.vector_decl_specifier.push_back(decl);
+        context.vector_template_argument.push_back(argument); <3>
+    }
+}
+----
+
+<1> decl.token.text = *"int"*.
+
+<2> argument.token.text = *"T1"*.
+
+<3> now abidos knows *T1* is *"int"* type for this instantiation of the
+template.
+
+//
+
+* c_parser_descent::member_declaration()
+abidos returns to this method before *decl_specifier_seq_opt(trace_node);* line
+and calls *_146_member_declarator_list_opt()*
+
+We are going to jump some rules and go to the most important function.
+
+* 156_identifier():
+token.text has the value *"a1"*
+
+* c_semantic::class_member_declarator():
+
+[code,c]
+----
+void
+c_semantic::class_member_declarator(c_context & context, c_token token)
+{
+    ...
+    c_symbol *p_symbol =
+        ts.search_symbol(context.class_name_declaration);  // "B"
+    ...
+    int is_constructor = 0;
+    int is_destructor = 0;
+    int is_function = 0;
+
+    ...
+
+    c_class_member class_member(token,
+                                vector_decl_specifier);
+
+    class_member.is_constructor = is_constructor;
+    class_member.is_destructor = is_destructor;
+    class_member.is_function = is_function;
+
+    ...
+
+    if ( 0 == context.access_specifier) {
+        context.class_key = p_symbol->class_key;
+	        switch (p_symbol->class_key) {
+            ...
+            context.access_specifier = PRIVATE;
+            break;
+            ...
+          }
+    ...
+
+
+    if ( 1 == context.is_template_instantiation ) { <1>
+        class_member.is_template_instantiation = context.is_template_instantiation;
+        class_member.vector_template_argument = context.vector_template_argument;
+        class_member.map_template_argument    = context.map_template_argument;
+    }
+
+    class_member.access_specifier = context.access_specifier;
+    context.class_member = class_member;
+
+    return;
+}
+----
+
+<1> here is where abidos saves the information about this instantiation of the
+template.
+
+//
+
+* 151_direct_declarator(): after run [152-156] rules, direct_declarator calls
+semantic.declarator_insert();
+
+* semantic.declarator_insert():
+
+[code, c]
+----
+void c_semantic::declarator_insert(string tab, c_context & context)
+{
+    ...
+    c_symbol *p_symbol = ts.search_symbol(context.class_name_declaration);
+    if (p_symbol) {
+        ...
+        p_symbol->members.insert(context.class_member);
+    }
+}
+----
+
+//
+
