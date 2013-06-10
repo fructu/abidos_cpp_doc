@@ -40,3 +40,7 @@ find . -name "*.asciidoc" -exec grep -E -H -n -i "\-\-\-\-" {} \;
 - [v] if dot file is not generated -> stop make process
      for now it dot file -> not eps output file -> pdf generation fail.
 
+- [v] chapter_advanced_trace mangling nested classes trace.
+
+- [v] chapter_advanced_trace template declaration and instantiation.
+

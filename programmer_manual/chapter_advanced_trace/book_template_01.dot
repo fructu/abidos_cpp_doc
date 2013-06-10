@@ -1,0 +1,41 @@
+digraph G {
+//	size="5,8!";
+	size="4,6!";
+
+  ROOT[label="ROOT"]
+  _2_declaration_seq_opt[label="_2_declaration_seq_opt"]
+  _3_declaration_seq[label="_3_declaration_seq"]
+  _4_declaration[label="_4_declaration"]
+//  _5_is_eof[label="{_5_is_eof|template\ is_not EOF}", shape="record", color=black, style=dotted]
+//  _6_extern_c[label="{_6_extern_c|template\ is_not EXTERN}", shape="record", color=black, style=dotted]
+//  _7_preprocessor[label="_7_preprocessor"]
+//  _8_preprocessor_define[label="{_8_preprocessor_define|template\ is_not #}", shape="record", color=black, style=dotted]
+//  _9_preprocessor_include[label="{_9_preprocessor_include|template\ is_not #}", shape="record", color=black, style=dotted]
+//  _10_preprocessor_ifndef[label="{_10_preprocessor_ifndef|template\ is_not #}", shape="record", color=black, style=dotted]
+//  _11_preprocessor_endif[label="{_11_preprocessor_endif|template\ is_not #}", shape="record", color=black, style=dotted]
+//  _12_preprocessor_other_dummy[label="{_12_preprocessor_other_dummy|template\ is_not #}", shape="record", color=black, style=dotted]
+  _13_template_declaration[label="{_13_template_declaration|template is TEMPLATE \< is  LT  \> is  GT \l}", shape="record", color=green]
+  _14_template_parameter_list[label="{_14_template_parameter_list| \> is  GT \l}", shape="record", color=green]
+  _15_template_parameter[label="_15_template_parameter"]
+  _16_type_parameter[label="{_16_type_parameter|class is CLASS\l}", shape="record", color=green]
+  _17_identifier_opt[label="_17_identifier_opt"]
+  _18_identifier[label="{_18_identifier|T1 is IDENTIFIER\l}", shape="record", color=green]
+
+  ROOT->_2_declaration_seq_opt;
+  _2_declaration_seq_opt->_3_declaration_seq;
+  _3_declaration_seq->_4_declaration;
+//  _4_declaration->_5_is_eof;
+//  _4_declaration->_6_extern_c;
+//  _4_declaration->_7_preprocessor;
+//  _7_preprocessor->_8_preprocessor_define;
+//  _7_preprocessor->_9_preprocessor_include;
+//  _7_preprocessor->_10_preprocessor_ifndef;
+//  _7_preprocessor->_11_preprocessor_endif;
+//  _7_preprocessor->_12_preprocessor_other_dummy;
+  _4_declaration->_13_template_declaration;
+  _13_template_declaration->_14_template_parameter_list;
+  _14_template_parameter_list->_15_template_parameter;
+  _15_template_parameter->_16_type_parameter;
+  _16_type_parameter->_17_identifier_opt;
+  _17_identifier_opt->_18_identifier;
+}

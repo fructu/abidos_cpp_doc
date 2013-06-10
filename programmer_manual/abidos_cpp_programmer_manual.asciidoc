@@ -4,7 +4,7 @@
 Abidos C++ Programmer Manual
 ============================
 fructu <fructu@gmail.com>
-V_draft_0.02, November 2012:
+V_draft_0.03, November 2012:
 starting to write this documentation:
 :Author Initials: Fructu
 :numbered:

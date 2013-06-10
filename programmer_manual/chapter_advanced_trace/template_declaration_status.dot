@@ -1,0 +1,15 @@
+digraph finite_state_machine {
+//	rankdir=LR;
+
+  //a4 11.7 x 8.3 in
+	size="5,6!";
+  //size="8,14!";
+	node [shape = box, style=rounded];
+
+	S [label="", shape = doublecircle];
+
+  S->NO_TEMPLATE_STATUS;
+  NO_TEMPLATE_STATUS      -> TEMPLATE_PARAMETER_LIST [label ="template_declaration()->template_parameter_list()"];
+  TEMPLATE_PARAMETER_LIST -> TEMPLATE_DECLARATION    [label ="template_declaration()->declaration()"];
+  TEMPLATE_DECLARATION    -> NO_TEMPLATE_STATUS      [label ="template_declaration()"];
+}

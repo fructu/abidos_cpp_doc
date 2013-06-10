@@ -1,0 +1,84 @@
+digraph inner_classes_01 {
+//	rankdir=LR;
+	size="5,8!";
+
+  ROOT[label="ROOT"]	
+  _2_declaration_seq_opt[label="_2_declaration_seq_opt"]
+  _3_declaration_seq[label="_3_declaration_seq"]
+  _4_declaration[label="_4_declaration"]
+//  _5_is_eof[label="{_5_is_eof|class\ is_not EOF}", shape="record", color=black, style=dotted]
+//  _6_extern_c[label="{_6_extern_c|class\ is_not EXTERN}", shape="record", color=black, style=dotted]
+//  _7_preprocessor[label="_7_preprocessor"]
+//  _8_preprocessor_define[label="{_8_preprocessor_define|class\ is_not #}", shape="record", color=black, style=dotted]
+//  _9_preprocessor_include[label="{_9_preprocessor_include|class\ is_not #}", shape="record", color=black, style=dotted]
+//  _10_preprocessor_ifndef[label="{_10_preprocessor_ifndef|class\ is_not #}", shape="record", color=black, style=dotted]
+//  _11_preprocessor_endif[label="{_11_preprocessor_endif|class\ is_not #}", shape="record", color=black, style=dotted]
+//  _12_preprocessor_other_dummy[label="{_12_preprocessor_other_dummy|class\ is_not #}", shape="record", color=black, style=dotted]
+//  _13_template_declaration[label="{_13_template_declaration|class\ is_not TEMPLATE}", shape="record", color=black, style=dotted]
+  _14_block_declaration[label="_14_block_declaration"]
+  _15_simple_declaration[label="{_15_simple_declaration|; is  ; \l}", shape="record", color=green]
+  _16_decl_specifier_seq_opt[label="_16_decl_specifier_seq_opt"]
+  _17_decl_specifier_seq[label="_17_decl_specifier_seq"]
+  _18_decl_specifier[label="_18_decl_specifier"]
+//  _19_preanalisys[label="{_19_preanalisys|class\ is_not ;\ )\ COLONCOLON\ IDENTIFIER\ ~\ #}", shape="record", color=black, style=dotted]
+//  _20_storage_class_specifier[label="{_20_storage_class_specifier|class\ is_not AUTO\ REGISTER\ STATIC\ EXTERN\ MUTABLE}", shape="record", color=black, style=dotted]
+  _21_type_specifier[label="_21_type_specifier"]
+//  _22_simple_type_specifier[label="{_22_simple_type_specifier|class\ is_not CHAR\ WCHAR_T\ BOOL\ SHORT\ INT\ LONG\ SIGNED\ UNSIGNED\ FLOAT\ DOUBLE\ VOID}", shape="record", color=black, style=dotted]
+//  _23_type_name[label="_23_type_name"]
+//  _24_class_name[label="{_24_class_name|class\ is_not CLASS_NAME}", shape="record", color=black, style=dotted]
+//  _25_enum_name[label="{_25_enum_name|class\ is_not ENUM\ ENUM_NAME}", shape="record", color=black, style=dotted]
+//  _26_typedef_name[label="{_26_typedef_name|class\ is_not TYPEDEF_NAME}", shape="record", color=black, style=dotted]
+//  _27_nested_name_specifier[label="{_27_nested_name_specifier|class\ is_not CLASS_NAME\ NAMESPACE_NAME\ TEMPLATE_NAME}", shape="record", color=black, style=dotted]
+//  _28_template_id[label="_28_template_id"]
+//  _29_template_name[label="{_29_template_name|class\ is_not TEMPLATE_NAME}", shape="record", color=black, style=dotted]
+  _30_class_specifier[label="{_30_class_specifier| \{  is  OPEN_BRACKET  \}  is  CLOSE_BRACKET \l}", shape="record", color=green]
+  _31_class_head[label="_31_class_head"]
+  _32_class_key[label="{_32_class_key|class is CLASS\l}", shape="record", color=green]
+  _33_identifier_opt[label="_33_identifier_opt"]
+  _34_identifier[label="{_34_identifier|A is IDENTIFIER\l}", shape="record", color=green]
+  _34_identifier[label="{_34_identifier|A is IDENTIFIER\l}", shape="record", color=green]
+//  _35_base_clause_opt[label="_35_base_clause_opt"]
+//  _36_base_clause[label="{_36_base_clause| \{ \ is_not \:}", shape="record", color=black, style=dotted]
+  _37_member_specification_opt[label="_37_member_specification_opt"]
+  _38_member_specification[label="_38_member_specification"]
+  _CONTINUE [label="..."]
+
+  ROOT->_2_declaration_seq_opt;
+  _2_declaration_seq_opt->_3_declaration_seq;
+  _3_declaration_seq->_4_declaration;
+//  _4_declaration->_5_is_eof;
+//  _4_declaration->_6_extern_c;
+//  _4_declaration->_7_preprocessor;
+//  _7_preprocessor->_8_preprocessor_define;
+//  _7_preprocessor->_9_preprocessor_include;
+//  _7_preprocessor->_10_preprocessor_ifndef;
+//  _7_preprocessor->_11_preprocessor_endif;
+//  _7_preprocessor->_12_preprocessor_other_dummy;
+//  _4_declaration->_13_template_declaration;
+  _4_declaration->_14_block_declaration;
+  _14_block_declaration->_15_simple_declaration;
+  _15_simple_declaration->_16_decl_specifier_seq_opt;
+  _16_decl_specifier_seq_opt->_17_decl_specifier_seq;
+  _17_decl_specifier_seq->_18_decl_specifier;
+//  _18_decl_specifier->_19_preanalisys;
+//  _18_decl_specifier->_20_storage_class_specifier;
+  _18_decl_specifier->_21_type_specifier;
+//  _21_type_specifier->_22_simple_type_specifier;
+//  _22_simple_type_specifier->_23_type_name;
+//  _23_type_name->_24_class_name;
+//  _23_type_name->_25_enum_name;
+//  _23_type_name->_26_typedef_name;
+//  _22_simple_type_specifier->_27_nested_name_specifier;
+//  _22_simple_type_specifier->_28_template_id;
+//  _28_template_id->_29_template_name;
+  _21_type_specifier->_30_class_specifier;
+  _30_class_specifier->_31_class_head;
+  _31_class_head->_32_class_key;
+  _31_class_head->_33_identifier_opt;
+  _33_identifier_opt->_34_identifier;
+//  _31_class_head->_35_base_clause_opt;
+//  _35_base_clause_opt->_36_base_clause;
+  _30_class_specifier->_37_member_specification_opt;
+  _37_member_specification_opt->_38_member_specification;
+  _38_member_specification -> _CONTINUE;
+}

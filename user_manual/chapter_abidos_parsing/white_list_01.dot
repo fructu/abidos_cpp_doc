@@ -1,0 +1,55 @@
+/*
+  abidos_cpp 1.0.16_Debug [2013-02-20 17:29:26] 
+*/
+/*
+  this file has been created by abidos
+  F. Manuel Hevia Garcia fructu@gmail.com
+
+  this fontname get conflict if you want generate eps for doc
+*/
+digraph G {
+/*
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+*/
+        fontsize = 8
+        node [
+//                fontname = "Bitstream Vera Sans"
+//                fontsize = 8
+                shape = "record"
+        ]
+/*
+        edge [
+                fontname = "Bitstream Vera Sans"
+                fontsize = 8
+        ]
+*/
+/* c_generator_class_diagram::classes() */
+  A [
+    URL="A[main.cpp:1];A[main.cpp:1];",
+    label="{ A|}"
+  ]
+/* c_generator_class_diagram::classes() */
+  B [
+    URL="B[main.cpp:5];B[main.cpp:5];",
+    label="{ B|}"
+  ]
+/* c_generator_class_diagram::classes() */
+  C [
+    URL="C[main.cpp:9];C[main.cpp:9];",
+    label="{ C|}"
+  ]
+/* c_generator_class_diagram::classes() */
+/* c_generator_class_diagram::inheritance() */
+/* c_generator_class_diagram::friends() */
+/* compositions_aggregations */
+/* c_generator_class_diagram::inheritance() */
+  /*B->A*/  A->B [dir = "back", color = "black", arrowtail = "empty"];
+/* c_generator_class_diagram::friends() */
+/* compositions_aggregations */
+/* c_generator_class_diagram::inheritance() */
+/* c_generator_class_diagram::friends() */
+/* compositions_aggregations */
+/* c_generator_class_diagram::inheritance() */
+/* c_generator_class_diagram::friends() */
+}

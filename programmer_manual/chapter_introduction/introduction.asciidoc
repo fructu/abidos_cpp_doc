@@ -36,7 +36,7 @@ In order to have a good knowledge about Abidos C++ parts and learn to hack it
 there are topics to study and these topics are very interconnected therefore is
 a tough task write a clear manual due to explain topics needs to explain another
 topics and these topics needs the first topics maybe the
-best way is a whole first read to keep in mind what parts have Abidos and
+best way is a whole first read to keep in mind what parts Abidos have and
 which are his relations and later you can read some parts again when you need
 an explanation about some topic or Abidos part.
 
