@@ -63,10 +63,13 @@ sub process_html_file
 		{
 
 		}
-    elsif( $line =~ /href="([^"]*.html[\S]*)"/g )
+#    elsif( $line =~ /href="([^"]*.html[\S]*)"/g )
+#"ch01.html#_why_this_project"
+    elsif( $line =~ /href="([^"]*.html)/g )
 		{
       print "   prefixing[$1]\n";
-		  $line =~ s/href="([^"]*.html[\S]*)"/href="$hash_global{'prefix'}$1"/g;
+#		  $line =~ s/href="([^"]*.html/href="$hash_global{'prefix'}$1"/g;
+		  $line =~ s/href="([^"]*.html)[\S]*"/href="$hash_global{'prefix'}$1"/g;
 		}
 
     #<img src="images/chapter_abidos_parsing_abidos_flow_diagram_01.svg" align="middle" alt="images/chapter_abidos_parsing_abidos_flow_diagram_01.svg" />

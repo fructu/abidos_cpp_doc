@@ -65,3 +65,15 @@ with:
 [NOTE]
 In the image tag change before chapter */* to *_*
 
+== cover
+
+* use this version, more recent versions does not work correctly
+
+----
+wget http://wkhtmltopdf.googlecode.com/files/wkhtmltopdf-0.9.9-static-i386.tar.bz2
+tar xjvf wkhtmltopdf-0.9.9-static-i386.tar.bz2
+sudo cp wkhtmltopdf-i386 /usr/bin/
+#ln -s
+# /usr/bin/wkhtmltopdf-amd64 -> wkhtmltopdf-i386
+----
+
