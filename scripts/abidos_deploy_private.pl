@@ -12,6 +12,10 @@
 #  https://code.google.com/p/abidos-cpp/downloads/delete?name=abidos_cpp_programmer_manual_draft_0.02.pdf
 #  https://code.google.com/p/abidos-cpp/downloads/delete?name=abidos_cpp_user_manual_draft_0.02.pdf
 #
+# v0.2
+#    i use github to store pdfs and not google code
+#
+#
 
 use strict;
 use File::Copy;
@@ -33,7 +37,12 @@ sub rename_change
   while( my $line = <$file> )
   {
     if( $line =~ /\*\* $manual_type manual pdf:/ ) {
-      $line = "** ${manual_type} manual pdf: http://abidos-cpp.googlecode.com/files/abidos_cpp_${manual_type}_manual_${version}.pdf\n";
+#      $line = "** ${manual_type} manual pdf: http://abidos-cpp.googlecode.com/files/abidos_cpp_${manual_type}_manual_${version}.pdf\n";
+#    $line = "** ${manual_type} manual pdf: https://github.com/fructu/abidos/tree/master/abidos_cpp_doc/${manual_type}_manual/pdf/abidos_cpp_${manual_type}_manual_${version}.pdf\n";
+
+    $line = "** ${manual_type} manual pdf: https://github.com/fructu/abidos/raw/master/abidos_cpp_doc/${manual_type}_manual/pdf/abidos_cpp_${manual_type}_manual_${version}.pdf[abidos_cpp_${manual_type}_manual_${version}.pdf]\n";
+
+#    $line = "** ${manual_type} manual pdf: http://htmlpreview.github.com/?https://github.com/fructu/abidos/blob/master/abidos_cpp_doc/${manual_type}_manual/pdf/abidos_cpp_${manual_type}_manual_${version}.pdf\n";
     }
 
     print $file_tmp $line;
@@ -84,6 +93,22 @@ END
   system($command) == 0 or die "failed uploading";
 }
 
+sub cp_pdf
+{
+  my $version = shift;
+  my $manual_type = shift;
+
+  my $command = "mkdir -p ../abidos/abidos_cpp_doc/${manual_type}_manual/pdf";
+  print "    command[$command]\n";
+
+  system($command) == 0 or print "../abidos/abidos_cpp_doc/${manual_type}_manual/pdf";
+
+  $command = "cp ${manual_type}_manual/out/pdf/abidos_cpp_${manual_type}_manual_${version}.pdf ../abidos/abidos_cpp_doc/${manual_type}_manual/pdf";
+  print "    command[$command]\n";
+
+  system($command) == 0 or die "failed coping ${manual_type} manual";
+}
+
 sub abidos_generate_doc
 {
   my $command = <<END;
@@ -126,6 +151,21 @@ END
   system($command) == 0 or die "failed generating programmer manual";
 }
 
+sub abidos_delete_pdfs
+{
+  my $version = shift;
+
+  my $command = <<END;
+    cd  ../abidos; \\
+    git rm  abidos_cpp_doc/user_manual/pdf ; \\
+    git rm  abidos_cpp_doc/programmer_manual/pdf
+END
+
+  print "    command[$command]\n";
+  system($command) == 0 or print "git failed rm\n";
+}
+
+
 sub abidos_push
 {
   my $version = shift;
@@ -138,6 +178,8 @@ sub abidos_push
     git add abidos_cpp_doc/programmer_manual/web_github_chunked_svg/*;\\
     git add abidos_cpp_doc/programmer_manual/web_github_chunked_png/*;\\
     git add -u; \\
+    git add  abidos_cpp_doc/user_manual/pdf/* ; \\
+    git add  abidos_cpp_doc/programmer_manual/pdf/* ; \\
     git commit -m "robot push ${version}"; \\
     git push
 END
@@ -182,16 +224,24 @@ sub main
   print "  file[$file_name]\n";
 
   abidos_generate_doc();
-  abidos_push($version);
-  get_user_pass();
 
+# used to upload to google code
+#  get_user_pass();
+
+  abidos_delete_pdfs();
+
+  print "coping pdf files\n";
   $version = version_extract("user_manual/out/version.tmp");
-  upload_code_google($version, "user");
+  cp_pdf($version, "user");
+#  upload_code_google($version, "user");
   rename_change($file_name, $version, "user");
 
   $version = version_extract("programmer_manual/out/version.tmp");
-  upload_code_google($version, "programmer");
+  cp_pdf($version, "programmer");
+#  upload_code_google($version, "programmer");
   rename_change($file_name, $version, "programmer");
+
+  abidos_push($version);
 
   print "}\n";
 }
